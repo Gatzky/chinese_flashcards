@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiszki chińskie</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>汉</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="header">
+        <p class="eyebrow">Fiszki</p>
+        <h1>Znaki chińskie</h1>
+        <p class="progress" id="progress">1 / 10</p>
+      </header>
+
+      <section class="stage" aria-live="polite">
+        <button class="card" id="card" type="button" aria-label="Odwróć fiszkę">
+          <span class="card-inner">
+            <span class="card-face card-front">
+              <span class="hanzi" id="hanzi">你</span>
+              <span class="hint" id="front-hint">Kliknij, żeby odwrócić</span>
+            </span>
+            <span class="card-face card-back">
+              <span class="hanzi hanzi-small" id="hanzi-back">你</span>
+              <span class="pinyin" id="pinyin">nǐ</span>
+              <span class="meaning" id="meaning">ty</span>
+            </span>
+          </span>
+        </button>
+      </section>
+
+      <section class="actions" id="actions">
+        <button class="btn btn-no" id="unknown-btn" type="button" disabled>
+          Nie umiem
+        </button>
+        <button class="btn btn-yes" id="known-btn" type="button" disabled>
+          Umiem
+        </button>
+      </section>
+
+      <p class="note" id="note">Najpierw odwróć kartę, potem oceń, czy znasz znak.</p>
+    </main>
+
+    <section class="summary hidden" id="summary" hidden>
+      <p class="eyebrow">Koniec sesji</p>
+      <h2>Wynik</h2>
+      <p class="score" id="score"></p>
+      <div class="summary-actions">
+        <button class="btn btn-yes" id="retry-unknown-btn" type="button">
+          Powtórz nieznane
+        </button>
+        <button class="btn btn-ghost" id="restart-btn" type="button">
+          Od początku
+        </button>
+      </div>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
