@@ -75,8 +75,8 @@ function cloneCard(card) {
     hanzi: card.hanzi,
     pinyin: card.pinyin,
     meaning: card.meaning,
-    misses: card.misses || 0,
-    attempts: card.attempts || 0,
+    misses: Math.max(0, Number(card.misses) || 0),
+    attempts: Math.max(0, Number(card.attempts) || 0),
   };
 }
 
@@ -92,6 +92,9 @@ function loadStore() {
     if (!SESSION_SIZES.includes(parsed.sessionSize) && parsed.sessionSize !== 0) {
       parsed.sessionSize = 10;
     }
+    parsed.decks.forEach((deckItem) => {
+      deckItem.cards = (Array.isArray(deckItem.cards) ? deckItem.cards : []).map(cloneCard);
+    });
     return parsed;
   } catch {
     return defaultStore();
