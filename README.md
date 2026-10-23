@@ -2,7 +2,11 @@
 
 Prosta strona z fiszkami znaków chińskich. Kliknięcie karty odwraca ją: z przodu znak, z tyłu pinyin i tłumaczenie. Potem oceniasz, czy znasz znak.
 
-Strona jest statyczna i działa na GitHub Pages.
+Strona jest statyczna i działa na GitHub Pages. Bazy słówek trzymane są w przeglądarce. Każdą bazę można uzupełnić albo nadpisać plikiem `.txt`, w którym linie mają format:
+
+```
+znak // pinyin // tłumaczenie
+```
 
 ## Uruchomienie lokalne
 
