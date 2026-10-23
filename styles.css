@@ -103,6 +103,31 @@ input[type="text"] {
   color: var(--gold);
 }
 
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 16px 0 0;
+}
+
+.stat {
+  padding: 10px 12px;
+  border-left: 2px solid var(--gold);
+  background: #1b1410;
+}
+
+.stat dt {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.stat dd {
+  margin: 4px 0 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
 .import-status {
   margin-top: 8px;
   min-height: 1.2em;
@@ -218,6 +243,12 @@ h2 {
   font-size: 0.95rem;
 }
 
+.phase-label {
+  color: #8d7766;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
 .pinyin {
   font-size: 1.8rem;
   font-weight: 600;
@@ -225,6 +256,10 @@ h2 {
 
 .meaning {
   font-size: 1.25rem;
+}
+
+.card [hidden] {
+  display: none;
 }
 
 .actions,
@@ -292,4 +327,18 @@ h2 {
 
 .score {
   font-size: 1.2rem;
+}
+
+@media (max-width: 420px) {
+  .stats {
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 9px 8px;
+  }
+
+  .stat dt {
+    font-size: 0.7rem;
+  }
 }

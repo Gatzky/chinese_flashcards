@@ -54,6 +54,20 @@
           Format linii: <code>znak // pinyin // tłumaczenie</code>.
           Sesja wybiera najpierw nowe znaki, potem trudne, a na końcu łatwe.
         </p>
+        <dl class="stats" aria-label="Statystyki bazy">
+          <div class="stat">
+            <dt>Umiem</dt>
+            <dd id="stats-known">0</dd>
+          </div>
+          <div class="stat">
+            <dt>Nietknięte</dt>
+            <dd id="stats-unseen">0</dd>
+          </div>
+          <div class="stat">
+            <dt>Nie umiem</dt>
+            <dd id="stats-unknown">0</dd>
+          </div>
+        </dl>
         <p class="import-status" id="import-status"></p>
       </section>
 
@@ -73,8 +87,9 @@
               </span>
               <span class="card-face card-back">
                 <span class="hanzi hanzi-small" id="hanzi-back">你</span>
+                <span class="phase-label" id="phase-label">Pinyin</span>
                 <span class="pinyin" id="pinyin">nǐ</span>
-                <span class="meaning" id="meaning">ty</span>
+                <span class="meaning" id="meaning" hidden>ty</span>
               </span>
             </span>
           </button>
@@ -89,7 +104,7 @@
           </button>
         </section>
 
-        <p class="note" id="note">Najpierw odwróć kartę, potem oceń, czy znasz znak.</p>
+        <p class="note" id="note">Najpierw spróbuj odczytać znak.</p>
       </main>
 
       <section class="summary hidden" id="summary" hidden>

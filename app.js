@@ -39,12 +39,17 @@ const importFile = document.getElementById("import-file");
 const importStatus = document.getElementById("import-status");
 const frontHint = document.getElementById("front-hint");
 const sessionSizeSelect = document.getElementById("session-size");
+const statsKnownEl = document.getElementById("stats-known");
+const statsUnseenEl = document.getElementById("stats-unseen");
+const statsUnknownEl = document.getElementById("stats-unknown");
+const phaseLabelEl = document.getElementById("phase-label");
 
 let store = loadStore();
 let deck = [];
 let index = 0;
-let flipped = false;
-let known = [];
+let phase = 0;
+let knownAnswers = 0;
+let unknownAnswers = 0;
 let unknown = [];
 let importMode = "add";
 
@@ -195,6 +200,16 @@ function renderDeckSelect() {
   deleteDeckBtn.disabled = store.decks.length <= 1;
 }
 
+function renderStats() {
+  const cards = activeDeck().cards;
+  const knownCount = cards.filter((card) => card.attempts > 0 && !card.misses).length;
+  const unseenCount = cards.filter((card) => !card.attempts && !card.misses).length;
+  const unknownCount = cards.filter((card) => card.misses > 0).length;
+  statsKnownEl.textContent = String(knownCount);
+  statsUnseenEl.textContent = String(unseenCount);
+  statsUnknownEl.textContent = String(unknownCount);
+}
+
 function setStatus(message) {
   importStatus.textContent = message;
 }
@@ -208,7 +223,8 @@ function renderCard() {
   cardEl.classList.add("is-changing");
   void cardEl.offsetWidth;
   cardEl.classList.remove("is-flipped");
-  flipped = false;
+  phase = 0;
+  renderStats();
 
   if (!deck.length) {
     hanziEl.textContent = "空";
@@ -220,6 +236,8 @@ function renderCard() {
     knownBtn.disabled = true;
     unknownBtn.disabled = true;
     cardEl.disabled = true;
+    pinyinEl.hidden = true;
+    meaningEl.hidden = true;
     noteEl.textContent = "Wybierz inną bazę albo zaimportuj znaki.";
     requestAnimationFrame(() => cardEl.classList.remove("is-changing"));
     return;
@@ -231,24 +249,29 @@ function renderCard() {
   hanziBackEl.textContent = card.hanzi;
   pinyinEl.textContent = card.pinyin;
   meaningEl.textContent = card.meaning;
-  frontHint.textContent = "Kliknij, żeby odwrócić";
-  progressEl.textContent = `${index + 1} / ${deck.length}`;
+  pinyinEl.hidden = true;
+  meaningEl.hidden = true;
+  phaseLabelEl.textContent = "Pinyin";
+  frontHint.textContent = "Kliknij, żeby odsłonić pinyin";
+  progressEl.textContent = `${index + 1} / ${deck.length} · znak`;
   knownBtn.disabled = true;
   unknownBtn.disabled = true;
-  noteEl.textContent = "Najpierw odwróć kartę, potem oceń, czy znasz znak.";
+  noteEl.textContent = "Najpierw spróbuj odczytać znak.";
   requestAnimationFrame(() => cardEl.classList.remove("is-changing"));
 }
 
 function flipCard() {
-  if (!deck.length) return;
-  flipped = !flipped;
-  cardEl.classList.toggle("is-flipped", flipped);
-  if (flipped) speakCard(currentCard().hanzi);
-  knownBtn.disabled = !flipped;
-  unknownBtn.disabled = !flipped;
-  noteEl.textContent = flipped
-    ? "Czy umiesz ten znak?"
-    : "Najpierw odwróć kartę, potem oceń, czy znasz znak.";
+  if (!deck.length || phase !== 0) return;
+  phase = 1;
+  cardEl.classList.add("is-flipped");
+  cardEl.disabled = true;
+  pinyinEl.hidden = false;
+  phaseLabelEl.textContent = "Pinyin";
+  progressEl.textContent = `${index + 1} / ${deck.length} · pinyin`;
+  knownBtn.disabled = false;
+  unknownBtn.disabled = false;
+  noteEl.textContent = "Czy znasz pinyin tego znaku?";
+  speakCard(currentCard().hanzi);
 }
 
 function speakCard(hanzi) {
@@ -268,6 +291,7 @@ function recordMiss(card) {
   card.misses = stored.misses;
   card.attempts = stored.attempts;
   saveStore();
+  renderStats();
 }
 
 function recordKnown(card) {
@@ -278,19 +302,39 @@ function recordKnown(card) {
   card.misses = stored.misses;
   card.attempts = stored.attempts;
   saveStore();
+  renderStats();
 }
 
 function answer(isKnown) {
-  if (!flipped || !deck.length) return;
+  if (phase === 0 || !deck.length) return;
 
   const card = currentCard();
   if (isKnown) {
     recordKnown(card);
-    known.push(card);
+    knownAnswers += 1;
   }
   else {
     recordMiss(card);
-    unknown.push(card);
+    unknownAnswers += 1;
+    if (!unknown.some((item) => item.hanzi === card.hanzi)) unknown.push(card);
+  }
+
+  if (phase === 1) {
+    phase = 2;
+    pinyinEl.hidden = true;
+    meaningEl.hidden = false;
+    phaseLabelEl.textContent = "Tłumaczenie";
+    progressEl.textContent = `${index + 1} / ${deck.length} · tłumaczenie`;
+    noteEl.textContent = "Czy znasz tłumaczenie tego słowa?";
+    knownBtn.disabled = true;
+    unknownBtn.disabled = true;
+    window.setTimeout(() => {
+      if (phase === 2) {
+        knownBtn.disabled = false;
+        unknownBtn.disabled = false;
+      }
+    }, 300);
+    return;
   }
 
   index += 1;
@@ -306,14 +350,16 @@ function showSummary() {
   appEl.classList.add("hidden");
   summaryEl.classList.remove("hidden");
   summaryEl.hidden = false;
-  scoreEl.textContent = `Znasz ${known.length} z ${known.length + unknown.length} znaków.`;
+  scoreEl.textContent = `Poprawne odpowiedzi: ${knownAnswers} z ${knownAnswers + unknownAnswers}.`;
   retryUnknownBtn.disabled = unknown.length === 0;
 }
 
 function startSession(cards) {
-  deck = cards.map(cloneCard);
+  deck = shuffle(cards).map(cloneCard);
   index = 0;
-  known = [];
+  phase = 0;
+  knownAnswers = 0;
+  unknownAnswers = 0;
   unknown = [];
   appEl.classList.remove("hidden");
   summaryEl.classList.add("hidden");
