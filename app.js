@@ -1,4 +1,5 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
+const SESSION_SIZES = [5, 10, 20, 30, 50];
 
 const STARTER_CARDS = [
   { hanzi: "你", pinyin: "nǐ", meaning: "ty" },
@@ -37,6 +38,7 @@ const importReplaceBtn = document.getElementById("import-replace-btn");
 const importFile = document.getElementById("import-file");
 const importStatus = document.getElementById("import-status");
 const frontHint = document.getElementById("front-hint");
+const sessionSizeSelect = document.getElementById("session-size");
 
 let store = loadStore();
 let deck = [];
@@ -55,6 +57,7 @@ function defaultStore() {
   const starterId = "starter";
   return {
     activeId: starterId,
+    sessionSize: 10,
     decks: [
       { id: starterId, name: "Przykładowe znaki", cards: STARTER_CARDS.map(cloneCard) },
       { id: "moja-baza", name: "Moja baza", cards: [] },
@@ -63,7 +66,12 @@ function defaultStore() {
 }
 
 function cloneCard(card) {
-  return { hanzi: card.hanzi, pinyin: card.pinyin, meaning: card.meaning };
+  return {
+    hanzi: card.hanzi,
+    pinyin: card.pinyin,
+    meaning: card.meaning,
+    misses: card.misses || 0,
+  };
 }
 
 function loadStore() {
@@ -74,6 +82,9 @@ function loadStore() {
     if (!parsed?.decks?.length) return defaultStore();
     if (!parsed.decks.some((deckItem) => deckItem.id === parsed.activeId)) {
       parsed.activeId = parsed.decks[0].id;
+    }
+    if (!SESSION_SIZES.includes(parsed.sessionSize) && parsed.sessionSize !== 0) {
+      parsed.sessionSize = 10;
     }
     return parsed;
   } catch {
@@ -114,8 +125,53 @@ function parseTxt(text) {
 
 function mergeCards(existing, incoming) {
   const byHanzi = new Map(existing.map((card) => [card.hanzi, cloneCard(card)]));
-  incoming.forEach((card) => byHanzi.set(card.hanzi, cloneCard(card)));
+  incoming.forEach((card) => {
+    const previous = byHanzi.get(card.hanzi);
+    const next = cloneCard(card);
+    if (previous) next.misses = previous.misses;
+    byHanzi.set(card.hanzi, next);
+  });
   return [...byHanzi.values()];
+}
+
+function shuffle(items) {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function pickSessionCards(cards, size) {
+  const groups = new Map();
+  cards.forEach((card) => {
+    const key = card.misses || 0;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(cloneCard(card));
+  });
+
+  const ordered = [...groups.keys()]
+    .sort((a, b) => b - a)
+    .flatMap((key) => shuffle(groups.get(key)));
+
+  if (!size || size >= ordered.length) return ordered;
+  return ordered.slice(0, size);
+}
+
+function renderSessionSizeSelect() {
+  sessionSizeSelect.innerHTML = "";
+  SESSION_SIZES.forEach((size) => {
+    const option = document.createElement("option");
+    option.value = String(size);
+    option.textContent = String(size);
+    sessionSizeSelect.appendChild(option);
+  });
+  const allOption = document.createElement("option");
+  allOption.value = "0";
+  allOption.textContent = "Wszystkie";
+  sessionSizeSelect.appendChild(allOption);
+  sessionSizeSelect.value = String(store.sessionSize ?? 10);
 }
 
 function renderDeckSelect() {
@@ -181,12 +237,23 @@ function flipCard() {
     : "Najpierw odwróć kartę, potem oceń, czy znasz znak.";
 }
 
+function recordMiss(card) {
+  const stored = activeDeck().cards.find((item) => item.hanzi === card.hanzi);
+  if (!stored) return;
+  stored.misses = (stored.misses || 0) + 1;
+  card.misses = stored.misses;
+  saveStore();
+}
+
 function answer(isKnown) {
   if (!flipped || !deck.length) return;
 
   const card = currentCard();
   if (isKnown) known.push(card);
-  else unknown.push(card);
+  else {
+    recordMiss(card);
+    unknown.push(card);
+  }
 
   index += 1;
   if (index >= deck.length) {
@@ -218,7 +285,7 @@ function startSession(cards) {
 }
 
 function startActiveDeck() {
-  startSession(activeDeck().cards);
+  startSession(pickSessionCards(activeDeck().cards, store.sessionSize));
 }
 
 function createDeck() {
@@ -276,6 +343,12 @@ deckSelect.addEventListener("change", () => {
   startActiveDeck();
 });
 
+sessionSizeSelect.addEventListener("change", () => {
+  store.sessionSize = Number(sessionSizeSelect.value);
+  saveStore();
+  startActiveDeck();
+});
+
 newDeckBtn.addEventListener("click", createDeck);
 newDeckName.addEventListener("keydown", (event) => {
   if (event.key === "Enter") createDeck();
@@ -305,4 +378,5 @@ retryUnknownBtn.addEventListener("click", () => {
   if (unknown.length) startSession(unknown);
 });
 
+renderSessionSizeSelect();
 startActiveDeck();

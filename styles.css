@@ -70,6 +70,10 @@ body {
   flex: 1;
 }
 
+.session-field {
+  flex: 0 0 120px;
+}
+
 .field span {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
