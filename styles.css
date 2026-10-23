@@ -168,6 +168,10 @@ h2 {
   transition: transform 0.55s ease;
 }
 
+.card.is-changing .card-inner {
+  transition: none;
+}
+
 .card.is-flipped .card-inner {
   transform: rotateY(180deg);
 }

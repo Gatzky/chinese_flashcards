@@ -71,6 +71,7 @@ function cloneCard(card) {
     pinyin: card.pinyin,
     meaning: card.meaning,
     misses: card.misses || 0,
+    attempts: card.attempts || 0,
   };
 }
 
@@ -128,7 +129,10 @@ function mergeCards(existing, incoming) {
   incoming.forEach((card) => {
     const previous = byHanzi.get(card.hanzi);
     const next = cloneCard(card);
-    if (previous) next.misses = previous.misses;
+    if (previous) {
+      next.misses = previous.misses;
+      next.attempts = previous.attempts;
+    }
     byHanzi.set(card.hanzi, next);
   });
   return [...byHanzi.values()];
@@ -144,16 +148,21 @@ function shuffle(items) {
 }
 
 function pickSessionCards(cards, size) {
-  const groups = new Map();
-  cards.forEach((card) => {
-    const key = card.misses || 0;
-    if (!groups.has(key)) groups.set(key, []);
-    groups.get(key).push(cloneCard(card));
+  const unseen = shuffle(cards.filter((card) => !card.misses && !card.attempts));
+  const easy = shuffle(cards.filter((card) => !card.misses && card.attempts > 0));
+  const hardGroups = new Map();
+  cards.filter((card) => card.misses > 0).forEach((card) => {
+    if (!hardGroups.has(card.misses)) hardGroups.set(card.misses, []);
+    hardGroups.get(card.misses).push(card);
   });
 
-  const ordered = [...groups.keys()]
-    .sort((a, b) => b - a)
-    .flatMap((key) => shuffle(groups.get(key)));
+  const ordered = [
+    ...unseen,
+    ...[...hardGroups.keys()]
+      .sort((a, b) => b - a)
+      .flatMap((key) => shuffle(hardGroups.get(key))),
+    ...easy,
+  ].map(cloneCard);
 
   if (!size || size >= ordered.length) return ordered;
   return ordered.slice(0, size);
@@ -196,6 +205,8 @@ function currentCard() {
 
 function renderCard() {
   deckTitle.textContent = activeDeck().name;
+  cardEl.classList.add("is-changing");
+  void cardEl.offsetWidth;
   cardEl.classList.remove("is-flipped");
   flipped = false;
 
@@ -210,6 +221,7 @@ function renderCard() {
     unknownBtn.disabled = true;
     cardEl.disabled = true;
     noteEl.textContent = "Wybierz inną bazę albo zaimportuj znaki.";
+    requestAnimationFrame(() => cardEl.classList.remove("is-changing"));
     return;
   }
 
@@ -224,12 +236,14 @@ function renderCard() {
   knownBtn.disabled = true;
   unknownBtn.disabled = true;
   noteEl.textContent = "Najpierw odwróć kartę, potem oceń, czy znasz znak.";
+  requestAnimationFrame(() => cardEl.classList.remove("is-changing"));
 }
 
 function flipCard() {
   if (!deck.length) return;
   flipped = !flipped;
   cardEl.classList.toggle("is-flipped", flipped);
+  if (flipped) speakCard(currentCard().hanzi);
   knownBtn.disabled = !flipped;
   unknownBtn.disabled = !flipped;
   noteEl.textContent = flipped
@@ -237,11 +251,32 @@ function flipCard() {
     : "Najpierw odwróć kartę, potem oceń, czy znasz znak.";
 }
 
+function speakCard(hanzi) {
+  if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(hanzi);
+  utterance.lang = "zh-CN";
+  utterance.rate = 0.9;
+  window.speechSynthesis.speak(utterance);
+}
+
 function recordMiss(card) {
   const stored = activeDeck().cards.find((item) => item.hanzi === card.hanzi);
   if (!stored) return;
   stored.misses = (stored.misses || 0) + 1;
+  stored.attempts = (stored.attempts || 0) + 1;
   card.misses = stored.misses;
+  card.attempts = stored.attempts;
+  saveStore();
+}
+
+function recordKnown(card) {
+  const stored = activeDeck().cards.find((item) => item.hanzi === card.hanzi);
+  if (!stored) return;
+  stored.misses = Math.max(0, (stored.misses || 0) - 2);
+  stored.attempts = (stored.attempts || 0) + 1;
+  card.misses = stored.misses;
+  card.attempts = stored.attempts;
   saveStore();
 }
 
@@ -249,7 +284,10 @@ function answer(isKnown) {
   if (!flipped || !deck.length) return;
 
   const card = currentCard();
-  if (isKnown) known.push(card);
+  if (isKnown) {
+    recordKnown(card);
+    known.push(card);
+  }
   else {
     recordMiss(card);
     unknown.push(card);
