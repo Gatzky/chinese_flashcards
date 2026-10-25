@@ -1,12 +1,20 @@
 # Fiszki chińskie
 
-Prosta strona z fiszkami znaków chińskich. Kliknięcie karty odwraca ją: z przodu znak, z tyłu pinyin i tłumaczenie. Potem oceniasz, czy znasz znak.
+Prosta strona z fiszkami znaków chińskich. Sesja pokazuje znak, potem pinyin i tłumaczenie, które oceniasz osobno. Opcjonalnie możesz sprawdzić zdanie i znaczenia składowych znaków.
 
 Strona jest statyczna i działa na GitHub Pages. Bazy słówek trzymane są w przeglądarce. Każdą bazę można uzupełnić albo nadpisać plikiem `.txt`, w którym linie mają format:
 
 ```
-znak // pinyin // tłumaczenie
+znak // pinyin // tłumaczenie // [sentence] przykładowe zdanie // [characters meaning] opis znaków
 ```
+
+Pola `[sentence]` i `[characters meaning]` są opcjonalne. Przykład:
+
+```
+马上 // mǎshàng // zaraz, natychmiast // [sentence] 我马上回来。 = Zaraz wrócę. // [characters meaning] 马 (mǎ) = koń; 上 (shàng) = na, powyżej
+```
+
+Liczbę kart na sesję wybierzesz z listy (10, 20 lub wszystkie) albo wpiszesz własną dodatnią liczbę.
 
 ## Uruchomienie lokalne
 

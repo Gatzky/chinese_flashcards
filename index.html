@@ -21,10 +21,13 @@
             <span>Baza słówek</span>
             <select id="deck-select"></select>
           </label>
-          <label class="field session-field">
-            <span>Na raz</span>
-            <select id="session-size"></select>
-          </label>
+          <div class="field session-field">
+            <label for="session-size">Na raz</label>
+            <div class="session-controls">
+              <select id="session-size"></select>
+              <input id="session-size-custom" type="number" min="1" step="1" placeholder="Własna" aria-label="Własna liczba kart" />
+            </div>
+          </div>
           <button class="btn btn-ghost btn-small" id="delete-deck-btn" type="button">
             Usuń bazę
           </button>
@@ -51,7 +54,7 @@
         </div>
 
         <p class="format-hint">
-          Format linii: <code>znak // pinyin // tłumaczenie</code>.
+          Format linii: <code>znak // pinyin // tłumaczenie // [sentence] ... // [characters meaning] ...</code>.
           Sesja wybiera najpierw nowe znaki, potem trudne, a na końcu łatwe.
         </p>
         <dl class="stats" aria-label="Statystyki bazy">
@@ -102,6 +105,19 @@
           <button class="btn btn-yes" id="known-btn" type="button" disabled>
             Umiem
           </button>
+        </section>
+
+        <section class="card-details" id="card-details" hidden>
+          <div class="detail-actions">
+            <button class="btn btn-ghost btn-small" id="sentence-btn" type="button" hidden>
+              Zdanie
+            </button>
+            <button class="btn btn-ghost btn-small" id="characters-meaning-btn" type="button" hidden>
+              Znaczenie znaków
+            </button>
+          </div>
+          <p class="detail-content" id="detail-content" hidden></p>
+          <button class="btn btn-yes" id="next-btn" type="button">Następna</button>
         </section>
 
         <p class="note" id="note">Najpierw spróbuj odczytać znak.</p>

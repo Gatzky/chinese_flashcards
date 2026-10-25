@@ -1,5 +1,5 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
-const SESSION_SIZES = [5, 10, 20, 30, 50];
+const SESSION_SIZES = [10, 20];
 
 const STARTER_CARDS = [
   { hanzi: "你", pinyin: "nǐ", meaning: "ty" },
@@ -43,6 +43,13 @@ const statsKnownEl = document.getElementById("stats-known");
 const statsUnseenEl = document.getElementById("stats-unseen");
 const statsUnknownEl = document.getElementById("stats-unknown");
 const phaseLabelEl = document.getElementById("phase-label");
+const sessionSizeCustom = document.getElementById("session-size-custom");
+const actionsEl = document.getElementById("actions");
+const detailsEl = document.getElementById("card-details");
+const sentenceBtn = document.getElementById("sentence-btn");
+const charactersMeaningBtn = document.getElementById("characters-meaning-btn");
+const detailContentEl = document.getElementById("detail-content");
+const nextBtn = document.getElementById("next-btn");
 
 let store = loadStore();
 let deck = [];
@@ -75,6 +82,8 @@ function cloneCard(card) {
     hanzi: card.hanzi,
     pinyin: card.pinyin,
     meaning: card.meaning,
+    sentence: card.sentence || "",
+    charactersMeaning: card.charactersMeaning || "",
     misses: Math.max(0, Number(card.misses) || 0),
     attempts: Math.max(0, Number(card.attempts) || 0),
   };
@@ -89,9 +98,8 @@ function loadStore() {
     if (!parsed.decks.some((deckItem) => deckItem.id === parsed.activeId)) {
       parsed.activeId = parsed.decks[0].id;
     }
-    if (!SESSION_SIZES.includes(parsed.sessionSize) && parsed.sessionSize !== 0) {
-      parsed.sessionSize = 10;
-    }
+    parsed.sessionSize = Number(parsed.sessionSize);
+    if (!Number.isInteger(parsed.sessionSize) || parsed.sessionSize < 0) parsed.sessionSize = 10;
     parsed.decks.forEach((deckItem) => {
       deckItem.cards = (Array.isArray(deckItem.cards) ? deckItem.cards : []).map(cloneCard);
     });
@@ -125,8 +133,21 @@ function parseTxt(text) {
 
     const hanzi = parts[0];
     const pinyin = parts.length === 2 ? "" : parts[1];
-    const meaning = parts.length === 2 ? parts[1] : parts.slice(2).join(" // ");
-    cards.push({ hanzi, pinyin, meaning });
+    const extraParts = parts.length === 2 ? [] : parts.slice(2);
+    const meaningParts = [];
+    let sentence = "";
+    let charactersMeaning = "";
+
+    extraParts.forEach((part) => {
+      const sentenceMatch = part.match(/^\[sentence\]\s*(.*)$/i);
+      const charactersMatch = part.match(/^\[characters meaning\]\s*(.*)$/i);
+      if (sentenceMatch) sentence = sentenceMatch[1];
+      else if (charactersMatch) charactersMeaning = charactersMatch[1];
+      else meaningParts.push(part);
+    });
+
+    const meaning = parts.length === 2 ? parts[1] : meaningParts.join(" // ");
+    cards.push({ hanzi, pinyin, meaning, sentence, charactersMeaning });
   });
 
   return { cards, skipped };
@@ -144,6 +165,22 @@ function mergeCards(existing, incoming) {
     byHanzi.set(card.hanzi, next);
   });
   return [...byHanzi.values()];
+}
+
+function replaceCardsPreservingProgress(existing, incoming) {
+  const byHanzi = new Map(existing.map((card) => [card.hanzi, card]));
+  let preserved = 0;
+  const cards = incoming.map((card) => {
+    const next = cloneCard(card);
+    const previous = byHanzi.get(card.hanzi);
+    if (previous) {
+      next.misses = previous.misses;
+      next.attempts = previous.attempts;
+      preserved += 1;
+    }
+    return next;
+  });
+  return { cards, preserved };
 }
 
 function shuffle(items) {
@@ -188,7 +225,13 @@ function renderSessionSizeSelect() {
   allOption.value = "0";
   allOption.textContent = "Wszystkie";
   sessionSizeSelect.appendChild(allOption);
-  sessionSizeSelect.value = String(store.sessionSize ?? 10);
+  const customOption = document.createElement("option");
+  customOption.value = "custom";
+  customOption.textContent = "Własna liczba";
+  sessionSizeSelect.appendChild(customOption);
+  const isPreset = SESSION_SIZES.includes(store.sessionSize) || store.sessionSize === 0;
+  sessionSizeSelect.value = isPreset ? String(store.sessionSize) : "custom";
+  sessionSizeCustom.value = isPreset ? "" : String(store.sessionSize);
 }
 
 function renderDeckSelect() {
@@ -228,6 +271,10 @@ function renderCard() {
   cardEl.classList.remove("is-flipped");
   phase = 0;
   renderStats();
+  actionsEl.hidden = false;
+  detailsEl.hidden = true;
+  detailContentEl.hidden = true;
+  detailContentEl.textContent = "";
 
   if (!deck.length) {
     hanziEl.textContent = "空";
@@ -242,7 +289,7 @@ function renderCard() {
     pinyinEl.hidden = true;
     meaningEl.hidden = true;
     noteEl.textContent = "Wybierz inną bazę albo zaimportuj znaki.";
-    requestAnimationFrame(() => cardEl.classList.remove("is-changing"));
+    window.setTimeout(() => cardEl.classList.remove("is-changing"), 0);
     return;
   }
 
@@ -260,7 +307,7 @@ function renderCard() {
   knownBtn.disabled = true;
   unknownBtn.disabled = true;
   noteEl.textContent = "Najpierw spróbuj odczytać znak.";
-  requestAnimationFrame(() => cardEl.classList.remove("is-changing"));
+  window.setTimeout(() => cardEl.classList.remove("is-changing"), 0);
 }
 
 function flipCard() {
@@ -309,7 +356,7 @@ function recordKnown(card) {
 }
 
 function answer(isKnown) {
-  if (phase === 0 || !deck.length) return;
+  if ((phase !== 1 && phase !== 2) || !deck.length) return;
 
   const card = currentCard();
   if (isKnown) {
@@ -340,6 +387,33 @@ function answer(isKnown) {
     return;
   }
 
+  showCardDetails();
+}
+
+function showCardDetails() {
+  phase = 3;
+  actionsEl.hidden = true;
+  const card = currentCard();
+  sentenceBtn.hidden = !card.sentence;
+  charactersMeaningBtn.hidden = !card.charactersMeaning;
+  const hasDetails = Boolean(card.sentence || card.charactersMeaning);
+  if (!hasDetails) {
+    advanceCard();
+    return;
+  }
+
+  detailsEl.hidden = false;
+  nextBtn.textContent = index + 1 === deck.length ? "Zakończ sesję" : "Następna";
+  noteEl.textContent = "Zobacz dodatkowe informacje albo przejdź dalej.";
+}
+
+function showDetail(content) {
+  detailContentEl.textContent = content;
+  detailContentEl.hidden = false;
+}
+
+function advanceCard() {
+  detailsEl.hidden = true;
   index += 1;
   if (index >= deck.length) {
     showSummary();
@@ -404,8 +478,11 @@ function deleteActiveDeck() {
 
 function applyImport(incoming, skipped) {
   const current = activeDeck();
+  let preserved = 0;
   if (importMode === "replace") {
-    current.cards = incoming.map(cloneCard);
+    const replacement = replaceCardsPreservingProgress(current.cards, incoming);
+    current.cards = replacement.cards;
+    preserved = replacement.preserved;
   } else {
     current.cards = mergeCards(current.cards, incoming);
   }
@@ -413,7 +490,8 @@ function applyImport(incoming, skipped) {
 
   const skippedNote = skipped.length ? ` Pominięto linie: ${skipped.join(", ")}.` : "";
   const action = importMode === "replace" ? "Nadpisano" : "Dodano do";
-  setStatus(`${action} bazę „${current.name}”: ${current.cards.length} znaków.${skippedNote}`);
+  const preservedNote = importMode === "replace" ? ` Zachowano postęp dla ${preserved} pasujących znaków.` : "";
+  setStatus(`${action} bazę „${current.name}”: ${current.cards.length} znaków.${preservedNote}${skippedNote}`);
   startActiveDeck();
 }
 
@@ -431,8 +509,26 @@ deckSelect.addEventListener("change", () => {
 });
 
 sessionSizeSelect.addEventListener("change", () => {
+  if (sessionSizeSelect.value === "custom") {
+    sessionSizeCustom.focus();
+    return;
+  }
+  sessionSizeCustom.value = "";
   store.sessionSize = Number(sessionSizeSelect.value);
   saveStore();
+  startActiveDeck();
+});
+
+sessionSizeCustom.addEventListener("change", () => {
+  const size = Number(sessionSizeCustom.value);
+  if (!Number.isInteger(size) || size < 1) {
+    setStatus("Wpisz dodatnią liczbę kart na sesję.");
+    return;
+  }
+  store.sessionSize = size;
+  sessionSizeSelect.value = "custom";
+  saveStore();
+  setStatus("");
   startActiveDeck();
 });
 
@@ -460,6 +556,9 @@ importFile.addEventListener("change", async () => {
 cardEl.addEventListener("click", flipCard);
 knownBtn.addEventListener("click", () => answer(true));
 unknownBtn.addEventListener("click", () => answer(false));
+sentenceBtn.addEventListener("click", () => showDetail(currentCard().sentence));
+charactersMeaningBtn.addEventListener("click", () => showDetail(currentCard().charactersMeaning));
+nextBtn.addEventListener("click", advanceCard);
 restartBtn.addEventListener("click", startActiveDeck);
 retryUnknownBtn.addEventListener("click", () => {
   if (unknown.length) startSession(unknown);

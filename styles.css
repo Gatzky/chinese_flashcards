@@ -71,10 +71,11 @@ body {
 }
 
 .session-field {
-  flex: 0 0 120px;
+  flex: 0 0 190px;
 }
 
-.field span {
+.field span,
+.field > label {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -82,7 +83,8 @@ body {
 }
 
 select,
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   width: 100%;
   border: 0;
   border-radius: 12px;
@@ -90,6 +92,24 @@ input[type="text"] {
   font: inherit;
   color: var(--paper);
   background: #1b1410;
+}
+
+.session-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.session-controls select {
+  min-width: 0;
+  flex: 1;
+}
+
+.session-controls input {
+  min-width: 0;
+  width: 82px;
+  flex: 0 0 82px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .format-hint,
@@ -270,6 +290,34 @@ h2 {
 
 .actions {
   justify-content: center;
+}
+
+.actions[hidden],
+.card-details[hidden] {
+  display: none;
+}
+
+.card-details {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.detail-content {
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--bg-soft);
+  text-align: left;
+  white-space: pre-wrap;
 }
 
 .summary-actions {
