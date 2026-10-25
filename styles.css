@@ -71,11 +71,10 @@ body {
 }
 
 .session-field {
-  flex: 0 0 190px;
+  flex: 0 0 120px;
 }
 
-.field span,
-.field > label {
+.field span {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -83,8 +82,7 @@ body {
 }
 
 select,
-input[type="text"],
-input[type="number"] {
+input[type="text"] {
   width: 100%;
   border: 0;
   border-radius: 12px;
@@ -92,24 +90,6 @@ input[type="number"] {
   font: inherit;
   color: var(--paper);
   background: #1b1410;
-}
-
-.session-controls {
-  display: flex;
-  gap: 6px;
-}
-
-.session-controls select {
-  min-width: 0;
-  flex: 1;
-}
-
-.session-controls input {
-  min-width: 0;
-  width: 82px;
-  flex: 0 0 82px;
-  padding-right: 8px;
-  padding-left: 8px;
 }
 
 .format-hint,
@@ -375,6 +355,16 @@ h2 {
 
 .score {
   font-size: 1.2rem;
+}
+
+.app-meta {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: min(560px, 100%);
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 0.75rem;
 }
 
 @media (max-width: 420px) {

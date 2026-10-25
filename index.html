@@ -21,13 +21,10 @@
             <span>Baza słówek</span>
             <select id="deck-select"></select>
           </label>
-          <div class="field session-field">
-            <label for="session-size">Na raz</label>
-            <div class="session-controls">
-              <select id="session-size"></select>
-              <input id="session-size-custom" type="number" min="1" step="1" placeholder="Własna" aria-label="Własna liczba kart" />
-            </div>
-          </div>
+          <label class="field session-field">
+            <span>Na raz</span>
+            <select id="session-size"></select>
+          </label>
           <button class="btn btn-ghost btn-small" id="delete-deck-btn" type="button">
             Usuń bazę
           </button>
@@ -137,6 +134,12 @@
         </div>
       </section>
     </div>
+
+    <footer class="app-meta">
+      <span>Wersja 1.0.0</span>
+      <span aria-hidden="true">·</span>
+      <span>Ostatnia aktualizacja <time datetime="2026-10-25">25.10.2026</time></span>
+    </footer>
 
     <script src="app.js"></script>
   </body>

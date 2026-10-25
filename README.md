@@ -14,7 +14,7 @@ Pola `[sentence]` i `[characters meaning]` są opcjonalne. Przykład:
 马上 // mǎshàng // zaraz, natychmiast // [sentence] 我马上回来。 = Zaraz wrócę. // [characters meaning] 马 (mǎ) = koń; 上 (shàng) = na, powyżej
 ```
 
-Liczbę kart na sesję wybierzesz z listy (10, 20 lub wszystkie) albo wpiszesz własną dodatnią liczbę.
+Liczbę kart na sesję wybierzesz z listy: 10, 20, 50 lub wszystkie.
 
 ## Uruchomienie lokalne
 
@@ -23,6 +23,8 @@ Otwórz `index.html` w przeglądarce albo serwuj folder:
 ```bash
 python -m http.server 8080
 ```
+
+Wersję i datę ostatniej aktualizacji pokazuje stopka strony. Przy publikacji aktualizuj je w `index.html`; numer stosuje format MAJOR.MINOR.PATCH.
 
 ## Publikacja na GitHub Pages
 

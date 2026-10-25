@@ -1,5 +1,5 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
-const SESSION_SIZES = [10, 20];
+const SESSION_SIZES = [10, 20, 50];
 
 const STARTER_CARDS = [
   { hanzi: "你", pinyin: "nǐ", meaning: "ty" },
@@ -43,7 +43,6 @@ const statsKnownEl = document.getElementById("stats-known");
 const statsUnseenEl = document.getElementById("stats-unseen");
 const statsUnknownEl = document.getElementById("stats-unknown");
 const phaseLabelEl = document.getElementById("phase-label");
-const sessionSizeCustom = document.getElementById("session-size-custom");
 const actionsEl = document.getElementById("actions");
 const detailsEl = document.getElementById("card-details");
 const sentenceBtn = document.getElementById("sentence-btn");
@@ -77,13 +76,35 @@ function defaultStore() {
   };
 }
 
+function parseCardAnnotations(parts) {
+  const values = { meaning: [], sentence: [], charactersMeaning: [] };
+  let currentField = "meaning";
+
+  parts.forEach((part) => {
+    const chunks = String(part || "").split(/(\[sentence\]|\[characters meaning\])/gi);
+    chunks.forEach((chunk) => {
+      const marker = chunk.trim().toLowerCase();
+      if (marker === "[sentence]") currentField = "sentence";
+      else if (marker === "[characters meaning]") currentField = "charactersMeaning";
+      else if (chunk.trim()) values[currentField].push(chunk.trim());
+    });
+  });
+
+  return {
+    meaning: values.meaning.join(" // "),
+    sentence: values.sentence.join(" // "),
+    charactersMeaning: values.charactersMeaning.join(" // "),
+  };
+}
+
 function cloneCard(card) {
+  const annotations = parseCardAnnotations((card.meaning || "").split("//"));
   return {
     hanzi: card.hanzi,
     pinyin: card.pinyin,
-    meaning: card.meaning,
-    sentence: card.sentence || "",
-    charactersMeaning: card.charactersMeaning || "",
+    meaning: annotations.meaning,
+    sentence: card.sentence || annotations.sentence,
+    charactersMeaning: card.charactersMeaning || annotations.charactersMeaning,
     misses: Math.max(0, Number(card.misses) || 0),
     attempts: Math.max(0, Number(card.attempts) || 0),
   };
@@ -99,7 +120,7 @@ function loadStore() {
       parsed.activeId = parsed.decks[0].id;
     }
     parsed.sessionSize = Number(parsed.sessionSize);
-    if (!Number.isInteger(parsed.sessionSize) || parsed.sessionSize < 0) parsed.sessionSize = 10;
+    if (![...SESSION_SIZES, 0].includes(parsed.sessionSize)) parsed.sessionSize = 10;
     parsed.decks.forEach((deckItem) => {
       deckItem.cards = (Array.isArray(deckItem.cards) ? deckItem.cards : []).map(cloneCard);
     });
@@ -133,21 +154,8 @@ function parseTxt(text) {
 
     const hanzi = parts[0];
     const pinyin = parts.length === 2 ? "" : parts[1];
-    const extraParts = parts.length === 2 ? [] : parts.slice(2);
-    const meaningParts = [];
-    let sentence = "";
-    let charactersMeaning = "";
-
-    extraParts.forEach((part) => {
-      const sentenceMatch = part.match(/^\[sentence\]\s*(.*)$/i);
-      const charactersMatch = part.match(/^\[characters meaning\]\s*(.*)$/i);
-      if (sentenceMatch) sentence = sentenceMatch[1];
-      else if (charactersMatch) charactersMeaning = charactersMatch[1];
-      else meaningParts.push(part);
-    });
-
-    const meaning = parts.length === 2 ? parts[1] : meaningParts.join(" // ");
-    cards.push({ hanzi, pinyin, meaning, sentence, charactersMeaning });
+    const annotations = parseCardAnnotations(parts.length === 2 ? [parts[1]] : parts.slice(2));
+    cards.push({ hanzi, pinyin, ...annotations });
   });
 
   return { cards, skipped };
@@ -225,13 +233,7 @@ function renderSessionSizeSelect() {
   allOption.value = "0";
   allOption.textContent = "Wszystkie";
   sessionSizeSelect.appendChild(allOption);
-  const customOption = document.createElement("option");
-  customOption.value = "custom";
-  customOption.textContent = "Własna liczba";
-  sessionSizeSelect.appendChild(customOption);
-  const isPreset = SESSION_SIZES.includes(store.sessionSize) || store.sessionSize === 0;
-  sessionSizeSelect.value = isPreset ? String(store.sessionSize) : "custom";
-  sessionSizeCustom.value = isPreset ? "" : String(store.sessionSize);
+  sessionSizeSelect.value = String(store.sessionSize ?? 10);
 }
 
 function renderDeckSelect() {
@@ -509,26 +511,8 @@ deckSelect.addEventListener("change", () => {
 });
 
 sessionSizeSelect.addEventListener("change", () => {
-  if (sessionSizeSelect.value === "custom") {
-    sessionSizeCustom.focus();
-    return;
-  }
-  sessionSizeCustom.value = "";
   store.sessionSize = Number(sessionSizeSelect.value);
   saveStore();
-  startActiveDeck();
-});
-
-sessionSizeCustom.addEventListener("change", () => {
-  const size = Number(sessionSizeCustom.value);
-  if (!Number.isInteger(size) || size < 1) {
-    setStatus("Wpisz dodatnią liczbę kart na sesję.");
-    return;
-  }
-  store.sessionSize = size;
-  sessionSizeSelect.value = "custom";
-  saveStore();
-  setStatus("");
   startActiveDeck();
 });
 
