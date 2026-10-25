@@ -44,9 +44,10 @@ const statsUnseenEl = document.getElementById("stats-unseen");
 const statsUnknownEl = document.getElementById("stats-unknown");
 const phaseLabelEl = document.getElementById("phase-label");
 const actionsEl = document.getElementById("actions");
+const speakBtn = document.getElementById("speak-btn");
 const detailsEl = document.getElementById("card-details");
 const sentenceBtn = document.getElementById("sentence-btn");
-const charactersMeaningBtn = document.getElementById("characters-meaning-btn");
+const etymologyBtn = document.getElementById("etymology-btn");
 const detailContentEl = document.getElementById("detail-content");
 const nextBtn = document.getElementById("next-btn");
 
@@ -77,15 +78,15 @@ function defaultStore() {
 }
 
 function parseCardAnnotations(parts) {
-  const values = { meaning: [], sentence: [], charactersMeaning: [] };
+  const values = { meaning: [], sentence: [], etymology: [] };
   let currentField = "meaning";
 
   parts.forEach((part) => {
-    const chunks = String(part || "").split(/(\[sentence\]|\[characters meaning\])/gi);
+    const chunks = String(part || "").split(/(\[sentence\]|\[etymology\]|\[characters meaning\])/gi);
     chunks.forEach((chunk) => {
       const marker = chunk.trim().toLowerCase();
       if (marker === "[sentence]") currentField = "sentence";
-      else if (marker === "[characters meaning]") currentField = "charactersMeaning";
+      else if (marker === "[etymology]" || marker === "[characters meaning]") currentField = "etymology";
       else if (chunk.trim()) values[currentField].push(chunk.trim());
     });
   });
@@ -93,7 +94,7 @@ function parseCardAnnotations(parts) {
   return {
     meaning: values.meaning.join(" // "),
     sentence: values.sentence.join(" // "),
-    charactersMeaning: values.charactersMeaning.join(" // "),
+    etymology: values.etymology.join(" // "),
   };
 }
 
@@ -104,7 +105,7 @@ function cloneCard(card) {
     pinyin: card.pinyin,
     meaning: annotations.meaning,
     sentence: card.sentence || annotations.sentence,
-    charactersMeaning: card.charactersMeaning || annotations.charactersMeaning,
+    etymology: card.etymology || card.charactersMeaning || annotations.etymology,
     misses: Math.max(0, Number(card.misses) || 0),
     attempts: Math.max(0, Number(card.attempts) || 0),
   };
@@ -138,24 +139,33 @@ function activeDeck() {
   return store.decks.find((deckItem) => deckItem.id === store.activeId) || store.decks[0];
 }
 
-function parseTxt(text) {
+function parseJson(text) {
+  const parsed = JSON.parse(text);
+  const sourceCards = Array.isArray(parsed) ? parsed : parsed?.cards;
+  if (!Array.isArray(sourceCards)) {
+    throw new Error('Plik musi zawierać tablicę "cards".');
+  }
+
   const cards = [];
   const skipped = [];
 
-  text.split(/\r?\n/).forEach((line, lineIndex) => {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) return;
-
-    const parts = trimmed.split("//").map((part) => part.trim());
-    if (parts.length < 2 || !parts[0] || !parts[parts.length - 1]) {
-      skipped.push(lineIndex + 1);
+  sourceCards.forEach((card, index) => {
+    if (!card || typeof card !== "object" || Array.isArray(card) ||
+      typeof card.hanzi !== "string" || !card.hanzi.trim() ||
+      typeof card.meaning !== "string" || !card.meaning.trim()) {
+      skipped.push(index + 1);
       return;
     }
 
-    const hanzi = parts[0];
-    const pinyin = parts.length === 2 ? "" : parts[1];
-    const annotations = parseCardAnnotations(parts.length === 2 ? [parts[1]] : parts.slice(2));
-    cards.push({ hanzi, pinyin, ...annotations });
+    cards.push({
+      hanzi: card.hanzi.trim(),
+      pinyin: typeof card.pinyin === "string" ? card.pinyin.trim() : "",
+      meaning: card.meaning.trim(),
+      sentence: typeof card.sentence === "string" ? card.sentence.trim() : "",
+      etymology: typeof card.etymology === "string"
+        ? card.etymology.trim()
+        : typeof card.charactersMeaning === "string" ? card.charactersMeaning.trim() : "",
+    });
   });
 
   return { cards, skipped };
@@ -274,6 +284,7 @@ function renderCard() {
   phase = 0;
   renderStats();
   actionsEl.hidden = false;
+  speakBtn.hidden = true;
   detailsEl.hidden = true;
   detailContentEl.hidden = true;
   detailContentEl.textContent = "";
@@ -283,7 +294,7 @@ function renderCard() {
     hanziBackEl.textContent = "空";
     pinyinEl.textContent = "";
     meaningEl.textContent = "Baza jest pusta";
-    frontHint.textContent = "Zaimportuj plik .txt, żeby dodać znaki";
+    frontHint.textContent = "Zaimportuj plik .json, żeby dodać znaki";
     progressEl.textContent = "0 / 0";
     knownBtn.disabled = true;
     unknownBtn.disabled = true;
@@ -318,6 +329,7 @@ function flipCard() {
   cardEl.classList.add("is-flipped");
   cardEl.disabled = true;
   pinyinEl.hidden = false;
+  speakBtn.hidden = false;
   phaseLabelEl.textContent = "Pinyin";
   progressEl.textContent = `${index + 1} / ${deck.length} · pinyin`;
   knownBtn.disabled = false;
@@ -395,10 +407,11 @@ function answer(isKnown) {
 function showCardDetails() {
   phase = 3;
   actionsEl.hidden = true;
+  speakBtn.hidden = true;
   const card = currentCard();
   sentenceBtn.hidden = !card.sentence;
-  charactersMeaningBtn.hidden = !card.charactersMeaning;
-  const hasDetails = Boolean(card.sentence || card.charactersMeaning);
+  etymologyBtn.hidden = !card.etymology;
+  const hasDetails = Boolean(card.sentence || card.etymology);
   if (!hasDetails) {
     advanceCard();
     return;
@@ -528,20 +541,24 @@ importFile.addEventListener("change", async () => {
   const file = importFile.files[0];
   if (!file) return;
 
-  const text = await file.text();
-  const { cards, skipped } = parseTxt(text);
-  if (!cards.length) {
-    setStatus("Nie znaleziono poprawnych linii. Użyj formatu: znak // pinyin // tłumaczenie");
-    return;
+  try {
+    const { cards, skipped } = parseJson(await file.text());
+    if (!cards.length) {
+      setStatus('Nie znaleziono poprawnych kart. Sprawdź tablicę "cards" oraz pola "hanzi" i "meaning".');
+      return;
+    }
+    applyImport(cards, skipped);
+  } catch (error) {
+    setStatus(`Nie udało się odczytać JSON: ${error.message}`);
   }
-  applyImport(cards, skipped);
 });
 
 cardEl.addEventListener("click", flipCard);
+speakBtn.addEventListener("click", () => speakCard(currentCard().hanzi));
 knownBtn.addEventListener("click", () => answer(true));
 unknownBtn.addEventListener("click", () => answer(false));
 sentenceBtn.addEventListener("click", () => showDetail(currentCard().sentence));
-charactersMeaningBtn.addEventListener("click", () => showDetail(currentCard().charactersMeaning));
+etymologyBtn.addEventListener("click", () => showDetail(currentCard().etymology));
 nextBtn.addEventListener("click", advanceCard);
 restartBtn.addEventListener("click", startActiveDeck);
 retryUnknownBtn.addEventListener("click", () => {

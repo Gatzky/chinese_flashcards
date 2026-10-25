@@ -2,17 +2,23 @@
 
 Prosta strona z fiszkami znaków chińskich. Sesja pokazuje znak, potem pinyin i tłumaczenie, które oceniasz osobno. Opcjonalnie możesz sprawdzić zdanie i znaczenia składowych znaków.
 
-Strona jest statyczna i działa na GitHub Pages. Bazy słówek trzymane są w przeglądarce. Każdą bazę można uzupełnić albo nadpisać plikiem `.txt`, w którym linie mają format:
+Strona jest statyczna i działa na GitHub Pages. Bazy słówek trzymane są w przeglądarce. Każdą bazę można uzupełnić albo nadpisać plikiem `.json` z tablicą `cards`:
 
-```
-znak // pinyin // tłumaczenie // [sentence] przykładowe zdanie // [characters meaning] opis znaków
+```json
+{
+	"cards": [
+		{
+			"hanzi": "马上",
+			"pinyin": "mǎshàng",
+			"meaning": "zaraz, natychmiast",
+			"sentence": "我马上回来。 = Zaraz wrócę.",
+			"etymology": "马 (mǎ) = koń; 上 (shàng) = na, powyżej"
+		}
+	]
+}
 ```
 
-Pola `[sentence]` i `[characters meaning]` są opcjonalne. Przykład:
-
-```
-马上 // mǎshàng // zaraz, natychmiast // [sentence] 我马上回来。 = Zaraz wrócę. // [characters meaning] 马 (mǎ) = koń; 上 (shàng) = na, powyżej
-```
+`pinyin`, `sentence` i `etymology` są opcjonalne. Plik `przyklad.json` zawiera większy zestaw demonstracyjny. Starsze pliki z polem `charactersMeaning` są nadal obsługiwane.
 
 Liczbę kart na sesję wybierzesz z listy: 10, 20, 50 lub wszystkie.
 
@@ -24,7 +30,7 @@ Otwórz `index.html` w przeglądarce albo serwuj folder:
 python -m http.server 8080
 ```
 
-Wersję i datę ostatniej aktualizacji pokazuje stopka strony. Przy publikacji aktualizuj je w `index.html`; numer stosuje format MAJOR.MINOR.PATCH.
+Wersję i datę ostatniej aktualizacji pokazuje stopka strony. Przy publikacji aktualizuj je w `index.html`; dla kolejnych drobnych zmian zwiększaj ostatni człon wersji MAJOR.MINOR.PATCH.
 
 ## Publikacja na GitHub Pages
 

@@ -42,16 +42,16 @@
 
         <div class="library-row">
           <button class="btn btn-ghost btn-small" id="import-add-btn" type="button">
-            Importuj i dodaj
+            Importuj JSON i dodaj
           </button>
           <button class="btn btn-no btn-small" id="import-replace-btn" type="button">
-            Importuj i nadpisz
+            Importuj JSON i nadpisz
           </button>
-          <input id="import-file" type="file" accept=".txt,text/plain" hidden />
+          <input id="import-file" type="file" accept=".json,application/json" hidden />
         </div>
 
         <p class="format-hint">
-          Format linii: <code>znak // pinyin // tłumaczenie // [sentence] ... // [characters meaning] ...</code>.
+          Importuj plik JSON z tablicą <code>cards</code> i polami <code>hanzi</code>, <code>pinyin</code>, <code>meaning</code>, <code>sentence</code> oraz <code>etymology</code>.
           Sesja wybiera najpierw nowe znaki, potem trudne, a na końcu łatwe.
         </p>
         <dl class="stats" aria-label="Statystyki bazy">
@@ -93,6 +93,11 @@
               </span>
             </span>
           </button>
+          <div class="speech-action">
+            <button class="btn btn-ghost btn-small" id="speak-btn" type="button" hidden>
+              Odtwórz wymowę
+            </button>
+          </div>
         </section>
 
         <section class="actions" id="actions">
@@ -109,8 +114,8 @@
             <button class="btn btn-ghost btn-small" id="sentence-btn" type="button" hidden>
               Zdanie
             </button>
-            <button class="btn btn-ghost btn-small" id="characters-meaning-btn" type="button" hidden>
-              Znaczenie znaków
+            <button class="btn btn-ghost btn-small" id="etymology-btn" type="button" hidden>
+              Etymologia znaków
             </button>
           </div>
           <p class="detail-content" id="detail-content" hidden></p>
@@ -136,7 +141,7 @@
     </div>
 
     <footer class="app-meta">
-      <span>Wersja 1.0.0</span>
+      <span>Wersja 0.0.4</span>
       <span aria-hidden="true">·</span>
       <span>Ostatnia aktualizacja <time datetime="2026-10-25">25.10.2026</time></span>
     </footer>
