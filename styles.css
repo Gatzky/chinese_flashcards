@@ -81,6 +81,10 @@ body {
   gap: 16px;
 }
 
+.settings-field-wide {
+  grid-column: 1 / -1;
+}
+
 .panel-title {
   margin-bottom: 18px;
   font-size: 1.1rem;
@@ -183,6 +187,17 @@ body {
   border-top: 1px solid rgba(244, 234, 215, 0.14);
 }
 
+.word-form-heading,
+.word-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.word-form-heading {
+  justify-content: space-between;
+}
+
 .word-form h3,
 .word-list-heading h3 {
   margin: 0;
@@ -255,6 +270,40 @@ textarea {
   font-size: 0.82rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.word-item-actions {
+  flex: 0 0 auto;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid rgba(244, 234, 215, 0.22);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.icon-btn svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.icon-btn:hover,
+.icon-btn:focus-visible {
+  border-color: var(--red);
+  color: #ffd0c8;
+  outline: none;
 }
 
 .word-list-empty {

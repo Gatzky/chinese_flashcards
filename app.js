@@ -47,8 +47,12 @@ const wordPinyinInput = document.getElementById("word-pinyin");
 const wordMeaningInput = document.getElementById("word-meaning");
 const wordSentenceInput = document.getElementById("word-sentence");
 const wordEtymologyInput = document.getElementById("word-etymology");
+const wordFormTitle = document.getElementById("word-form-title");
+const wordSaveBtn = document.getElementById("word-save-btn");
+const wordCancelBtn = document.getElementById("word-cancel-btn");
 const frontHint = document.getElementById("front-hint");
 const sessionSizeSelect = document.getElementById("session-size");
+const autoplaySelect = document.getElementById("autoplay-pronunciation");
 const statsKnownEl = document.getElementById("stats-known");
 const statsUnseenEl = document.getElementById("stats-unseen");
 const statsUnknownEl = document.getElementById("stats-unknown");
@@ -70,6 +74,7 @@ let knownAnswers = 0;
 let unknownAnswers = 0;
 let unknown = [];
 let speechRequestId = 0;
+let editingHanzi = "";
 
 function createId() {
   if (crypto.randomUUID) return crypto.randomUUID();
@@ -82,6 +87,7 @@ function defaultStore() {
     activeId: starterId,
     sessionSize: 10,
     studyMode: "three",
+    autoPlayPronunciation: true,
     decks: [
       { id: starterId, name: "Sample characters", cards: STARTER_CARDS.map(cloneCard) },
       { id: "my-deck", name: "My deck", cards: [] },
@@ -135,6 +141,7 @@ function loadStore() {
     parsed.sessionSize = Number(parsed.sessionSize);
     if (![...SESSION_SIZES, 0].includes(parsed.sessionSize)) parsed.sessionSize = 10;
     parsed.studyMode = parsed.studyMode === "two" ? "two" : "three";
+    parsed.autoPlayPronunciation = parsed.autoPlayPronunciation !== false;
     parsed.decks.forEach((deckItem) => {
       if (deckItem.id === "starter" && deckItem.name === "Przykładowe znaki") {
         deckItem.name = "Sample characters";
@@ -267,6 +274,7 @@ function renderDeckList() {
 
     button.append(name, count);
     button.addEventListener("click", () => {
+      resetWordForm();
       store.activeId = deckItem.id;
       saveStore();
       setStatus("");
@@ -306,14 +314,26 @@ function renderWordList() {
     meaning.textContent = [card.pinyin, card.meaning].filter(Boolean).join(" · ");
     details.append(hanzi, meaning);
 
+    const actions = document.createElement("div");
+    actions.className = "word-item-actions";
+
+    const editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.className = "btn btn-ghost btn-small edit-word-btn";
+    editButton.textContent = "Edit";
+    editButton.setAttribute("aria-label", `Edit ${card.hanzi}`);
+    editButton.addEventListener("click", () => editWord(card));
+
     const removeButton = document.createElement("button");
     removeButton.type = "button";
-    removeButton.className = "btn btn-no btn-small remove-word-btn";
-    removeButton.textContent = "Remove";
-    removeButton.setAttribute("aria-label", `Remove ${card.hanzi} from this deck`);
+    removeButton.className = "icon-btn remove-word-btn";
+    removeButton.title = "Delete word";
+    removeButton.setAttribute("aria-label", `Delete ${card.hanzi} from this deck`);
+    removeButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6m4-6v6M5 7l1 14h12l1-14M9 7V4h6v3" /></svg>';
     removeButton.addEventListener("click", () => removeWord(card.hanzi));
 
-    item.append(details, removeButton);
+    actions.append(editButton, removeButton);
+    item.append(details, actions);
     wordListEl.appendChild(item);
   });
 }
@@ -420,7 +440,7 @@ function flipCard() {
   noteEl.textContent = store.studyMode === "two"
     ? "Do you know the pinyin and meaning?"
     : "Do you know the pinyin?";
-  speakCard(currentCard().hanzi);
+  if (store.autoPlayPronunciation) speakCard(currentCard().hanzi);
 }
 
 function speakCard(hanzi) {
@@ -563,9 +583,31 @@ function createDeck() {
   store.decks.push(deckItem);
   store.activeId = deckItem.id;
   newDeckName.value = "";
+  resetWordForm();
   saveStore();
   setStatus(`Created deck "${name}".`);
   startActiveDeck();
+}
+
+function resetWordForm() {
+  editingHanzi = "";
+  wordForm.reset();
+  wordFormTitle.textContent = "Add a word";
+  wordSaveBtn.textContent = "Add word";
+  wordCancelBtn.hidden = true;
+}
+
+function editWord(card) {
+  editingHanzi = card.hanzi;
+  wordHanziInput.value = card.hanzi;
+  wordPinyinInput.value = card.pinyin;
+  wordMeaningInput.value = card.meaning;
+  wordSentenceInput.value = card.sentence;
+  wordEtymologyInput.value = card.etymology;
+  wordFormTitle.textContent = `Edit ${card.hanzi}`;
+  wordSaveBtn.textContent = "Save changes";
+  wordCancelBtn.hidden = false;
+  wordHanziInput.focus();
 }
 
 function addWord(event) {
@@ -579,11 +621,32 @@ function addWord(event) {
   };
   if (!card.hanzi || !card.meaning) return;
 
-  const isUpdate = activeDeck().cards.some((item) => item.hanzi === card.hanzi);
-  activeDeck().cards = mergeCards(activeDeck().cards, [card]);
+  const current = activeDeck();
+  let action = "Added";
+  if (editingHanzi) {
+    const originalIndex = current.cards.findIndex((item) => item.hanzi === editingHanzi);
+    if (originalIndex < 0) {
+      resetWordForm();
+      return;
+    }
+    if (card.hanzi !== editingHanzi && current.cards.some((item) => item.hanzi === card.hanzi)) {
+      setStatus(`A word with the hanzi "${card.hanzi}" already exists in this deck.`);
+      return;
+    }
+    const original = current.cards[originalIndex];
+    const updated = cloneCard(card);
+    updated.misses = original.misses;
+    updated.attempts = original.attempts;
+    current.cards.splice(originalIndex, 1, updated);
+    action = "Updated";
+  } else {
+    const isUpdate = current.cards.some((item) => item.hanzi === card.hanzi);
+    current.cards = mergeCards(current.cards, [card]);
+    action = isUpdate ? "Updated" : "Added";
+  }
   saveStore();
-  setStatus(`${isUpdate ? "Updated" : "Added"} "${card.hanzi}" in "${activeDeck().name}".`);
-  wordForm.reset();
+  setStatus(`${action} "${card.hanzi}" in "${current.name}".`);
+  resetWordForm();
   startActiveDeck();
 }
 
@@ -591,6 +654,7 @@ function removeWord(hanzi) {
   const current = activeDeck();
   if (!confirm(`Remove "${hanzi}" from "${current.name}"?`)) return;
   current.cards = current.cards.filter((card) => card.hanzi !== hanzi);
+  if (editingHanzi === hanzi) resetWordForm();
   saveStore();
   setStatus(`Removed "${hanzi}" from "${current.name}".`);
   startActiveDeck();
@@ -602,6 +666,7 @@ function deleteActiveDeck() {
   if (!confirm(`Delete deck "${name}"?`)) return;
   store.decks = store.decks.filter((deckItem) => deckItem.id !== store.activeId);
   store.activeId = store.decks[0].id;
+  resetWordForm();
   saveStore();
   setStatus(`Deleted deck "${name}".`);
   startActiveDeck();
@@ -632,6 +697,11 @@ studyModeSelect.addEventListener("change", () => {
   store.studyMode = studyModeSelect.value === "two" ? "two" : "three";
   saveStore();
   startActiveDeck();
+});
+
+autoplaySelect.addEventListener("change", () => {
+  store.autoPlayPronunciation = autoplaySelect.value === "on";
+  saveStore();
 });
 
 function activateTab(tabName, focusTab = false) {
@@ -666,6 +736,7 @@ newDeckForm.addEventListener("submit", (event) => {
   createDeck();
 });
 wordForm.addEventListener("submit", addWord);
+wordCancelBtn.addEventListener("click", resetWordForm);
 deleteDeckBtn.addEventListener("click", deleteActiveDeck);
 importAddBtn.addEventListener("click", chooseImport);
 
@@ -699,4 +770,5 @@ retryUnknownBtn.addEventListener("click", () => {
 
 renderSessionSizeSelect();
 studyModeSelect.value = store.studyMode;
+autoplaySelect.value = store.autoPlayPronunciation ? "on" : "off";
 startActiveDeck();

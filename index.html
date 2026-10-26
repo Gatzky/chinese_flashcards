@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=0.0.10" />
+    <link rel="stylesheet" href="styles.css?v=0.0.11" />
   </head>
   <body>
     <div class="page">
@@ -38,7 +38,10 @@
           </form>
 
           <form class="word-form" id="word-form">
-            <h3>Add or update a word</h3>
+            <div class="word-form-heading">
+              <h3 id="word-form-title">Add a word</h3>
+              <button class="btn btn-ghost btn-small" id="word-cancel-btn" type="button" hidden>Cancel edit</button>
+            </div>
             <div class="word-form-grid">
               <label class="field">
                 <span>Chinese word</span>
@@ -61,7 +64,7 @@
                 <textarea id="word-etymology" rows="2" maxlength="500"></textarea>
               </label>
             </div>
-            <button class="btn btn-yes btn-small" type="submit">Save word</button>
+            <button class="btn btn-yes btn-small" id="word-save-btn" type="submit">Add word</button>
           </form>
 
           <div class="word-list-heading">
@@ -176,17 +179,24 @@
                 <option value="two">2 steps: character, then pinyin + meaning</option>
               </select>
             </label>
+            <label class="field settings-field-wide">
+              <span>Auto-play pronunciation after revealing pinyin</span>
+              <select id="autoplay-pronunciation">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+              </select>
+            </label>
           </div>
         </section>
       </section>
     </div>
 
     <footer class="app-meta">
-      <span>Version 0.0.10</span>
+      <span>Version 0.0.11</span>
       <span aria-hidden="true">·</span>
       <span>Last updated <time datetime="2026-10-26">2026-10-26</time></span>
     </footer>
 
-    <script src="app.js?v=0.0.10"></script>
+    <script src="app.js?v=0.0.11"></script>
   </body>
 </html>
