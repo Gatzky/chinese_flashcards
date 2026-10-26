@@ -1,0 +1,144 @@
+{
+  "cards": [
+    {
+      "hanzi": "你好",
+      "pinyin": "nǐ hǎo",
+      "meaning": "hello",
+      "sentence": "你好！很高兴认识你。 = Hello! Nice to meet you.",
+      "etymology": "你 (nǐ) = you; 好 (hǎo) = good"
+    },
+    {
+      "hanzi": "学生",
+      "pinyin": "xuésheng",
+      "meaning": "student",
+      "sentence": "我是学生。 = I am a student.",
+      "etymology": "学 (xué) = to study; 生 (shēng) = person, to be born"
+    },
+    {
+      "hanzi": "老师",
+      "pinyin": "lǎoshī",
+      "meaning": "teacher",
+      "sentence": "她是我的老师。 = She is my teacher.",
+      "etymology": "老 (lǎo) = experienced; 师 (shī) = teacher, master"
+    },
+    {
+      "hanzi": "中国",
+      "pinyin": "Zhōngguó",
+      "meaning": "China",
+      "sentence": "我住在中国。 = I live in China.",
+      "etymology": "中 (zhōng) = middle; 国 (guó) = country"
+    },
+    {
+      "hanzi": "中文",
+      "pinyin": "Zhōngwén",
+      "meaning": "Chinese language",
+      "sentence": "我学习中文。 = I study Chinese.",
+      "etymology": "中 (zhōng) = China; 文 (wén) = writing, language"
+    },
+    {
+      "hanzi": "朋友",
+      "pinyin": "péngyou",
+      "meaning": "friend",
+      "sentence": "他是我的朋友。 = He is my friend.",
+      "etymology": "朋 (péng) = companion; 友 (yǒu) = friend"
+    },
+    {
+      "hanzi": "学校",
+      "pinyin": "xuéxiào",
+      "meaning": "school",
+      "sentence": "学校在这里。 = The school is here.",
+      "etymology": "学 (xué) = to study; 校 (xiào) = school"
+    },
+    {
+      "hanzi": "家人",
+      "pinyin": "jiārén",
+      "meaning": "family members",
+      "sentence": "我爱我的家人。 = I love my family.",
+      "etymology": "家 (jiā) = home, family; 人 (rén) = person"
+    },
+    {
+      "hanzi": "今天",
+      "pinyin": "jīntiān",
+      "meaning": "today",
+      "sentence": "今天天气很好。 = The weather is nice today.",
+      "etymology": "今 (jīn) = current; 天 (tiān) = day, sky"
+    },
+    {
+      "hanzi": "明天",
+      "pinyin": "míngtiān",
+      "meaning": "tomorrow",
+      "sentence": "明天见！ = See you tomorrow!",
+      "etymology": "明 (míng) = next, bright; 天 (tiān) = day, sky"
+    },
+    {
+      "hanzi": "吃饭",
+      "pinyin": "chīfàn",
+      "meaning": "to eat a meal",
+      "sentence": "我们一起吃饭吧。 = Let's eat together.",
+      "etymology": "吃 (chī) = to eat; 饭 (fàn) = cooked rice, meal"
+    },
+    {
+      "hanzi": "喝水",
+      "pinyin": "hē shuǐ",
+      "meaning": "to drink water",
+      "sentence": "请多喝水。 = Please drink plenty of water.",
+      "etymology": "喝 (hē) = to drink; 水 (shuǐ) = water"
+    },
+    {
+      "hanzi": "火车",
+      "pinyin": "huǒchē",
+      "meaning": "train",
+      "sentence": "我们坐火车去。 = We are going by train.",
+      "etymology": "火 (huǒ) = fire; 车 (chē) = vehicle"
+    },
+    {
+      "hanzi": "再见",
+      "pinyin": "zàijiàn",
+      "meaning": "goodbye",
+      "sentence": "再见，明天见。 = Goodbye, see you tomorrow.",
+      "etymology": "再 (zài) = again; 见 (jiàn) = to see"
+    },
+    {
+      "hanzi": "手机",
+      "pinyin": "shǒujī",
+      "meaning": "mobile phone",
+      "sentence": "我的手机在这里。 = My phone is here.",
+      "etymology": "手 (shǒu) = hand; 机 (jī) = device, machine"
+    },
+    {
+      "hanzi": "天气",
+      "pinyin": "tiānqì",
+      "meaning": "weather",
+      "sentence": "今天天气很好。 = The weather is nice today.",
+      "etymology": "天 (tiān) = sky, day; 气 (qì) = air, atmosphere"
+    },
+    {
+      "hanzi": "马上",
+      "pinyin": "mǎshàng",
+      "meaning": "in a moment, immediately",
+      "sentence": "我马上回来。 = I'll be right back.",
+      "etymology": "马 (mǎ) = horse; 上 (shàng) = up, above"
+    },
+    {
+      "hanzi": "电脑",
+      "pinyin": "diànnǎo",
+      "meaning": "computer",
+      "sentence": "我的电脑在桌子上。 = My computer is on the desk.",
+      "etymology": "电 (diàn) = electricity; 脑 (nǎo) = brain"
+    },
+    {
+      "hanzi": "工作",
+      "pinyin": "gōngzuò",
+      "meaning": "work; to work",
+      "sentence": "我在这里工作。 = I work here.",
+      "etymology": "工 (gōng) = labor, work; 作 (zuò) = to do, to make"
+    },
+    {
+      "hanzi": "谢谢",
+      "pinyin": "xièxie",
+      "meaning": "thank you; to thank",
+      "sentence": "谢谢你的帮助。 = Thank you for your help.",
+      "etymology": "谢 (xiè) = to thank; repeated 谢 adds emphasis"
+    }
+  ]
+}

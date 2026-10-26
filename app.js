@@ -2,16 +2,16 @@ const STORAGE_KEY = "chinese-flashcards-v1";
 const SESSION_SIZES = [10, 20, 50];
 
 const STARTER_CARDS = [
-  { hanzi: "你", pinyin: "nǐ", meaning: "ty" },
-  { hanzi: "好", pinyin: "hǎo", meaning: "dobry" },
-  { hanzi: "我", pinyin: "wǒ", meaning: "ja" },
-  { hanzi: "是", pinyin: "shì", meaning: "być" },
-  { hanzi: "中", pinyin: "zhōng", meaning: "środek / Chiny" },
-  { hanzi: "国", pinyin: "guó", meaning: "kraj" },
-  { hanzi: "人", pinyin: "rén", meaning: "człowiek" },
-  { hanzi: "学", pinyin: "xué", meaning: "uczyć się" },
-  { hanzi: "水", pinyin: "shuǐ", meaning: "woda" },
-  { hanzi: "爱", pinyin: "ài", meaning: "miłość / kochać" },
+  { hanzi: "你", pinyin: "nǐ", meaning: "you" },
+  { hanzi: "好", pinyin: "hǎo", meaning: "good" },
+  { hanzi: "我", pinyin: "wǒ", meaning: "I" },
+  { hanzi: "是", pinyin: "shì", meaning: "to be" },
+  { hanzi: "中", pinyin: "zhōng", meaning: "middle / China" },
+  { hanzi: "国", pinyin: "guó", meaning: "country" },
+  { hanzi: "人", pinyin: "rén", meaning: "person" },
+  { hanzi: "学", pinyin: "xué", meaning: "to study" },
+  { hanzi: "水", pinyin: "shuǐ", meaning: "water" },
+  { hanzi: "爱", pinyin: "ài", meaning: "love / to love" },
 ];
 
 const cardEl = document.getElementById("card");
@@ -28,18 +28,25 @@ const summaryEl = document.getElementById("summary");
 const scoreEl = document.getElementById("score");
 const retryUnknownBtn = document.getElementById("retry-unknown-btn");
 const restartBtn = document.getElementById("restart-btn");
-const deckSelect = document.getElementById("deck-select");
+const deckListEl = document.getElementById("deck-list");
+const wordListEl = document.getElementById("word-list");
+const wordCountEl = document.getElementById("word-count");
 const deckTitle = document.getElementById("deck-title");
 const studyModeSelect = document.getElementById("study-mode");
 const tabButtons = [...document.querySelectorAll('[role="tab"]')];
 const tabPanels = [...document.querySelectorAll('[role="tabpanel"]')];
 const newDeckName = document.getElementById("new-deck-name");
-const newDeckBtn = document.getElementById("new-deck-btn");
+const newDeckForm = document.getElementById("new-deck-form");
 const deleteDeckBtn = document.getElementById("delete-deck-btn");
 const importAddBtn = document.getElementById("import-add-btn");
-const importReplaceBtn = document.getElementById("import-replace-btn");
 const importFile = document.getElementById("import-file");
 const importStatus = document.getElementById("import-status");
+const wordForm = document.getElementById("word-form");
+const wordHanziInput = document.getElementById("word-hanzi");
+const wordPinyinInput = document.getElementById("word-pinyin");
+const wordMeaningInput = document.getElementById("word-meaning");
+const wordSentenceInput = document.getElementById("word-sentence");
+const wordEtymologyInput = document.getElementById("word-etymology");
 const frontHint = document.getElementById("front-hint");
 const sessionSizeSelect = document.getElementById("session-size");
 const statsKnownEl = document.getElementById("stats-known");
@@ -62,7 +69,6 @@ let phase = 0;
 let knownAnswers = 0;
 let unknownAnswers = 0;
 let unknown = [];
-let importMode = "add";
 let speechRequestId = 0;
 
 function createId() {
@@ -77,8 +83,8 @@ function defaultStore() {
     sessionSize: 10,
     studyMode: "three",
     decks: [
-      { id: starterId, name: "Przykładowe znaki", cards: STARTER_CARDS.map(cloneCard) },
-      { id: "moja-baza", name: "Moja baza", cards: [] },
+      { id: starterId, name: "Sample characters", cards: STARTER_CARDS.map(cloneCard) },
+      { id: "my-deck", name: "My deck", cards: [] },
     ],
   };
 }
@@ -130,13 +136,17 @@ function loadStore() {
     if (![...SESSION_SIZES, 0].includes(parsed.sessionSize)) parsed.sessionSize = 10;
     parsed.studyMode = parsed.studyMode === "two" ? "two" : "three";
     parsed.decks.forEach((deckItem) => {
+      if (deckItem.id === "starter" && deckItem.name === "Przykładowe znaki") {
+        deckItem.name = "Sample characters";
+      } else if (deckItem.id === "moja-baza" && deckItem.name === "Moja baza") {
+        deckItem.name = "My deck";
+      }
       deckItem.cards = (Array.isArray(deckItem.cards) ? deckItem.cards : []).map(cloneCard);
     });
     return parsed;
   } catch {
     return defaultStore();
   }
-  studyModeSelect.value = store.studyMode;
 }
 
 function saveStore() {
@@ -151,7 +161,7 @@ function parseJson(text) {
   const parsed = JSON.parse(text);
   const sourceCards = Array.isArray(parsed) ? parsed : parsed?.cards;
   if (!Array.isArray(sourceCards)) {
-    throw new Error('Plik musi zawierać tablicę "cards".');
+    throw new Error('The file must contain a "cards" array.');
   }
 
   const cards = [];
@@ -191,22 +201,6 @@ function mergeCards(existing, incoming) {
     byHanzi.set(card.hanzi, next);
   });
   return [...byHanzi.values()];
-}
-
-function replaceCardsPreservingProgress(existing, incoming) {
-  const byHanzi = new Map(existing.map((card) => [card.hanzi, card]));
-  let preserved = 0;
-  const cards = incoming.map((card) => {
-    const next = cloneCard(card);
-    const previous = byHanzi.get(card.hanzi);
-    if (previous) {
-      next.misses = previous.misses;
-      next.attempts = previous.attempts;
-      preserved += 1;
-    }
-    return next;
-  });
-  return { cards, preserved };
 }
 
 function shuffle(items) {
@@ -249,21 +243,79 @@ function renderSessionSizeSelect() {
   });
   const allOption = document.createElement("option");
   allOption.value = "0";
-  allOption.textContent = "Wszystkie";
+  allOption.textContent = "All";
   sessionSizeSelect.appendChild(allOption);
   sessionSizeSelect.value = String(store.sessionSize ?? 10);
 }
 
-function renderDeckSelect() {
-  deckSelect.innerHTML = "";
+function renderDeckList() {
+  deckListEl.innerHTML = "";
   store.decks.forEach((deckItem) => {
-    const option = document.createElement("option");
-    option.value = deckItem.id;
-    option.textContent = `${deckItem.name} (${deckItem.cards.length})`;
-    if (deckItem.id === store.activeId) option.selected = true;
-    deckSelect.appendChild(option);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "deck-option";
+    button.classList.toggle("is-active", deckItem.id === store.activeId);
+    button.setAttribute("aria-pressed", String(deckItem.id === store.activeId));
+
+    const name = document.createElement("span");
+    name.className = "deck-option-name";
+    name.textContent = deckItem.name;
+
+    const count = document.createElement("span");
+    count.className = "deck-option-count";
+    count.textContent = String(deckItem.cards.length);
+
+    button.append(name, count);
+    button.addEventListener("click", () => {
+      store.activeId = deckItem.id;
+      saveStore();
+      setStatus("");
+      startActiveDeck();
+    });
+    deckListEl.appendChild(button);
   });
   deleteDeckBtn.disabled = store.decks.length <= 1;
+}
+
+function renderWordList() {
+  const cards = activeDeck().cards;
+  wordCountEl.textContent = `${cards.length} ${cards.length === 1 ? "word" : "words"}`;
+  wordListEl.innerHTML = "";
+
+  if (!cards.length) {
+    const emptyItem = document.createElement("li");
+    emptyItem.className = "word-list-empty";
+    emptyItem.textContent = "This deck has no words yet.";
+    wordListEl.appendChild(emptyItem);
+    return;
+  }
+
+  cards.forEach((card) => {
+    const item = document.createElement("li");
+    item.className = "word-item";
+
+    const details = document.createElement("div");
+    details.className = "word-item-details";
+
+    const hanzi = document.createElement("strong");
+    hanzi.className = "word-item-hanzi";
+    hanzi.textContent = card.hanzi;
+
+    const meaning = document.createElement("span");
+    meaning.className = "word-item-meaning";
+    meaning.textContent = [card.pinyin, card.meaning].filter(Boolean).join(" · ");
+    details.append(hanzi, meaning);
+
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.className = "btn btn-no btn-small remove-word-btn";
+    removeButton.textContent = "Remove";
+    removeButton.setAttribute("aria-label", `Remove ${card.hanzi} from this deck`);
+    removeButton.addEventListener("click", () => removeWord(card.hanzi));
+
+    item.append(details, removeButton);
+    wordListEl.appendChild(item);
+  });
 }
 
 function renderStats() {
@@ -319,15 +371,15 @@ function renderCard() {
     hanziEl.textContent = "空";
     hanziBackEl.textContent = "空";
     pinyinEl.textContent = "";
-    meaningEl.textContent = "Baza jest pusta";
-    frontHint.textContent = "Zaimportuj plik .json, żeby dodać znaki";
+    meaningEl.textContent = "This deck is empty";
+    frontHint.textContent = "Import a .json file to add cards";
     progressEl.textContent = "0 / 0";
     knownBtn.disabled = true;
     unknownBtn.disabled = true;
     cardEl.disabled = true;
     pinyinEl.hidden = true;
     meaningEl.hidden = true;
-    noteEl.textContent = "Wybierz inną bazę albo zaimportuj znaki.";
+    noteEl.textContent = "Choose another deck or import cards.";
     window.setTimeout(() => cardEl.classList.remove("is-changing"), 0);
     return;
   }
@@ -341,12 +393,12 @@ function renderCard() {
   meaningEl.textContent = card.meaning;
   pinyinEl.hidden = true;
   meaningEl.hidden = true;
-  phaseLabelEl.textContent = store.studyMode === "two" ? "Pinyin + tłumaczenie" : "Pinyin";
-  frontHint.textContent = "Kliknij, żeby odsłonić pinyin";
-  progressEl.textContent = `${index + 1} / ${deck.length} · znak`;
+  phaseLabelEl.textContent = store.studyMode === "two" ? "Pinyin + meaning" : "Pinyin";
+  frontHint.textContent = "Click to reveal pinyin";
+  progressEl.textContent = `${index + 1} / ${deck.length} · character`;
   knownBtn.disabled = true;
   unknownBtn.disabled = true;
-  noteEl.textContent = "Najpierw spróbuj odczytać znak.";
+  noteEl.textContent = "Try to read the character first.";
   window.setTimeout(() => cardEl.classList.remove("is-changing"), 0);
 }
 
@@ -357,18 +409,17 @@ function flipCard() {
   cardEl.disabled = true;
   pinyinEl.hidden = false;
   meaningEl.hidden = store.studyMode !== "two";
-  phaseLabelEl.textContent = "Pinyin";
+  phaseLabelEl.textContent = store.studyMode === "two" ? "Pinyin + meaning" : "Pinyin";
   if (store.studyMode === "two") {
-    phaseLabelEl.textContent = "Pinyin + tłumaczenie";
-    progressEl.textContent = `${index + 1} / ${deck.length} · pinyin + tłumaczenie`;
+    progressEl.textContent = `${index + 1} / ${deck.length} · pinyin + meaning`;
   } else {
     progressEl.textContent = `${index + 1} / ${deck.length} · pinyin`;
   }
   knownBtn.disabled = false;
   unknownBtn.disabled = false;
   noteEl.textContent = store.studyMode === "two"
-    ? "Czy znasz pinyin i tłumaczenie tego słowa?"
-    : "Czy znasz pinyin tego znaku?";
+    ? "Do you know the pinyin and meaning?"
+    : "Do you know the pinyin?";
   speakCard(currentCard().hanzi);
 }
 
@@ -431,9 +482,9 @@ function answer(isKnown) {
     phase = 2;
     pinyinEl.hidden = true;
     meaningEl.hidden = false;
-    phaseLabelEl.textContent = "Tłumaczenie";
-    progressEl.textContent = `${index + 1} / ${deck.length} · tłumaczenie`;
-    noteEl.textContent = "Czy znasz tłumaczenie tego słowa?";
+    phaseLabelEl.textContent = "Meaning";
+    progressEl.textContent = `${index + 1} / ${deck.length} · meaning`;
+    noteEl.textContent = "Do you know the meaning?";
     knownBtn.disabled = true;
     unknownBtn.disabled = true;
     window.setTimeout(() => {
@@ -459,8 +510,8 @@ function showCardDetails() {
   }
 
   detailsEl.hidden = false;
-  nextBtn.textContent = index + 1 === deck.length ? "Zakończ sesję" : "Następna";
-  noteEl.textContent = "Zobacz dodatkowe informacje albo przejdź dalej.";
+  nextBtn.textContent = index + 1 === deck.length ? "Finish session" : "Next";
+  noteEl.textContent = "Review the extra details or continue.";
 }
 
 function advanceCard() {
@@ -478,7 +529,7 @@ function showSummary() {
   appEl.classList.add("hidden");
   summaryEl.classList.remove("hidden");
   summaryEl.hidden = false;
-  scoreEl.textContent = `Poprawne odpowiedzi: ${knownAnswers} z ${knownAnswers + unknownAnswers}.`;
+  scoreEl.textContent = `Correct answers: ${knownAnswers} of ${knownAnswers + unknownAnswers}.`;
   retryUnknownBtn.disabled = unknown.length === 0;
 }
 
@@ -492,7 +543,8 @@ function startSession(cards) {
   appEl.classList.remove("hidden");
   summaryEl.classList.add("hidden");
   summaryEl.hidden = true;
-  renderDeckSelect();
+  renderDeckList();
+  renderWordList();
   renderCard();
 }
 
@@ -503,7 +555,7 @@ function startActiveDeck() {
 function createDeck() {
   const name = newDeckName.value.trim();
   if (!name) {
-    setStatus("Podaj nazwę nowej bazy.");
+    setStatus("Enter a name for the new deck.");
     return;
   }
 
@@ -512,52 +564,63 @@ function createDeck() {
   store.activeId = deckItem.id;
   newDeckName.value = "";
   saveStore();
-  setStatus(`Utworzono bazę „${name}”.`);
+  setStatus(`Created deck "${name}".`);
+  startActiveDeck();
+}
+
+function addWord(event) {
+  event.preventDefault();
+  const card = {
+    hanzi: wordHanziInput.value.trim(),
+    pinyin: wordPinyinInput.value.trim(),
+    meaning: wordMeaningInput.value.trim(),
+    sentence: wordSentenceInput.value.trim(),
+    etymology: wordEtymologyInput.value.trim(),
+  };
+  if (!card.hanzi || !card.meaning) return;
+
+  const isUpdate = activeDeck().cards.some((item) => item.hanzi === card.hanzi);
+  activeDeck().cards = mergeCards(activeDeck().cards, [card]);
+  saveStore();
+  setStatus(`${isUpdate ? "Updated" : "Added"} "${card.hanzi}" in "${activeDeck().name}".`);
+  wordForm.reset();
+  startActiveDeck();
+}
+
+function removeWord(hanzi) {
+  const current = activeDeck();
+  if (!confirm(`Remove "${hanzi}" from "${current.name}"?`)) return;
+  current.cards = current.cards.filter((card) => card.hanzi !== hanzi);
+  saveStore();
+  setStatus(`Removed "${hanzi}" from "${current.name}".`);
   startActiveDeck();
 }
 
 function deleteActiveDeck() {
   if (store.decks.length <= 1) return;
   const name = activeDeck().name;
-  if (!confirm(`Usunąć bazę „${name}”?`)) return;
+  if (!confirm(`Delete deck "${name}"?`)) return;
   store.decks = store.decks.filter((deckItem) => deckItem.id !== store.activeId);
   store.activeId = store.decks[0].id;
   saveStore();
-  setStatus(`Usunięto bazę „${name}”.`);
+  setStatus(`Deleted deck "${name}".`);
   startActiveDeck();
 }
 
 function applyImport(incoming, skipped) {
   const current = activeDeck();
-  let preserved = 0;
-  if (importMode === "replace") {
-    const replacement = replaceCardsPreservingProgress(current.cards, incoming);
-    current.cards = replacement.cards;
-    preserved = replacement.preserved;
-  } else {
-    current.cards = mergeCards(current.cards, incoming);
-  }
+  current.cards = mergeCards(current.cards, incoming);
   saveStore();
 
-  const skippedNote = skipped.length ? ` Pominięto linie: ${skipped.join(", ")}.` : "";
-  const action = importMode === "replace" ? "Nadpisano" : "Dodano do";
-  const preservedNote = importMode === "replace" ? ` Zachowano postęp dla ${preserved} pasujących znaków.` : "";
-  setStatus(`${action} bazę „${current.name}”: ${current.cards.length} znaków.${preservedNote}${skippedNote}`);
+  const skippedNote = skipped.length ? ` Skipped entries: ${skipped.join(", ")}.` : "";
+  setStatus(`Imported ${incoming.length} cards into "${current.name}".${skippedNote}`);
   startActiveDeck();
 }
 
-function chooseImport(mode) {
-  importMode = mode;
+function chooseImport() {
   importFile.value = "";
   importFile.click();
 }
-
-deckSelect.addEventListener("change", () => {
-  store.activeId = deckSelect.value;
-  saveStore();
-  setStatus("");
-  startActiveDeck();
-});
 
 sessionSizeSelect.addEventListener("change", () => {
   store.sessionSize = Number(sessionSizeSelect.value);
@@ -598,13 +661,13 @@ tabButtons.forEach((button, index) => {
   });
 });
 
-newDeckBtn.addEventListener("click", createDeck);
-newDeckName.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") createDeck();
+newDeckForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  createDeck();
 });
+wordForm.addEventListener("submit", addWord);
 deleteDeckBtn.addEventListener("click", deleteActiveDeck);
-importAddBtn.addEventListener("click", () => chooseImport("add"));
-importReplaceBtn.addEventListener("click", () => chooseImport("replace"));
+importAddBtn.addEventListener("click", chooseImport);
 
 importFile.addEventListener("change", async () => {
   const file = importFile.files[0];
@@ -613,12 +676,12 @@ importFile.addEventListener("change", async () => {
   try {
     const { cards, skipped } = parseJson(await file.text());
     if (!cards.length) {
-      setStatus('Nie znaleziono poprawnych kart. Sprawdź tablicę "cards" oraz pola "hanzi" i "meaning".');
+      setStatus('No valid cards found. Check the "cards" array and required "hanzi" and "meaning" fields.');
       return;
     }
     applyImport(cards, skipped);
   } catch (error) {
-    setStatus(`Nie udało się odczytać JSON: ${error.message}`);
+    setStatus(`Could not read JSON: ${error.message}`);
   }
 });
 
@@ -635,4 +698,5 @@ retryUnknownBtn.addEventListener("click", () => {
 });
 
 renderSessionSizeSelect();
+studyModeSelect.value = store.studyMode;
 startActiveDeck();

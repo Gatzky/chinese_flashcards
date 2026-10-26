@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fiszki chińskie</title>
+    <title>Chinese Flashcards</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>汉</text></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,86 +11,122 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=0.0.9" />
+    <link rel="stylesheet" href="styles.css?v=0.0.10" />
   </head>
   <body>
     <div class="page">
-      <nav class="tab-nav" role="tablist" aria-label="Sekcje aplikacji">
-        <button class="tab-button is-active" id="tab-study" type="button" role="tab" aria-selected="true" aria-controls="study-panel" data-tab="study">Nauka</button>
+      <nav class="tab-nav" role="tablist" aria-label="App sections">
+        <button class="tab-button is-active" id="tab-study" type="button" role="tab" aria-selected="true" aria-controls="study-panel" data-tab="study">Study</button>
         <button class="tab-button" id="tab-import" type="button" role="tab" aria-selected="false" aria-controls="import-panel" data-tab="import" tabindex="-1">Import</button>
-        <button class="tab-button" id="tab-settings" type="button" role="tab" aria-selected="false" aria-controls="settings-panel" data-tab="settings" tabindex="-1">Ustawienia</button>
+        <button class="tab-button" id="tab-settings" type="button" role="tab" aria-selected="false" aria-controls="settings-panel" data-tab="settings" tabindex="-1">Settings</button>
       </nav>
 
       <section class="tab-panel" id="import-panel" role="tabpanel" aria-labelledby="tab-import" hidden>
         <section class="library">
-        <div class="library-row">
-          <label class="field">
-            <span>Baza słówek</span>
-            <select id="deck-select"></select>
-          </label>
-          <button class="btn btn-ghost btn-small" id="delete-deck-btn" type="button">
-            Usuń bazę
-          </button>
-        </div>
+          <div class="deck-list-heading">
+            <h2 class="panel-title">Vocabulary library</h2>
+            <button class="btn btn-ghost btn-small" id="delete-deck-btn" type="button" disabled>Delete deck</button>
+          </div>
+          <div class="deck-list" id="deck-list" role="group" aria-label="Vocabulary decks"></div>
 
-        <div class="library-row">
-          <label class="field grow">
-            <span>Nowa baza</span>
-            <input id="new-deck-name" type="text" maxlength="60" placeholder="np. HSK 1" />
-          </label>
-          <button class="btn btn-ghost btn-small" id="new-deck-btn" type="button">
-            Utwórz
-          </button>
-        </div>
+          <form class="new-deck-form" id="new-deck-form">
+            <label class="field grow">
+              <span>New deck</span>
+              <input id="new-deck-name" type="text" maxlength="60" placeholder="e.g. HSK 1" />
+            </label>
+            <button class="btn btn-ghost btn-small" id="new-deck-btn" type="submit">Create deck</button>
+          </form>
 
-        <div class="library-row">
-          <button class="btn btn-ghost btn-small" id="import-add-btn" type="button">
-            Importuj JSON i dodaj
-          </button>
-          <button class="btn btn-no btn-small" id="import-replace-btn" type="button">
-            Importuj JSON i nadpisz
-          </button>
-          <input id="import-file" type="file" accept=".json,application/json" hidden />
-        </div>
+          <form class="word-form" id="word-form">
+            <h3>Add or update a word</h3>
+            <div class="word-form-grid">
+              <label class="field">
+                <span>Chinese word</span>
+                <input id="word-hanzi" type="text" maxlength="40" required />
+              </label>
+              <label class="field">
+                <span>Pinyin</span>
+                <input id="word-pinyin" type="text" maxlength="100" />
+              </label>
+              <label class="field word-field-wide">
+                <span>Meaning</span>
+                <input id="word-meaning" type="text" maxlength="240" required />
+              </label>
+              <label class="field word-field-wide">
+                <span>Example sentence</span>
+                <textarea id="word-sentence" rows="2" maxlength="500"></textarea>
+              </label>
+              <label class="field word-field-wide">
+                <span>Etymology</span>
+                <textarea id="word-etymology" rows="2" maxlength="500"></textarea>
+              </label>
+            </div>
+            <button class="btn btn-yes btn-small" type="submit">Save word</button>
+          </form>
 
-        <p class="format-hint">
-          Importuj plik JSON z tablicą <code>cards</code> i polami <code>hanzi</code>, <code>pinyin</code>, <code>meaning</code>, <code>sentence</code> oraz <code>etymology</code>.
-        </p>
-        <p class="import-status" id="import-status"></p>
+          <div class="word-list-heading">
+            <h3>Words in this deck</h3>
+            <span id="word-count">0 words</span>
+          </div>
+          <ul class="word-list" id="word-list" aria-label="Words in the selected deck"></ul>
+
+          <div class="import-row">
+            <button class="btn btn-ghost btn-small" id="import-add-btn" type="button">Import JSON</button>
+            <input id="import-file" type="file" accept=".json,application/json" hidden />
+          </div>
+          <p class="format-hint">
+            JSON files use a <code>cards</code> array with <code>hanzi</code>, <code>meaning</code>, and optional <code>pinyin</code>, <code>sentence</code>, and <code>etymology</code> fields.
+          </p>
+          <p class="import-status" id="import-status" role="status" aria-live="polite"></p>
         </section>
       </section>
 
       <section class="tab-panel study-panel" id="study-panel" role="tabpanel" aria-labelledby="tab-study">
         <main class="app">
           <header class="header">
-            <p class="eyebrow">Fiszki</p>
-            <h1 id="deck-title">Znaki chińskie</h1>
+            <p class="eyebrow">Flashcards</p>
+            <h1 id="deck-title">Chinese Characters</h1>
             <p class="progress" id="progress">1 / 10</p>
           </header>
 
+          <dl class="stats" aria-label="Deck statistics">
+            <div class="stat">
+              <dt>Known</dt>
+              <dd id="stats-known">0</dd>
+            </div>
+            <div class="stat">
+              <dt>Unseen</dt>
+              <dd id="stats-unseen">0</dd>
+            </div>
+            <div class="stat">
+              <dt>Needs practice</dt>
+              <dd id="stats-unknown">0</dd>
+            </div>
+          </dl>
+
           <section class="stage" aria-live="polite">
-            <aside class="card-tools" aria-label="Narzędzia fiszki">
-              <button class="card-tool card-tool-speech" id="speak-btn" type="button" aria-label="Odtwórz wymowę" title="Odtwórz wymowę">
+            <aside class="card-tools" aria-label="Flashcard tools">
+              <button class="card-tool card-tool-speech" id="speak-btn" type="button" aria-label="Play pronunciation" title="Play pronunciation">
                 音
               </button>
               <div class="card-tool-item">
-                <button class="card-tool" id="sentence-btn" type="button" aria-label="Przykładowe zdanie" title="Przykładowe zdanie" aria-expanded="false" aria-describedby="sentence-tooltip" disabled>
+                <button class="card-tool" id="sentence-btn" type="button" aria-label="Example sentence" title="Example sentence" aria-expanded="false" aria-describedby="sentence-tooltip" disabled>
                   例
                 </button>
                 <p class="card-tooltip" id="sentence-tooltip" role="tooltip"></p>
               </div>
               <div class="card-tool-item">
-                <button class="card-tool" id="etymology-btn" type="button" aria-label="Etymologia znaków" title="Etymologia znaków" aria-expanded="false" aria-describedby="etymology-tooltip" disabled>
+                <button class="card-tool" id="etymology-btn" type="button" aria-label="Character etymology" title="Character etymology" aria-expanded="false" aria-describedby="etymology-tooltip" disabled>
                   源
                 </button>
                 <p class="card-tooltip" id="etymology-tooltip" role="tooltip"></p>
               </div>
             </aside>
-            <button class="card" id="card" type="button" aria-label="Odwróć fiszkę">
+            <button class="card" id="card" type="button" aria-label="Reveal flashcard">
               <span class="card-inner">
                 <span class="card-face card-front">
                   <span class="hanzi" id="hanzi">你</span>
-                  <span class="hint" id="front-hint">Kliknij, żeby odwrócić</span>
+                  <span class="hint" id="front-hint">Click to reveal</span>
                 </span>
                 <span class="card-face card-back">
                   <span class="hanzi hanzi-small" id="hanzi-back">你</span>
@@ -103,68 +139,54 @@
           </section>
 
           <section class="actions" id="actions">
-            <button class="btn btn-no" id="unknown-btn" type="button" disabled>Nie umiem</button>
-            <button class="btn btn-yes" id="known-btn" type="button" disabled>Umiem</button>
+            <button class="btn btn-no" id="unknown-btn" type="button" disabled>Don't know</button>
+            <button class="btn btn-yes" id="known-btn" type="button" disabled>Know it</button>
           </section>
 
           <section class="card-details" id="card-details" hidden>
-            <button class="btn btn-yes" id="next-btn" type="button">Następna</button>
+            <button class="btn btn-yes" id="next-btn" type="button">Next</button>
           </section>
 
-          <p class="note" id="note">Najpierw spróbuj odczytać znak.</p>
+          <p class="note" id="note">Try to read the character first.</p>
         </main>
 
         <section class="summary hidden" id="summary" hidden>
-          <p class="eyebrow">Koniec sesji</p>
-          <h2>Wynik</h2>
+          <p class="eyebrow">Session complete</p>
+          <h2>Results</h2>
           <p class="score" id="score"></p>
           <div class="summary-actions">
-            <button class="btn btn-yes" id="retry-unknown-btn" type="button">Powtórz nieznane</button>
-            <button class="btn btn-ghost" id="restart-btn" type="button">Od początku</button>
+            <button class="btn btn-yes" id="retry-unknown-btn" type="button">Review missed</button>
+            <button class="btn btn-ghost" id="restart-btn" type="button">Restart</button>
           </div>
         </section>
       </section>
 
       <section class="tab-panel settings-panel" id="settings-panel" role="tabpanel" aria-labelledby="tab-settings" hidden>
         <section class="library">
-          <h2 class="panel-title">Ustawienia sesji</h2>
+          <h2 class="panel-title">Study settings</h2>
           <div class="settings-grid">
             <label class="field session-field">
-              <span>Fiszki na raz</span>
+              <span>Cards per session</span>
               <select id="session-size"></select>
             </label>
             <label class="field">
-              <span>Etapy nauki</span>
+              <span>Study steps</span>
               <select id="study-mode">
-                <option value="three">3 etapy: znak, pinyin, tłumaczenie</option>
-                <option value="two">2 etapy: znak, pinyin i tłumaczenie</option>
+                <option value="three">3 steps: character, pinyin, meaning</option>
+                <option value="two">2 steps: character, then pinyin + meaning</option>
               </select>
             </label>
           </div>
-          <dl class="stats" aria-label="Statystyki bazy">
-          <div class="stat">
-            <dt>Umiem</dt>
-            <dd id="stats-known">0</dd>
-          </div>
-          <div class="stat">
-            <dt>Nietknięte</dt>
-            <dd id="stats-unseen">0</dd>
-          </div>
-          <div class="stat">
-            <dt>Nie umiem</dt>
-            <dd id="stats-unknown">0</dd>
-          </div>
-          </dl>
         </section>
       </section>
     </div>
 
     <footer class="app-meta">
-      <span>Wersja 0.0.9</span>
+      <span>Version 0.0.10</span>
       <span aria-hidden="true">·</span>
-      <span>Ostatnia aktualizacja <time datetime="2026-10-26">26.10.2026</time></span>
+      <span>Last updated <time datetime="2026-10-26">2026-10-26</time></span>
     </footer>
 
-    <script src="app.js?v=0.0.9"></script>
+    <script src="app.js?v=0.0.10"></script>
   </body>
 </html>

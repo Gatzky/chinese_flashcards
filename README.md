@@ -1,8 +1,8 @@
-# Fiszki chińskie
+# Chinese Flashcards
 
-Prosta strona z fiszkami znaków chińskich. Sesja pokazuje znak, potem pinyin i tłumaczenie, które oceniasz osobno. Opcjonalnie możesz sprawdzić zdanie i znaczenia składowych znaków.
+An interactive Chinese character flashcard app. A session shows the character, then its pinyin and meaning for separate review. Optional example sentences and character etymologies are available on each card.
 
-Strona jest statyczna i działa na GitHub Pages. Bazy słówek trzymane są w przeglądarce. Każdą bazę można uzupełnić albo nadpisać plikiem `.json` z tablicą `cards`:
+The app is static and runs on GitHub Pages. Decks are stored in the browser. Import a `.json` file to add or update matching cards in the selected deck:
 
 ```json
 {
@@ -10,34 +10,34 @@ Strona jest statyczna i działa na GitHub Pages. Bazy słówek trzymane są w pr
 		{
 			"hanzi": "马上",
 			"pinyin": "mǎshàng",
-			"meaning": "zaraz, natychmiast",
-			"sentence": "我马上回来。 = Zaraz wrócę.",
-			"etymology": "马 (mǎ) = koń; 上 (shàng) = na, powyżej"
+			"meaning": "in a moment, immediately",
+			"sentence": "我马上回来。 = I'll be right back.",
+			"etymology": "马 (mǎ) = horse; 上 (shàng) = up, above"
 		}
 	]
 }
 ```
 
-`pinyin`, `sentence` i `etymology` są opcjonalne. Plik `przyklad.json` zawiera większy zestaw demonstracyjny. Starsze pliki z polem `charactersMeaning` są nadal obsługiwane.
+`pinyin`, `sentence`, and `etymology` are optional. The `example.json` file contains a larger demo deck with two-character words. Older files using `charactersMeaning` are still supported.
 
-Liczbę kart na sesję wybierzesz z listy: 10, 20, 50 lub wszystkie.
+Choose 10, 20, 50, or all cards per session.
 
-W ustawieniach wybierzesz też tryb nauki: 3 etapy (znak, pinyin, tłumaczenie) albo 2 etapy (znak, następnie pinyin i tłumaczenie razem).
+In Settings, choose either 3 study steps (character, pinyin, meaning) or 2 steps (character, then pinyin and meaning together).
 
-## Uruchomienie lokalne
+## Run Locally
 
-Otwórz `index.html` w przeglądarce albo serwuj folder:
+Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python -m http.server 8080
 ```
 
-Wersję i datę ostatniej aktualizacji pokazuje stopka strony. Przy publikacji aktualizuj je w `index.html`; dla kolejnych drobnych zmian zwiększaj ostatni człon wersji MAJOR.MINOR.PATCH.
+The footer displays the app version and last-updated date. Update both in `index.html` when publishing. Increment the final segment of the MAJOR.MINOR.PATCH version for small changes.
 
-## Publikacja na GitHub Pages
+## Publish to GitHub Pages
 
-1. W repozytorium wejdź w **Settings → Pages**.
-2. Jako Source wybierz **GitHub Actions**.
-3. Po pushu na `main` workflow `Deploy GitHub Pages` opublikuje stronę.
+1. Open **Settings → Pages** in the repository.
+2. Select **GitHub Actions** as the source.
+3. Pushing to `main` triggers the `Deploy GitHub Pages` workflow.
 
-Adres będzie wyglądał tak: `https://gatzky.github.io/chinese_flashcards/`.
+The site URL is `https://gatzky.github.io/chinese_flashcards/`.
