@@ -45,10 +45,11 @@ const statsUnknownEl = document.getElementById("stats-unknown");
 const phaseLabelEl = document.getElementById("phase-label");
 const actionsEl = document.getElementById("actions");
 const speakBtn = document.getElementById("speak-btn");
+const sentenceTooltipEl = document.getElementById("sentence-tooltip");
+const etymologyTooltipEl = document.getElementById("etymology-tooltip");
 const detailsEl = document.getElementById("card-details");
 const sentenceBtn = document.getElementById("sentence-btn");
 const etymologyBtn = document.getElementById("etymology-btn");
-const detailContentEl = document.getElementById("detail-content");
 const nextBtn = document.getElementById("next-btn");
 
 let store = loadStore();
@@ -59,6 +60,7 @@ let knownAnswers = 0;
 let unknownAnswers = 0;
 let unknown = [];
 let importMode = "add";
+let speechRequestId = 0;
 
 function createId() {
   if (crypto.randomUUID) return crypto.randomUUID();
@@ -276,7 +278,27 @@ function currentCard() {
   return deck[index];
 }
 
+function updateCardTools(card) {
+  speakBtn.disabled = !card || !("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window);
+  sentenceBtn.disabled = !card?.sentence;
+  etymologyBtn.disabled = !card?.etymology;
+  sentenceTooltipEl.textContent = card?.sentence || "";
+  etymologyTooltipEl.textContent = card?.etymology || "";
+  sentenceBtn.setAttribute("aria-expanded", "false");
+  etymologyBtn.setAttribute("aria-expanded", "false");
+  speakBtn.classList.remove("is-speaking");
+}
+
+function toggleCardTooltip(button) {
+  const willExpand = button.getAttribute("aria-expanded") !== "true";
+  sentenceBtn.setAttribute("aria-expanded", "false");
+  etymologyBtn.setAttribute("aria-expanded", "false");
+  button.setAttribute("aria-expanded", String(willExpand));
+}
+
 function renderCard() {
+  speechRequestId += 1;
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   deckTitle.textContent = activeDeck().name;
   cardEl.classList.add("is-changing");
   void cardEl.offsetWidth;
@@ -284,10 +306,8 @@ function renderCard() {
   phase = 0;
   renderStats();
   actionsEl.hidden = false;
-  speakBtn.hidden = true;
+  updateCardTools(null);
   detailsEl.hidden = true;
-  detailContentEl.hidden = true;
-  detailContentEl.textContent = "";
 
   if (!deck.length) {
     hanziEl.textContent = "空";
@@ -307,6 +327,7 @@ function renderCard() {
   }
 
   const card = currentCard();
+  updateCardTools(card);
   cardEl.disabled = false;
   hanziEl.textContent = card.hanzi;
   hanziBackEl.textContent = card.hanzi;
@@ -329,7 +350,6 @@ function flipCard() {
   cardEl.classList.add("is-flipped");
   cardEl.disabled = true;
   pinyinEl.hidden = false;
-  speakBtn.hidden = false;
   phaseLabelEl.textContent = "Pinyin";
   progressEl.textContent = `${index + 1} / ${deck.length} · pinyin`;
   knownBtn.disabled = false;
@@ -340,10 +360,20 @@ function flipCard() {
 
 function speakCard(hanzi) {
   if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
+  const requestId = ++speechRequestId;
   window.speechSynthesis.cancel();
+  speakBtn.classList.remove("is-speaking");
   const utterance = new SpeechSynthesisUtterance(hanzi);
   utterance.lang = "zh-CN";
   utterance.rate = 0.9;
+  const clearSpeakingState = () => {
+    if (requestId === speechRequestId) speakBtn.classList.remove("is-speaking");
+  };
+  utterance.onstart = () => {
+    if (requestId === speechRequestId) speakBtn.classList.add("is-speaking");
+  };
+  utterance.onend = clearSpeakingState;
+  utterance.onerror = clearSpeakingState;
   window.speechSynthesis.speak(utterance);
 }
 
@@ -407,10 +437,7 @@ function answer(isKnown) {
 function showCardDetails() {
   phase = 3;
   actionsEl.hidden = true;
-  speakBtn.hidden = true;
   const card = currentCard();
-  sentenceBtn.hidden = !card.sentence;
-  etymologyBtn.hidden = !card.etymology;
   const hasDetails = Boolean(card.sentence || card.etymology);
   if (!hasDetails) {
     advanceCard();
@@ -420,11 +447,6 @@ function showCardDetails() {
   detailsEl.hidden = false;
   nextBtn.textContent = index + 1 === deck.length ? "Zakończ sesję" : "Następna";
   noteEl.textContent = "Zobacz dodatkowe informacje albo przejdź dalej.";
-}
-
-function showDetail(content) {
-  detailContentEl.textContent = content;
-  detailContentEl.hidden = false;
 }
 
 function advanceCard() {
@@ -555,10 +577,10 @@ importFile.addEventListener("change", async () => {
 
 cardEl.addEventListener("click", flipCard);
 speakBtn.addEventListener("click", () => speakCard(currentCard().hanzi));
+sentenceBtn.addEventListener("click", () => toggleCardTooltip(sentenceBtn));
+etymologyBtn.addEventListener("click", () => toggleCardTooltip(etymologyBtn));
 knownBtn.addEventListener("click", () => answer(true));
 unknownBtn.addEventListener("click", () => answer(false));
-sentenceBtn.addEventListener("click", () => showDetail(currentCard().sentence));
-etymologyBtn.addEventListener("click", () => showDetail(currentCard().etymology));
 nextBtn.addEventListener("click", advanceCard);
 restartBtn.addEventListener("click", startActiveDeck);
 retryUnknownBtn.addEventListener("click", () => {

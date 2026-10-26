@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=0.0.5" />
+    <link rel="stylesheet" href="styles.css?v=0.0.8" />
   </head>
   <body>
     <div class="page">
@@ -79,6 +79,23 @@
         </header>
 
         <section class="stage" aria-live="polite">
+          <aside class="card-tools" aria-label="Narzędzia fiszki">
+            <button class="card-tool card-tool-speech" id="speak-btn" type="button" aria-label="Odtwórz wymowę" title="Odtwórz wymowę">
+              音
+            </button>
+            <div class="card-tool-item">
+              <button class="card-tool" id="sentence-btn" type="button" aria-label="Przykładowe zdanie" title="Przykładowe zdanie" aria-expanded="false" aria-describedby="sentence-tooltip" disabled>
+                例
+              </button>
+              <p class="card-tooltip" id="sentence-tooltip" role="tooltip"></p>
+            </div>
+            <div class="card-tool-item">
+              <button class="card-tool" id="etymology-btn" type="button" aria-label="Etymologia znaków" title="Etymologia znaków" aria-expanded="false" aria-describedby="etymology-tooltip" disabled>
+                源
+              </button>
+              <p class="card-tooltip" id="etymology-tooltip" role="tooltip"></p>
+            </div>
+          </aside>
           <button class="card" id="card" type="button" aria-label="Odwróć fiszkę">
             <span class="card-inner">
               <span class="card-face card-front">
@@ -93,11 +110,6 @@
               </span>
             </span>
           </button>
-          <div class="speech-action">
-            <button class="btn btn-ghost btn-small" id="speak-btn" type="button" hidden>
-              Odtwórz wymowę
-            </button>
-          </div>
         </section>
 
         <section class="actions" id="actions">
@@ -110,15 +122,6 @@
         </section>
 
         <section class="card-details" id="card-details" hidden>
-          <div class="detail-actions">
-            <button class="btn btn-ghost btn-small" id="sentence-btn" type="button" hidden>
-              Zdanie
-            </button>
-            <button class="btn btn-ghost btn-small" id="etymology-btn" type="button" hidden>
-              Etymologia znaków
-            </button>
-          </div>
-          <p class="detail-content" id="detail-content" hidden></p>
           <button class="btn btn-yes" id="next-btn" type="button">Następna</button>
         </section>
 
@@ -141,11 +144,11 @@
     </div>
 
     <footer class="app-meta">
-      <span>Wersja 0.0.5</span>
+      <span>Wersja 0.0.8</span>
       <span aria-hidden="true">·</span>
-      <span>Ostatnia aktualizacja <time datetime="2026-10-25">25.10.2026</time></span>
+      <span>Ostatnia aktualizacja <time datetime="2026-10-26">26.10.2026</time></span>
     </footer>
 
-    <script src="app.js?v=0.0.5"></script>
+    <script src="app.js?v=0.0.8"></script>
   </body>
 </html>

@@ -165,16 +165,92 @@ h2 {
 }
 
 .stage {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
   margin: 36px 0 28px;
 }
 
-.speech-action {
+.card-tools {
+  grid-column: 1;
+  grid-row: 1;
   display: flex;
-  justify-content: center;
-  margin-top: 12px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-tool-item {
+  position: relative;
+}
+
+.card-tool {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid rgba(244, 234, 215, 0.28);
+  border-radius: 8px;
+  background: #271d18;
+  color: var(--paper);
+  font: 600 1rem "Noto Serif SC", serif;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.card-tool:not(:disabled):hover,
+.card-tool:not(:disabled):focus-visible,
+.card-tool[aria-expanded="true"] {
+  border-color: var(--gold);
+  background: #3a2a22;
+  outline: none;
+}
+
+.card-tool:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.card-tool-speech.is-speaking {
+  border-color: var(--green);
+  background: var(--green);
+  color: white;
+}
+
+.card-tooltip {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 10px);
+  z-index: 5;
+  width: min(280px, calc(100vw - 105px));
+  margin: 0;
+  padding: 12px 14px;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  text-align: left;
+  white-space: pre-wrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.card-tool-item:hover .card-tool:not(:disabled) + .card-tooltip,
+.card-tool-item:focus-within .card-tool:not(:disabled) + .card-tooltip,
+.card-tool[aria-expanded="true"] + .card-tooltip {
+  opacity: 1;
+  visibility: visible;
 }
 
 .card {
+  grid-column: 2;
+  grid-row: 1;
   width: 100%;
   height: 340px;
   padding: 0;
@@ -287,23 +363,6 @@ h2 {
   display: grid;
   gap: 12px;
   justify-items: center;
-}
-
-.detail-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.detail-content {
-  width: 100%;
-  margin: 0;
-  padding: 14px;
-  border-radius: 8px;
-  background: var(--bg-soft);
-  text-align: left;
-  white-space: pre-wrap;
 }
 
 .summary-actions {
