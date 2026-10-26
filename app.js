@@ -30,6 +30,9 @@ const retryUnknownBtn = document.getElementById("retry-unknown-btn");
 const restartBtn = document.getElementById("restart-btn");
 const deckSelect = document.getElementById("deck-select");
 const deckTitle = document.getElementById("deck-title");
+const studyModeSelect = document.getElementById("study-mode");
+const tabButtons = [...document.querySelectorAll('[role="tab"]')];
+const tabPanels = [...document.querySelectorAll('[role="tabpanel"]')];
 const newDeckName = document.getElementById("new-deck-name");
 const newDeckBtn = document.getElementById("new-deck-btn");
 const deleteDeckBtn = document.getElementById("delete-deck-btn");
@@ -72,6 +75,7 @@ function defaultStore() {
   return {
     activeId: starterId,
     sessionSize: 10,
+    studyMode: "three",
     decks: [
       { id: starterId, name: "Przykładowe znaki", cards: STARTER_CARDS.map(cloneCard) },
       { id: "moja-baza", name: "Moja baza", cards: [] },
@@ -124,6 +128,7 @@ function loadStore() {
     }
     parsed.sessionSize = Number(parsed.sessionSize);
     if (![...SESSION_SIZES, 0].includes(parsed.sessionSize)) parsed.sessionSize = 10;
+    parsed.studyMode = parsed.studyMode === "two" ? "two" : "three";
     parsed.decks.forEach((deckItem) => {
       deckItem.cards = (Array.isArray(deckItem.cards) ? deckItem.cards : []).map(cloneCard);
     });
@@ -131,6 +136,7 @@ function loadStore() {
   } catch {
     return defaultStore();
   }
+  studyModeSelect.value = store.studyMode;
 }
 
 function saveStore() {
@@ -335,7 +341,7 @@ function renderCard() {
   meaningEl.textContent = card.meaning;
   pinyinEl.hidden = true;
   meaningEl.hidden = true;
-  phaseLabelEl.textContent = "Pinyin";
+  phaseLabelEl.textContent = store.studyMode === "two" ? "Pinyin + tłumaczenie" : "Pinyin";
   frontHint.textContent = "Kliknij, żeby odsłonić pinyin";
   progressEl.textContent = `${index + 1} / ${deck.length} · znak`;
   knownBtn.disabled = true;
@@ -350,11 +356,19 @@ function flipCard() {
   cardEl.classList.add("is-flipped");
   cardEl.disabled = true;
   pinyinEl.hidden = false;
+  meaningEl.hidden = store.studyMode !== "two";
   phaseLabelEl.textContent = "Pinyin";
-  progressEl.textContent = `${index + 1} / ${deck.length} · pinyin`;
+  if (store.studyMode === "two") {
+    phaseLabelEl.textContent = "Pinyin + tłumaczenie";
+    progressEl.textContent = `${index + 1} / ${deck.length} · pinyin + tłumaczenie`;
+  } else {
+    progressEl.textContent = `${index + 1} / ${deck.length} · pinyin`;
+  }
   knownBtn.disabled = false;
   unknownBtn.disabled = false;
-  noteEl.textContent = "Czy znasz pinyin tego znaku?";
+  noteEl.textContent = store.studyMode === "two"
+    ? "Czy znasz pinyin i tłumaczenie tego słowa?"
+    : "Czy znasz pinyin tego znaku?";
   speakCard(currentCard().hanzi);
 }
 
@@ -413,7 +427,7 @@ function answer(isKnown) {
     if (!unknown.some((item) => item.hanzi === card.hanzi)) unknown.push(card);
   }
 
-  if (phase === 1) {
+  if (phase === 1 && store.studyMode === "three") {
     phase = 2;
     pinyinEl.hidden = true;
     meaningEl.hidden = false;
@@ -549,6 +563,39 @@ sessionSizeSelect.addEventListener("change", () => {
   store.sessionSize = Number(sessionSizeSelect.value);
   saveStore();
   startActiveDeck();
+});
+
+studyModeSelect.addEventListener("change", () => {
+  store.studyMode = studyModeSelect.value === "two" ? "two" : "three";
+  saveStore();
+  startActiveDeck();
+});
+
+function activateTab(tabName, focusTab = false) {
+  tabButtons.forEach((button) => {
+    const isActive = button.dataset.tab === tabName;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
+    if (isActive && focusTab) button.focus();
+  });
+  tabPanels.forEach((panel) => {
+    panel.hidden = panel.id !== `${tabName}-panel`;
+  });
+}
+
+tabButtons.forEach((button, index) => {
+  button.addEventListener("click", () => activateTab(button.dataset.tab));
+  button.addEventListener("keydown", (event) => {
+    let nextIndex = index;
+    if (event.key === "ArrowRight") nextIndex = (index + 1) % tabButtons.length;
+    else if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = tabButtons.length - 1;
+    else return;
+    event.preventDefault();
+    activateTab(tabButtons[nextIndex].dataset.tab, true);
+  });
 });
 
 newDeckBtn.addEventListener("click", createDeck);

@@ -22,6 +22,8 @@ Strona jest statyczna i działa na GitHub Pages. Bazy słówek trzymane są w pr
 
 Liczbę kart na sesję wybierzesz z listy: 10, 20, 50 lub wszystkie.
 
+W ustawieniach wybierzesz też tryb nauki: 3 etapy (znak, pinyin, tłumaczenie) albo 2 etapy (znak, następnie pinyin i tłumaczenie razem).
+
 ## Uruchomienie lokalne
 
 Otwórz `index.html` w przeglądarce albo serwuj folder:
