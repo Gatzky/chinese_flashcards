@@ -2,7 +2,7 @@
 
 An interactive Chinese character flashcard app. A session shows the character, then its pinyin and meaning for separate review. Optional example sentences and character etymologies are available on each card.
 
-The app is static and runs on GitHub Pages. Decks are stored in the browser. Import a `.json` file to add or update matching cards in the selected deck:
+The app is static and runs on GitHub Pages. Decks are stored in the browser. Import a `.json` file into a new deck or add/update matching cards in an existing deck. The import dialog previews valid and skipped entries before saving. You can rename decks and export any deck to JSON:
 
 ```json
 {

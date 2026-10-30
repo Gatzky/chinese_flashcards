@@ -32,15 +32,40 @@ const deckListEl = document.getElementById("deck-list");
 const wordListEl = document.getElementById("word-list");
 const wordCountEl = document.getElementById("word-count");
 const deckTitle = document.getElementById("deck-title");
+const renameDeckActionBtn = document.getElementById("rename-deck-action");
+const deleteDeckActionBtn = document.getElementById("delete-deck-action");
+const showWordsActionBtn = document.getElementById("show-words-action");
+const deckOptionsDialog = document.getElementById("deck-options-dialog");
+const closeDeckOptionsBtn = document.getElementById("close-deck-options-btn");
+const wordsDialog = document.getElementById("words-dialog");
+const closeWordsDialogBtn = document.getElementById("close-words-dialog-btn");
 const studyModeSelect = document.getElementById("study-mode");
 const tabButtons = [...document.querySelectorAll('[role="tab"]')];
 const tabPanels = [...document.querySelectorAll('[role="tabpanel"]')];
 const newDeckName = document.getElementById("new-deck-name");
 const newDeckForm = document.getElementById("new-deck-form");
-const deleteDeckBtn = document.getElementById("delete-deck-btn");
+const renameDeckForm = document.getElementById("rename-deck-form");
+const renameDeckName = document.getElementById("rename-deck-name");
+const renameDeckDialog = document.getElementById("rename-deck-dialog");
+const closeRenameDialogBtn = document.getElementById("close-rename-dialog-btn");
+const cancelRenameBtn = document.getElementById("cancel-rename-btn");
 const importAddBtn = document.getElementById("import-add-btn");
 const importFile = document.getElementById("import-file");
+const importDialog = document.getElementById("import-dialog");
+const importFileName = document.getElementById("import-file-name");
+const importAnalysis = document.getElementById("import-analysis");
+const selectImportFileBtn = document.getElementById("select-import-file-btn");
+const confirmImportBtn = document.getElementById("confirm-import-btn");
+const cancelImportBtn = document.getElementById("cancel-import-btn");
+const closeImportBtn = document.getElementById("close-import-btn");
+const importDestination = document.getElementById("import-destination");
+const importTarget = document.getElementById("import-target");
+const importTargetField = document.getElementById("import-target-field");
+const importNameField = document.getElementById("import-name-field");
+const importDeckName = document.getElementById("import-deck-name");
+const exportDeckBtn = document.getElementById("export-deck-btn");
 const importStatus = document.getElementById("import-status");
+const wordDialog = document.getElementById("word-dialog");
 const wordForm = document.getElementById("word-form");
 const wordHanziInput = document.getElementById("word-hanzi");
 const wordPinyinInput = document.getElementById("word-pinyin");
@@ -49,6 +74,7 @@ const wordSentenceInput = document.getElementById("word-sentence");
 const wordEtymologyInput = document.getElementById("word-etymology");
 const wordFormTitle = document.getElementById("word-form-title");
 const wordSaveBtn = document.getElementById("word-save-btn");
+const showWordFormBtn = document.getElementById("show-word-form-btn");
 const wordCancelBtn = document.getElementById("word-cancel-btn");
 const frontHint = document.getElementById("front-hint");
 const sessionSizeSelect = document.getElementById("session-size");
@@ -75,6 +101,7 @@ let unknownAnswers = 0;
 let unknown = [];
 let speechRequestId = 0;
 let editingHanzi = "";
+let pendingImport = null;
 
 function createId() {
   if (crypto.randomUUID) return crypto.randomUUID();
@@ -193,7 +220,7 @@ function parseJson(text) {
     });
   });
 
-  return { cards, skipped };
+  return { cards, skipped, total: sourceCards.length };
 }
 
 function mergeCards(existing, incoming) {
@@ -257,7 +284,11 @@ function renderSessionSizeSelect() {
 
 function renderDeckList() {
   deckListEl.innerHTML = "";
+  importTarget.innerHTML = "";
   store.decks.forEach((deckItem) => {
+    const row = document.createElement("div");
+    row.className = "deck-option-row";
+
     const button = document.createElement("button");
     button.type = "button";
     button.className = "deck-option";
@@ -275,14 +306,36 @@ function renderDeckList() {
     button.append(name, count);
     button.addEventListener("click", () => {
       resetWordForm();
+      wordsDialog.close();
+      deckOptionsDialog.close();
       store.activeId = deckItem.id;
       saveStore();
       setStatus("");
       startActiveDeck();
     });
-    deckListEl.appendChild(button);
+    row.appendChild(button);
+
+    if (deckItem.id === store.activeId) {
+      const optionsButton = document.createElement("button");
+      optionsButton.type = "button";
+      optionsButton.className = "icon-btn deck-option-gear";
+      optionsButton.textContent = "⚙";
+      optionsButton.title = "Deck options";
+      optionsButton.setAttribute("aria-label", `Options for ${deckItem.name}`);
+      optionsButton.addEventListener("click", () => deckOptionsDialog.showModal());
+      row.appendChild(optionsButton);
+    }
+
+    deckListEl.appendChild(row);
+
+    const option = document.createElement("option");
+    option.value = deckItem.id;
+    option.textContent = deckItem.name;
+    importTarget.appendChild(option);
   });
-  deleteDeckBtn.disabled = store.decks.length <= 1;
+  importTarget.value = store.activeId;
+  renameDeckName.value = activeDeck().name;
+  deleteDeckActionBtn.disabled = store.decks.length <= 1;
 }
 
 function renderWordList() {
@@ -589,12 +642,52 @@ function createDeck() {
   startActiveDeck();
 }
 
+function renameActiveDeck(event) {
+  event.preventDefault();
+  const name = renameDeckName.value.trim();
+  if (!name) {
+    setStatus("Enter a name for the deck.");
+    return;
+  }
+
+  const current = activeDeck();
+  const previousName = current.name;
+  current.name = name;
+  saveStore();
+  renameDeckDialog.close();
+  setStatus(`Renamed "${previousName}" to "${name}".`);
+  startActiveDeck();
+}
+
+function openRenameDeckDialog() {
+  deckOptionsDialog.close();
+  renameDeckName.value = activeDeck().name;
+  renameDeckDialog.showModal();
+  renameDeckName.focus();
+}
+
+function showWordsDialog() {
+  deckOptionsDialog.close();
+  renderWordList();
+  wordsDialog.showModal();
+}
+
 function resetWordForm() {
   editingHanzi = "";
   wordForm.reset();
+  showWordFormBtn.hidden = false;
   wordFormTitle.textContent = "Add a word";
   wordSaveBtn.textContent = "Add word";
   wordCancelBtn.hidden = true;
+  if (wordDialog.open) wordDialog.close();
+}
+
+function showAddWordForm() {
+  resetWordForm();
+  showWordFormBtn.hidden = true;
+  wordCancelBtn.hidden = false;
+  wordDialog.showModal();
+  wordHanziInput.focus();
 }
 
 function editWord(card) {
@@ -606,7 +699,9 @@ function editWord(card) {
   wordEtymologyInput.value = card.etymology;
   wordFormTitle.textContent = `Edit ${card.hanzi}`;
   wordSaveBtn.textContent = "Save changes";
+  showWordFormBtn.hidden = true;
   wordCancelBtn.hidden = false;
+  wordDialog.showModal();
   wordHanziInput.focus();
 }
 
@@ -672,9 +767,28 @@ function deleteActiveDeck() {
   startActiveDeck();
 }
 
-function applyImport(incoming, skipped) {
-  const current = activeDeck();
-  current.cards = mergeCards(current.cards, incoming);
+function applyImport(incoming, skipped, fileName) {
+  let current;
+  if (importDestination.value === "new") {
+    const requestedName = importDeckName.value.trim();
+    const fallbackName = fileName.replace(/\.json$/i, "").trim();
+    current = {
+      id: createId(),
+      name: requestedName || fallbackName || "Imported deck",
+      cards: [],
+    };
+    store.decks.push(current);
+    store.activeId = current.id;
+    current.cards = mergeCards([], incoming);
+  } else {
+    current = store.decks.find((deckItem) => deckItem.id === importTarget.value);
+    if (!current) {
+      setStatus("Choose a deck to import into.");
+      return;
+    }
+    current.cards = mergeCards(current.cards, incoming);
+    store.activeId = current.id;
+  }
   saveStore();
 
   const skippedNote = skipped.length ? ` Skipped entries: ${skipped.join(", ")}.` : "";
@@ -683,8 +797,86 @@ function applyImport(incoming, skipped) {
 }
 
 function chooseImport() {
+  pendingImport = null;
   importFile.value = "";
-  importFile.click();
+  importFileName.value = "No file selected";
+  importAnalysis.textContent = "Choose a JSON file to analyze it.";
+  importAnalysis.dataset.state = "";
+  confirmImportBtn.disabled = true;
+  importDestination.value = "new";
+  importTarget.value = store.activeId;
+  importDeckName.value = "";
+  updateImportFields();
+  importDialog.showModal();
+}
+
+function updateImportFields() {
+  const createNew = importDestination.value === "new";
+  importNameField.hidden = !createNew;
+  importTargetField.hidden = createNew;
+}
+
+function exportActiveDeck() {
+  const current = activeDeck();
+  const data = {
+    name: current.name,
+    cards: current.cards.map(({ hanzi, pinyin, meaning, sentence, etymology }) => ({
+      hanzi,
+      pinyin,
+      meaning,
+      sentence,
+      etymology,
+    })),
+  };
+  const blob = new Blob([`${JSON.stringify(data, null, 2)}\n`], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${current.name.replace(/[<>:"/\\|?*\u0000-\u001f]/g, "_").trim() || "deck"}.json`;
+  link.click();
+  URL.revokeObjectURL(url);
+  setStatus(`Exported "${current.name}" as JSON.`);
+}
+
+async function analyzeImportFile() {
+  const file = importFile.files[0];
+  pendingImport = null;
+  confirmImportBtn.disabled = true;
+  if (!file) {
+    importFileName.value = "No file selected";
+    importAnalysis.textContent = "Choose a JSON file to analyze it.";
+    importAnalysis.dataset.state = "";
+    return;
+  }
+
+  importFileName.value = file.name;
+  importAnalysis.textContent = "Analyzing file...";
+  importAnalysis.dataset.state = "";
+  try {
+    const result = parseJson(await file.text());
+    pendingImport = { ...result, fileName: file.name };
+    const skippedNote = result.skipped.length
+      ? `Skipped entries: ${result.skipped.join(", ")}.`
+      : "All entries are valid.";
+    importAnalysis.textContent = `Analysis complete: ${result.total} entries, ${result.cards.length} valid, ${result.skipped.length} skipped. ${skippedNote}`;
+    importAnalysis.dataset.state = result.skipped.length ? "partial" : "success";
+    if (!result.cards.length) {
+      importAnalysis.textContent += " No valid cards to import.";
+      importAnalysis.dataset.state = "error";
+      return;
+    }
+    confirmImportBtn.disabled = false;
+  } catch (error) {
+    importAnalysis.textContent = `Could not analyze JSON: ${error.message}`;
+    importAnalysis.dataset.state = "error";
+  }
+}
+
+function confirmImport() {
+  if (!pendingImport?.cards.length) return;
+  applyImport(pendingImport.cards, pendingImport.skipped, pendingImport.fileName);
+  pendingImport = null;
+  importDialog.close();
 }
 
 sessionSizeSelect.addEventListener("change", () => {
@@ -736,25 +928,31 @@ newDeckForm.addEventListener("submit", (event) => {
   createDeck();
 });
 wordForm.addEventListener("submit", addWord);
+showWordFormBtn.addEventListener("click", showAddWordForm);
 wordCancelBtn.addEventListener("click", resetWordForm);
-deleteDeckBtn.addEventListener("click", deleteActiveDeck);
-importAddBtn.addEventListener("click", chooseImport);
-
-importFile.addEventListener("change", async () => {
-  const file = importFile.files[0];
-  if (!file) return;
-
-  try {
-    const { cards, skipped } = parseJson(await file.text());
-    if (!cards.length) {
-      setStatus('No valid cards found. Check the "cards" array and required "hanzi" and "meaning" fields.');
-      return;
-    }
-    applyImport(cards, skipped);
-  } catch (error) {
-    setStatus(`Could not read JSON: ${error.message}`);
-  }
+wordDialog.addEventListener("close", resetWordForm);
+renameDeckActionBtn.addEventListener("click", openRenameDeckDialog);
+deleteDeckActionBtn.addEventListener("click", () => {
+  deckOptionsDialog.close();
+  deleteActiveDeck();
 });
+showWordsActionBtn.addEventListener("click", showWordsDialog);
+closeDeckOptionsBtn.addEventListener("click", () => deckOptionsDialog.close());
+closeWordsDialogBtn.addEventListener("click", () => wordsDialog.close());
+renameDeckDialog.addEventListener("close", () => {
+  renameDeckName.value = activeDeck().name;
+});
+closeRenameDialogBtn.addEventListener("click", () => renameDeckDialog.close());
+cancelRenameBtn.addEventListener("click", () => renameDeckDialog.close());
+renameDeckForm.addEventListener("submit", renameActiveDeck);
+importAddBtn.addEventListener("click", chooseImport);
+selectImportFileBtn.addEventListener("click", () => importFile.click());
+importFile.addEventListener("change", analyzeImportFile);
+confirmImportBtn.addEventListener("click", confirmImport);
+cancelImportBtn.addEventListener("click", () => importDialog.close());
+closeImportBtn.addEventListener("click", () => importDialog.close());
+importDestination.addEventListener("change", updateImportFields);
+exportDeckBtn.addEventListener("click", exportActiveDeck);
 
 cardEl.addEventListener("click", flipCard);
 speakBtn.addEventListener("click", () => speakCard(currentCard().hanzi));
@@ -769,6 +967,7 @@ retryUnknownBtn.addEventListener("click", () => {
 });
 
 renderSessionSizeSelect();
+updateImportFields();
 studyModeSelect.value = store.studyMode;
 autoplaySelect.value = store.autoPlayPronunciation ? "on" : "off";
 startActiveDeck();

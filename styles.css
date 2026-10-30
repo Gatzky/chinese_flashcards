@@ -123,6 +123,46 @@ body {
   margin-bottom: 12px;
 }
 
+.deck-option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 6px;
+}
+
+.deck-option-gear {
+  width: 36px;
+  color: var(--muted);
+}
+
+.deck-option-gear:hover,
+.deck-option-gear:focus-visible {
+  border-color: var(--gold);
+  color: var(--paper);
+}
+
+.deck-action-button {
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #1b1410;
+  color: var(--paper);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.deck-action-button:hover,
+.deck-action-button:focus-visible {
+  outline: 1px solid var(--gold);
+}
+
+.deck-action-button:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
 .deck-list {
   display: grid;
   gap: 6px;
@@ -172,11 +212,16 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.new-deck-form {
+.new-deck-form,
+.rename-deck-form {
   display: flex;
   align-items: end;
   gap: 10px;
   margin-top: 14px;
+}
+
+.rename-deck-form {
+  margin-top: 10px;
 }
 
 .word-form {
@@ -185,6 +230,83 @@ body {
   margin-top: 20px;
   padding-top: 18px;
   border-top: 1px solid rgba(244, 234, 215, 0.14);
+}
+
+.word-form[hidden] {
+  display: none;
+}
+
+.add-word-toggle {
+  margin-top: 18px;
+  margin-bottom: 12px;
+}
+
+.word-dialog {
+  width: min(480px, calc(100% - 32px));
+  max-height: min(80vh, 700px);
+  overflow: auto;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid rgba(244, 234, 215, 0.18);
+  border-radius: 12px;
+  background: var(--bg-soft);
+  color: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.word-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.words-dialog,
+.rename-dialog,
+.deck-options-dialog {
+  width: min(480px, calc(100% - 32px));
+  max-height: min(80vh, 700px);
+  overflow: auto;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid rgba(244, 234, 215, 0.18);
+  border-radius: 12px;
+  background: var(--bg-soft);
+  color: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.words-dialog::backdrop,
+.rename-dialog::backdrop,
+.deck-options-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.words-dialog-content,
+.rename-dialog-content,
+.deck-options-content {
+  display: grid;
+  gap: 16px;
+}
+
+.words-dialog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.words-dialog-heading h2 {
+  font-size: 1.1rem;
+}
+
+.rename-deck-form {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.rename-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .word-form-heading,
@@ -312,8 +434,89 @@ textarea {
   font-size: 0.88rem;
 }
 
-.import-row {
+.import-controls {
+  display: grid;
+  gap: 12px;
   margin-top: 18px;
+}
+
+.import-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.import-dialog {
+  width: min(480px, calc(100% - 32px));
+  max-height: min(80vh, 700px);
+  overflow: auto;
+  margin: auto;
+  padding: 0;
+  border: 1px solid rgba(244, 234, 215, 0.18);
+  border-radius: 12px;
+  background: var(--bg-soft);
+  color: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.import-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.import-dialog-content {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+}
+
+.import-dialog-heading,
+.import-file-picker,
+.import-dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.import-dialog-heading,
+.import-dialog-actions {
+  justify-content: space-between;
+}
+
+.import-dialog-heading h2 {
+  font-size: 1.1rem;
+}
+
+.import-file-picker input {
+  min-width: 0;
+  flex: 1;
+}
+
+.import-analysis {
+  margin: 0;
+  padding: 12px;
+  border-left: 2px solid var(--gold);
+  background: #1b1410;
+  color: var(--muted);
+  font-size: 0.88rem;
+  overflow-wrap: anywhere;
+}
+
+.import-analysis[data-state="success"] {
+  color: #b9dfc2;
+}
+
+.import-analysis[data-state="partial"],
+.import-analysis[data-state="error"] {
+  color: #ffd0c8;
+}
+
+.import-dialog-actions {
+  justify-content: flex-end;
+}
+
+.import-dialog-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .field {
@@ -322,6 +525,10 @@ textarea {
   gap: 6px;
   flex: 1;
   min-width: 0;
+}
+
+.field[hidden] {
+  display: none;
 }
 
 .field.grow {
