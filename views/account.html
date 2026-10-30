@@ -1,0 +1,38 @@
+        <section class="library">
+          <h2 class="panel-title">Account</h2>
+          <p class="account-intro">Sign in to sync your decks between devices. You can keep using the app locally without an account.</p>
+          <p class="account-status" id="account-status" role="status" aria-live="polite">Firebase is not configured. Follow the setup steps in README.md to enable accounts.</p>
+          <div class="account-auth-view" id="account-auth-view">
+            <div class="auth-mode-switch" role="group" aria-label="Account action">
+              <button class="is-active" type="button" data-auth-mode="signin" aria-pressed="true">Sign in</button>
+              <button type="button" data-auth-mode="register" aria-pressed="false">Create account</button>
+            </div>
+            <form class="account-form" id="account-form">
+              <label class="field">
+                <span>Email</span>
+                <input id="account-email" type="email" autocomplete="email" required />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input id="account-password" type="password" autocomplete="current-password" minlength="6" maxlength="4096" required />
+                <small class="password-hint" id="account-password-hint" hidden>Use 6-4096 characters. Uppercase letters, numbers, and symbols are not required by default. Your Firebase project may require more.</small>
+              </label>
+              <label class="field" id="confirm-password-field" hidden>
+                <span>Confirm password</span>
+                <input id="account-password-confirm" type="password" autocomplete="new-password" minlength="6" maxlength="4096" />
+              </label>
+              <div class="account-actions">
+                <button class="btn btn-yes btn-small" id="account-submit-btn" type="submit" disabled>Sign in</button>
+                <button class="btn btn-ghost btn-small" id="password-reset-btn" type="button" disabled>Reset password</button>
+              </div>
+              <small class="password-hint">We'll email a secure link to set a new password.</small>
+            </form>
+          </div>
+          <div class="account-profile" id="account-profile" hidden>
+            <p>Signed in as <strong id="account-user-email"></strong></p>
+            <p id="cloud-sync-status" role="status" aria-live="polite"></p>
+            <button class="btn btn-ghost btn-small" id="profile-password-reset-btn" type="button" disabled>Send password reset email</button>
+            <button class="btn btn-ghost btn-small" id="sign-out-btn" type="button">Sign out</button>
+          </div>
+        </section>
+      </section>

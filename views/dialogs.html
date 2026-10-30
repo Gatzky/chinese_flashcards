@@ -1,0 +1,142 @@
+      <dialog class="import-dialog" id="import-dialog" aria-labelledby="import-dialog-title">
+        <div class="import-dialog-content">
+          <div class="import-dialog-heading">
+            <h2 id="import-dialog-title">Import JSON</h2>
+            <button class="icon-btn" id="close-import-btn" type="button" aria-label="Close import dialog" title="Close">×</button>
+          </div>
+          <label class="field">
+            <span>JSON file</span>
+            <div class="import-file-picker">
+              <input id="import-file-name" type="text" value="No file selected" readonly aria-label="Selected JSON file" />
+              <button class="btn btn-ghost btn-small" id="select-import-file-btn" type="button">Choose file</button>
+            </div>
+          </label>
+          <input id="import-file" type="file" accept=".json,application/json" hidden />
+          <p class="import-analysis" id="import-analysis" role="status" aria-live="polite">Choose a JSON file to analyze it.</p>
+          <div class="import-dialog-fields">
+            <label class="field">
+              <span>Import destination</span>
+              <select id="import-destination">
+                <option value="new">Create a new deck</option>
+                <option value="existing">Add to an existing deck</option>
+              </select>
+            </label>
+            <label class="field" id="import-target-field" hidden>
+              <span>Choose deck</span>
+              <select id="import-target"></select>
+            </label>
+            <label class="field" id="import-name-field">
+              <span>New deck name</span>
+              <input id="import-deck-name" type="text" maxlength="60" placeholder="Uses the file name if blank" />
+            </label>
+          </div>
+          <div class="import-dialog-actions">
+            <button class="btn btn-ghost btn-small" id="cancel-import-btn" type="button">Cancel</button>
+            <button class="btn btn-yes btn-small" id="confirm-import-btn" type="button" disabled>Import cards</button>
+          </div>
+        </div>
+      </dialog>
+
+      <dialog class="words-dialog" id="words-dialog" aria-labelledby="words-dialog-title">
+        <div class="words-dialog-content">
+          <div class="words-dialog-heading">
+            <div class="word-list-heading">
+              <h2 id="words-dialog-title">Words in this deck</h2>
+              <span id="word-count">0 words</span>
+            </div>
+            <button class="icon-btn" id="close-words-dialog-btn" type="button" aria-label="Close words" title="Close">×</button>
+          </div>
+          <ul class="word-list" id="word-list" aria-label="Words in the selected deck"></ul>
+          <button class="btn btn-ghost btn-small add-word-toggle" id="show-word-form-btn" type="button">Add a word</button>
+        </div>
+      </dialog>
+
+      <dialog class="rename-dialog" id="rename-deck-dialog" aria-labelledby="rename-deck-dialog-title">
+        <div class="rename-dialog-content">
+          <div class="words-dialog-heading">
+            <h2 id="rename-deck-dialog-title">Rename deck</h2>
+            <button class="icon-btn" id="close-rename-dialog-btn" type="button" aria-label="Close rename dialog" title="Close">×</button>
+          </div>
+          <form class="rename-deck-form" id="rename-deck-form">
+            <label class="field">
+              <span>Deck name</span>
+              <input id="rename-deck-name" type="text" maxlength="60" required />
+            </label>
+            <div class="rename-dialog-actions">
+              <button class="btn btn-ghost btn-small" id="cancel-rename-btn" type="button">Cancel</button>
+              <button class="btn btn-yes btn-small" type="submit">Rename</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+
+      <dialog class="deck-options-dialog" id="deck-options-dialog" aria-labelledby="deck-options-title">
+        <div class="deck-options-content">
+          <div class="words-dialog-heading">
+            <h2 id="deck-options-title">Deck options</h2>
+            <button class="icon-btn" id="close-deck-options-btn" type="button" aria-label="Close deck options" title="Close">×</button>
+          </div>
+          <button class="deck-action-button" id="rename-deck-action" type="button">Rename</button>
+          <button class="deck-action-button" id="delete-deck-action" type="button">Delete</button>
+          <button class="deck-action-button" id="show-words-action" type="button">Show words</button>
+        </div>
+      </dialog>
+
+      <dialog class="word-dialog" id="word-dialog" aria-labelledby="word-form-title">
+        <form class="word-form" id="word-form">
+          <div class="word-form-heading">
+            <h3 id="word-form-title">Add a word</h3>
+            <button class="btn btn-ghost btn-small" id="word-cancel-btn" type="button">Cancel</button>
+          </div>
+          <div class="word-form-grid">
+            <label class="field">
+              <span>Chinese word</span>
+              <input id="word-hanzi" type="text" maxlength="40" required />
+            </label>
+            <label class="field">
+              <span>Pinyin</span>
+              <input id="word-pinyin" type="text" maxlength="100" />
+            </label>
+            <label class="field word-field-wide">
+              <span>Meaning</span>
+              <input id="word-meaning" type="text" maxlength="240" required />
+            </label>
+            <label class="field word-field-wide">
+              <span>Example sentence</span>
+              <textarea id="word-sentence" rows="2" maxlength="500"></textarea>
+            </label>
+            <label class="field word-field-wide">
+              <span>Etymology</span>
+              <textarea id="word-etymology" rows="2" maxlength="500"></textarea>
+            </label>
+          </div>
+          <button class="btn btn-yes btn-small" id="word-save-btn" type="submit">Add word</button>
+        </form>
+      </dialog>
+
+      <dialog class="feedback-dialog" id="feedback-dialog" aria-labelledby="feedback-dialog-title">
+        <form class="feedback-form" id="feedback-form">
+          <div class="words-dialog-heading">
+            <h2 id="feedback-dialog-title">Bug report or feedback</h2>
+            <button class="icon-btn" id="close-feedback-btn" type="button" aria-label="Close feedback form" title="Close">×</button>
+          </div>
+          <label class="field">
+            <span>Type</span>
+            <select id="feedback-type" required>
+              <option value="" selected disabled>Choose a type</option>
+              <option value="Bug report">Bug report</option>
+              <option value="Feature request">Feature request</option>
+              <option value="Other feedback">Other feedback</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>What happened or what would you like to suggest?</span>
+            <textarea id="feedback-description" rows="5" maxlength="4000" required placeholder="Describe the issue or idea..."></textarea>
+          </label>
+          <div class="feedback-actions">
+            <button class="btn btn-ghost btn-small" id="cancel-feedback-btn" type="button">Cancel</button>
+            <button class="btn btn-yes btn-small" type="submit">Continue to email</button>
+          </div>
+        </form>
+      </dialog>
+      <div class="account-sync-overlay" id="account-sync-overlay" hidden role="status">Syncing your decks...</div>

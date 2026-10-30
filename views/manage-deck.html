@@ -1,0 +1,26 @@
+        <section class="library">
+          <div class="deck-list-heading">
+            <h2 class="panel-title">Vocabulary library</h2>
+          </div>
+          <div class="deck-list" id="deck-list" role="group" aria-label="Vocabulary decks"></div>
+
+          <form class="new-deck-form" id="new-deck-form">
+            <label class="field grow">
+              <span>New deck</span>
+              <input id="new-deck-name" type="text" maxlength="60" placeholder="e.g. HSK 1" />
+            </label>
+            <button class="btn btn-ghost btn-small" id="new-deck-btn" type="submit">Create deck</button>
+          </form>
+
+          <div class="import-controls">
+            <div class="import-actions">
+              <button class="btn btn-ghost btn-small" id="import-add-btn" type="button">Import JSON</button>
+              <button class="btn btn-ghost btn-small" id="export-deck-btn" type="button">Export JSON</button>
+            </div>
+          </div>
+          <p class="format-hint">
+            JSON files use a <code>cards</code> array with <code>hanzi</code>, <code>meaning</code>, and optional <code>pinyin</code>, <code>sentence</code>, and <code>etymology</code> fields.
+          </p>
+          <p class="import-status" id="import-status" role="status" aria-live="polite"></p>
+        </section>
+      </section>

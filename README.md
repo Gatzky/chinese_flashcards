@@ -32,6 +32,8 @@ Serve the folder locally (needed for Firebase authentication):
 python -m http.server 8080
 ```
 
+The app shell is `index.html`. Each tab's markup lives in `views/`, while shared setup and tab behavior are split across `js/` files and loaded by `app.js`.
+
 ## Firebase Accounts
 
 Accounts use Firebase Authentication with email and password. Signed-in users' decks are synced to Cloud Firestore; local browser data is kept separately for guest use.
