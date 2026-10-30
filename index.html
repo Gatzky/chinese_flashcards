@@ -11,7 +11,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=0.0.13" />
+    <link rel="stylesheet" href="styles.css?v=0.0.15" />
   </head>
   <body>
     <div class="page">
@@ -19,6 +19,7 @@
         <button class="tab-button is-active" id="tab-study" type="button" role="tab" aria-selected="true" aria-controls="study-panel" data-tab="study">Study</button>
         <button class="tab-button" id="tab-import" type="button" role="tab" aria-selected="false" aria-controls="import-panel" data-tab="import" tabindex="-1">Manage deck</button>
         <button class="tab-button" id="tab-settings" type="button" role="tab" aria-selected="false" aria-controls="settings-panel" data-tab="settings" tabindex="-1">Settings</button>
+        <button class="tab-button" id="tab-account" type="button" role="tab" aria-selected="false" aria-controls="account-panel" data-tab="account" tabindex="-1">Account</button>
       </nav>
 
       <section class="tab-panel" id="import-panel" role="tabpanel" aria-labelledby="tab-import" hidden>
@@ -155,6 +156,44 @@
         </section>
       </section>
 
+      <section class="tab-panel account-panel" id="account-panel" role="tabpanel" aria-labelledby="tab-account" hidden>
+        <section class="library">
+          <h2 class="panel-title">Account</h2>
+          <p class="account-intro">Sign in to sync your decks between devices. You can keep using the app locally without an account.</p>
+          <p class="account-status" id="account-status" role="status" aria-live="polite">Firebase is not configured. Follow the setup steps in README.md to enable accounts.</p>
+          <div class="account-auth-view" id="account-auth-view">
+            <div class="auth-mode-switch" role="group" aria-label="Account action">
+              <button class="is-active" type="button" data-auth-mode="signin" aria-pressed="true">Sign in</button>
+              <button type="button" data-auth-mode="register" aria-pressed="false">Create account</button>
+            </div>
+            <form class="account-form" id="account-form">
+              <label class="field">
+                <span>Email</span>
+                <input id="account-email" type="email" autocomplete="email" required />
+              </label>
+              <label class="field">
+                <span>Password</span>
+                <input id="account-password" type="password" autocomplete="current-password" minlength="6" maxlength="4096" required />
+                <small class="password-hint" id="account-password-hint" hidden>Use 6-4096 characters. Uppercase letters, numbers, and symbols are not required by default. Your Firebase project may require more.</small>
+              </label>
+              <label class="field" id="confirm-password-field" hidden>
+                <span>Confirm password</span>
+                <input id="account-password-confirm" type="password" autocomplete="new-password" minlength="6" maxlength="4096" />
+              </label>
+              <div class="account-actions">
+                <button class="btn btn-yes btn-small" id="account-submit-btn" type="submit" disabled>Sign in</button>
+                <button class="btn btn-ghost btn-small" id="password-reset-btn" type="button" disabled>Reset password</button>
+              </div>
+            </form>
+          </div>
+          <div class="account-profile" id="account-profile" hidden>
+            <p>Signed in as <strong id="account-user-email"></strong></p>
+            <p id="cloud-sync-status" role="status" aria-live="polite"></p>
+            <button class="btn btn-ghost btn-small" id="sign-out-btn" type="button">Sign out</button>
+          </div>
+        </section>
+      </section>
+
       <dialog class="import-dialog" id="import-dialog" aria-labelledby="import-dialog-title">
         <div class="import-dialog-content">
           <div class="import-dialog-heading">
@@ -270,14 +309,44 @@
           <button class="btn btn-yes btn-small" id="word-save-btn" type="submit">Add word</button>
         </form>
       </dialog>
+
+      <dialog class="feedback-dialog" id="feedback-dialog" aria-labelledby="feedback-dialog-title">
+        <form class="feedback-form" id="feedback-form">
+          <div class="words-dialog-heading">
+            <h2 id="feedback-dialog-title">Bug report or feedback</h2>
+            <button class="icon-btn" id="close-feedback-btn" type="button" aria-label="Close feedback form" title="Close">×</button>
+          </div>
+          <label class="field">
+            <span>Type</span>
+            <select id="feedback-type" required>
+              <option value="" selected disabled>Choose a type</option>
+              <option value="Bug report">Bug report</option>
+              <option value="Feature request">Feature request</option>
+              <option value="Other feedback">Other feedback</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>What happened or what would you like to suggest?</span>
+            <textarea id="feedback-description" rows="5" maxlength="4000" required placeholder="Describe the issue or idea..."></textarea>
+          </label>
+          <div class="feedback-actions">
+            <button class="btn btn-ghost btn-small" id="cancel-feedback-btn" type="button">Cancel</button>
+            <button class="btn btn-yes btn-small" type="submit">Continue to email</button>
+          </div>
+        </form>
+      </dialog>
+      <div class="account-sync-overlay" id="account-sync-overlay" hidden role="status">Syncing your decks...</div>
     </div>
 
     <footer class="app-meta">
-      <span>Version 0.0.13</span>
+      <span id="app-version">Version 0.0.15</span>
       <span aria-hidden="true">·</span>
       <span>Last updated <time datetime="2026-10-30">2026-10-30</time></span>
+      <span aria-hidden="true">·</span>
+      <button class="feedback-link" id="open-feedback-btn" type="button">Report a bug or send feedback</button>
     </footer>
 
-    <script src="app.js?v=0.0.13"></script>
+    <script src="firebase-config.js?v=0.0.15"></script>
+    <script src="app.js?v=0.0.15"></script>
   </body>
 </html>

@@ -41,7 +41,7 @@ body {
 
 .tab-nav {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
   margin-bottom: 20px;
   padding: 4px;
@@ -79,6 +79,73 @@ body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+}
+
+.account-intro,
+.account-status,
+.account-profile p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.account-status {
+  min-height: 1.4em;
+  overflow-wrap: anywhere;
+}
+
+.password-hint {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.auth-mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  margin: 18px 0 14px;
+  padding: 4px;
+  border-radius: 8px;
+  background: #1b1410;
+}
+
+.auth-mode-switch button {
+  border: 0;
+  border-radius: 6px;
+  padding: 9px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.auth-mode-switch button.is-active {
+  background: #3a2a22;
+  color: var(--paper);
+}
+
+.account-form,
+.account-form fieldset {
+  display: grid;
+  gap: 12px;
+}
+
+.account-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.account-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .settings-field-wide {
@@ -260,7 +327,8 @@ body {
 
 .words-dialog,
 .rename-dialog,
-.deck-options-dialog {
+.deck-options-dialog,
+.feedback-dialog {
   width: min(480px, calc(100% - 32px));
   max-height: min(80vh, 700px);
   overflow: auto;
@@ -275,15 +343,32 @@ body {
 
 .words-dialog::backdrop,
 .rename-dialog::backdrop,
-.deck-options-dialog::backdrop {
+.deck-options-dialog::backdrop,
+.feedback-dialog::backdrop {
   background: rgba(0, 0, 0, 0.72);
 }
 
 .words-dialog-content,
 .rename-dialog-content,
-.deck-options-content {
+.deck-options-content,
+.feedback-form {
   display: grid;
   gap: 16px;
+}
+
+.feedback-form {
+  min-width: 0;
+  margin: 0;
+}
+
+.feedback-form textarea {
+  min-height: 120px;
+}
+
+.feedback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .words-dialog-heading {
@@ -889,12 +974,47 @@ h2 {
 
 .app-meta {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 8px;
   width: min(560px, 100%);
   margin-top: 20px;
   color: var(--muted);
   font-size: 0.75rem;
+}
+
+.feedback-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.feedback-link:hover,
+.feedback-link:focus-visible {
+  color: var(--gold);
+  outline: none;
+}
+
+.account-sync-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(27, 20, 16, 0.88);
+  color: var(--paper);
+  font-weight: 600;
+  text-align: center;
+}
+
+.account-sync-overlay[hidden] {
+  display: none;
 }
 
 @media (max-width: 420px) {

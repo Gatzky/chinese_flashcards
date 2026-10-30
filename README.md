@@ -26,11 +26,23 @@ In Settings, choose either 3 study steps (character, pinyin, meaning) or 2 steps
 
 ## Run Locally
 
-Open `index.html` in a browser, or serve the folder:
+Serve the folder locally (needed for Firebase authentication):
 
 ```bash
 python -m http.server 8080
 ```
+
+## Firebase Accounts
+
+Accounts use Firebase Authentication with email and password. Signed-in users' decks are synced to Cloud Firestore; local browser data is kept separately for guest use.
+
+1. Create a Firebase project and register a Web app.
+2. Copy the Web app config into `firebase-config.js`.
+3. In Authentication, enable the Email/Password provider.
+4. Create a Cloud Firestore database and publish the rules from `firestore.rules`.
+5. Add `localhost` and your GitHub Pages host (`gatzky.github.io`) to Authentication's authorized domains.
+
+On first sign-in, existing local decks are merged into the account. If a deck exists in both places, its local card content takes precedence while review statistics are preserved. The Firebase Web config is public; never put service-account credentials in this app. Firestore rules restrict each account to its own data.
 
 The footer displays the app version and last-updated date. Update both in `index.html` when publishing. Increment the final segment of the MAJOR.MINOR.PATCH version for small changes.
 
