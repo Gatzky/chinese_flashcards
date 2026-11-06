@@ -52,6 +52,6 @@ The footer displays the app version and last-updated date. Update both in `index
 
 1. Open **Settings → Pages** in the repository.
 2. Select **GitHub Actions** as the source.
-3. Pushing to `main` triggers the `Deploy GitHub Pages` workflow.
+3. Pushing to `main` triggers the `Deploy GitHub Pages` workflow in `.github/workflows/`. It publishes the repository root, including the `views/` and `js/` directories required at runtime.
 
 The site URL is `https://gatzky.github.io/chinese_flashcards/`.
