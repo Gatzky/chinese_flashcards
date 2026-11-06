@@ -12,20 +12,20 @@
                 <option value="two">2 steps: character, then pinyin + meaning</option>
               </select>
             </label>
-            <label class="field settings-field-wide">
+            <div class="field settings-field-wide">
               <span>Auto-play pronunciation after revealing pinyin</span>
-              <select id="autoplay-pronunciation">
-                <option value="on">On</option>
-                <option value="off">Off</option>
-              </select>
-            </label>
-            <label class="field settings-field-wide">
+              <div class="theme-switch" role="group" aria-label="Auto-play pronunciation">
+                <button class="theme-option" type="button" data-autoplay-option="on" aria-pressed="true">On</button>
+                <button class="theme-option" type="button" data-autoplay-option="off" aria-pressed="false">Off</button>
+              </div>
+            </div>
+            <div class="field settings-field-wide">
               <span>Color theme</span>
-              <select id="theme-select">
-                <option value="black">Elegant black</option>
-                <option value="light">Light</option>
-              </select>
-            </label>
+              <div class="theme-switch" id="theme-switch" role="group" aria-label="Color theme">
+                <button class="theme-option" type="button" data-theme-option="black" aria-pressed="true">Dark mode</button>
+                <button class="theme-option" type="button" data-theme-option="light" aria-pressed="false">Light</button>
+              </div>
+            </div>
           </div>
         </section>
       </section>

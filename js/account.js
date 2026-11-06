@@ -271,6 +271,7 @@ async function loadFeedbackInbox() {
   feedbackInboxStatusEl.textContent = "Loading feedback...";
   feedbackListEl.replaceChildren();
   try {
+    await signedInUser.getIdToken(true);
     const { collection, getDocs, limit, orderBy, query } = firebaseFirestoreApi;
     const feedbackQuery = query(collection(firebaseDb, "feedback"), orderBy("createdAt", "desc"), limit(100));
     const snapshot = await getDocs(feedbackQuery);
@@ -305,10 +306,92 @@ async function loadFeedbackInbox() {
       const description = document.createElement("p");
       description.className = "feedback-item-description";
       description.textContent = report.description || "";
-      item.append(heading, details, description);
+
+      const actions = document.createElement("div");
+      actions.className = "feedback-item-actions";
+      const priorityField = document.createElement("label");
+      priorityField.className = "feedback-priority-field";
+      priorityField.textContent = "Priority";
+      const priority = document.createElement("select");
+      priority.setAttribute("aria-label", `Priority for ${report.type || "feedback"}`);
+      [
+        ["low", "Low"],
+        ["normal", "Normal"],
+        ["high", "High"],
+      ].forEach(([value, label]) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        priority.appendChild(option);
+      });
+      priority.value = ["low", "normal", "high"].includes(report.priority) ? report.priority : "normal";
+      priorityField.appendChild(priority);
+
+      const savePriorityButton = document.createElement("button");
+      savePriorityButton.type = "button";
+      savePriorityButton.className = "btn btn-ghost btn-small";
+      savePriorityButton.textContent = "Save priority";
+      savePriorityButton.addEventListener("click", () => {
+        void updateFeedbackPriority(documentSnapshot.id, priority, savePriorityButton);
+      });
+
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.className = "btn btn-no btn-small";
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", () => {
+        void deleteFeedback(documentSnapshot.id, item, deleteButton);
+      });
+
+      actions.append(priorityField, savePriorityButton, deleteButton);
+      item.append(heading, details, description, actions);
       feedbackListEl.appendChild(item);
     });
   } catch (error) {
-    feedbackInboxStatusEl.textContent = `Could not load feedback. ${error.message}`;
+    feedbackInboxStatusEl.textContent = error.code === "permission-denied"
+      ? "Firestore denied access. Publish the current firestore.rules in Firebase Console, confirm this account's email is verified, then sign out and back in."
+      : `Could not load feedback. ${error.message}`;
+  }
+}
+
+async function updateFeedbackPriority(feedbackId, priority, button) {
+  if (!isFeedbackAdmin() || !firebaseFirestoreApi) {
+    feedbackInboxStatusEl.textContent = "Only the verified administrator can update feedback.";
+    return;
+  }
+
+  button.disabled = true;
+  try {
+    await firebaseFirestoreApi.updateDoc(
+      firebaseFirestoreApi.doc(firebaseDb, "feedback", feedbackId),
+      { priority: priority.value },
+    );
+    feedbackInboxStatusEl.textContent = "Feedback priority saved.";
+  } catch (error) {
+    feedbackInboxStatusEl.textContent = `Could not save priority. ${error.message}`;
+  } finally {
+    button.disabled = false;
+  }
+}
+
+async function deleteFeedback(feedbackId, item, button) {
+  if (!isFeedbackAdmin() || !firebaseFirestoreApi) {
+    feedbackInboxStatusEl.textContent = "Only the verified administrator can delete feedback.";
+    return;
+  }
+  if (!confirm("Permanently delete this feedback? This cannot be undone.")) return;
+
+  button.disabled = true;
+  try {
+    await firebaseFirestoreApi.deleteDoc(firebaseFirestoreApi.doc(firebaseDb, "feedback", feedbackId));
+    item.remove();
+    if (!feedbackListEl.children.length) {
+      feedbackInboxStatusEl.textContent = "Feedback deleted. Reload the inbox to check for more submissions.";
+    } else {
+      feedbackInboxStatusEl.textContent = "Feedback deleted.";
+    }
+  } catch (error) {
+    feedbackInboxStatusEl.textContent = `Could not delete feedback. ${error.message}`;
+    button.disabled = false;
   }
 }

@@ -39,6 +39,16 @@ service cloud.firestore {
       allow get, list: if request.auth != null
         && request.auth.token.email == 'gacbartlomiej96@gmail.com'
         && request.auth.token.email_verified == true;
+
+      allow update: if request.auth != null
+        && request.auth.token.email == 'gacbartlomiej96@gmail.com'
+        && request.auth.token.email_verified == true
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['priority'])
+        && request.resource.data.priority in ['low', 'normal', 'high'];
+
+      allow delete: if request.auth != null
+        && request.auth.token.email == 'gacbartlomiej96@gmail.com'
+        && request.auth.token.email_verified == true;
     }
   }
 }

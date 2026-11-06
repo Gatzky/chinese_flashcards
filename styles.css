@@ -125,6 +125,42 @@ body {
   gap: 16px;
 }
 
+.session-field {
+  grid-column: 1 / -1;
+}
+
+.theme-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--field-bg);
+}
+
+.theme-option {
+  min-width: 0;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.theme-option[aria-pressed="true"] {
+  background: var(--surface-hover);
+  color: var(--paper);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.theme-option:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
 .account-intro,
 .account-status,
 .account-profile p {
@@ -478,6 +514,26 @@ body {
   white-space: pre-wrap;
 }
 
+.feedback-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.feedback-priority-field {
+  display: grid;
+  flex: 1 1 130px;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.feedback-item-actions .btn {
+  min-width: 0;
+}
+
 .feedback-form textarea {
   min-height: 120px;
 }
@@ -735,10 +791,6 @@ textarea {
 
 .field.grow {
   flex: 1;
-}
-
-.session-field {
-  flex: 0 0 120px;
 }
 
 .field span {

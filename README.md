@@ -24,6 +24,8 @@ Choose 10, 20, 50, or all cards per session.
 
 In Settings, choose either 3 study steps (character, pinyin, meaning) or 2 steps (character, then pinyin and meaning together).
 
+Choose Dark mode or Light in Settings. Auto-play pronunciation and theme preferences are saved with the current browser or account's study settings.
+
 Choose the elegant black or light color theme in Settings. The selection is saved with the current browser or account's study settings.
 
 ## Run Locally
@@ -43,12 +45,12 @@ Accounts use Firebase Authentication with email and password. Signed-in users' d
 1. Create a Firebase project and register a Web app.
 2. Copy the Web app config into `firebase-config.js`.
 3. In Authentication, enable the Email/Password provider.
-4. Create a Cloud Firestore database and publish the rules from `firestore.rules`.
+4. Create a Cloud Firestore database. In Firebase Console → Firestore Database → Rules, publish the rules from `firestore.rules`. GitHub Pages deployment does not publish Firestore rules.
 5. Add `localhost` and your GitHub Pages host (`gatzky.github.io`) to Authentication's authorized domains.
 
 On first sign-in, existing local decks are merged into the account. If a deck exists in both places, its local card content takes precedence while review statistics are preserved. The Firebase Web config is public; never put service-account credentials in this app. Firestore rules restrict each account to its own data.
 
-Bug reports and feedback are submitted to the Firestore `feedback` collection. Apply the rules in `firestore.rules` to allow submissions while restricting feedback reads to the verified Firebase account `gacbartlomiej96@gmail.com`. Sign in with that account and verify its email address to use the **Feedback inbox** link in the footer. The inbox shows the 100 most recent submissions. Guests can submit feedback; because Firestore rules do not rate-limit writes, enable Firebase App Check before wider public use.
+Bug reports and feedback are submitted to the Firestore `feedback` collection. Apply the rules in `firestore.rules` to allow submissions while restricting feedback reads, priority changes, and deletion to the verified Firebase account `gacbartlomiej96@gmail.com`. In the **Feedback inbox**, the administrator can set each submission's priority to low, normal, or high and delete it. The inbox shows the 100 most recent submissions. Guests can submit feedback; because Firestore rules do not rate-limit writes, enable Firebase App Check before wider public use.
 
 The footer displays the app version. Update it in `index.html` when publishing. Increment the final segment of the MAJOR.MINOR.PATCH version for small changes.
 

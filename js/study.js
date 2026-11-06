@@ -270,7 +270,6 @@ function startSession(cards) {
 }
 
 function startActiveDeck() {
-  themeSelect.value = store.theme;
   applyTheme();
   startSession(pickSessionCards(activeDeck().cards, store.sessionSize));
 }
