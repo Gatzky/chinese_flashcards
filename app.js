@@ -6,8 +6,15 @@ const views = [
   ["dialog-view", "views/dialogs.html"],
 ];
 
+function assetUrl(path) {
+  const url = new URL(path, import.meta.url);
+  const version = new URL(import.meta.url).searchParams.get("v");
+  if (version) url.searchParams.set("v", version);
+  return url;
+}
+
 async function loadView([containerId, path]) {
-  const response = await fetch(new URL(path, import.meta.url));
+  const response = await fetch(assetUrl(path), { cache: "no-cache" });
   if (!response.ok) throw new Error(`Could not load ${path} (${response.status}).`);
   document.getElementById(containerId).innerHTML = await response.text();
 }
@@ -15,7 +22,7 @@ async function loadView([containerId, path]) {
 function loadScript(path) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
-    script.src = new URL(path, import.meta.url);
+    script.src = assetUrl(path);
     script.onload = resolve;
     script.onerror = () => reject(new Error(`Could not load ${path}.`));
     document.body.appendChild(script);
