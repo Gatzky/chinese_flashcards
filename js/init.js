@@ -96,11 +96,11 @@ retryUnknownBtn.addEventListener("click", () => {
   if (unknown.length) startSession(unknown);
 });
 
-renderSessionSizeSelect();
+renderSessionSizeControls();
 updateImportFields();
 updateAccountMode("signin");
 updateAccountView(null);
-studyModeSelect.value = store.studyMode;
+applyStudyMode();
 applyTheme();
 applyAutoPlaySetting();
 startActiveDeck();

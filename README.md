@@ -20,11 +20,11 @@ The app is static and runs on GitHub Pages. Decks are stored in the browser. Imp
 
 `pinyin`, `sentence`, and `etymology` are optional. The `example.json` file contains a larger demo deck with two-character words. Older files using `charactersMeaning` are still supported.
 
-Choose 10, 20, 50, or all cards per session.
+Enter any positive number of cards per session, or choose **All** to study the whole deck.
 
-In Settings, choose either 3 study steps (character, pinyin, meaning) or 2 steps (character, then pinyin and meaning together).
+In Settings, choose either 3 study steps (character, pinyin, meaning) or 2 steps (character, then pinyin and meaning together) using the mode buttons.
 
-Choose Dark mode or Light in Settings. Auto-play pronunciation and theme preferences are saved with the current browser or account's study settings.
+Choose Dark mode or Light mode in Settings. Auto-play pronunciation and theme preferences are saved with the current browser or account's study settings.
 
 Choose the elegant black or light color theme in Settings. The selection is saved with the current browser or account's study settings.
 

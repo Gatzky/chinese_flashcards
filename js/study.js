@@ -28,19 +28,9 @@ function pickSessionCards(cards, size) {
   return ordered.slice(0, size);
 }
 
-function renderSessionSizeSelect() {
-  sessionSizeSelect.innerHTML = "";
-  SESSION_SIZES.forEach((size) => {
-    const option = document.createElement("option");
-    option.value = String(size);
-    option.textContent = String(size);
-    sessionSizeSelect.appendChild(option);
-  });
-  const allOption = document.createElement("option");
-  allOption.value = "0";
-  allOption.textContent = "All";
-  sessionSizeSelect.appendChild(allOption);
-  sessionSizeSelect.value = String(store.sessionSize ?? 10);
+function renderSessionSizeControls() {
+  sessionSizeInput.value = store.sessionSize === 0 ? "" : String(store.sessionSize);
+  sessionSizeAllButton.setAttribute("aria-pressed", String(store.sessionSize === 0));
 }
 
 function renderStats() {
@@ -270,6 +260,9 @@ function startSession(cards) {
 }
 
 function startActiveDeck() {
+  renderSessionSizeControls();
+  applyStudyMode();
+  applyAutoPlaySetting();
   applyTheme();
   startSession(pickSessionCards(activeDeck().cards, store.sessionSize));
 }

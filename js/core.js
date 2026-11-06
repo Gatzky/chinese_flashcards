@@ -1,6 +1,4 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
-const SESSION_SIZES = [10, 20, 50];
-
 const STARTER_CARDS = [
   { hanzi: "你", pinyin: "nǐ", meaning: "you" },
   { hanzi: "好", pinyin: "hǎo", meaning: "good" },
@@ -39,7 +37,9 @@ const deckOptionsDialog = document.getElementById("deck-options-dialog");
 const closeDeckOptionsBtn = document.getElementById("close-deck-options-btn");
 const wordsDialog = document.getElementById("words-dialog");
 const closeWordsDialogBtn = document.getElementById("close-words-dialog-btn");
-const studyModeSelect = document.getElementById("study-mode");
+const studyModeButtons = [...document.querySelectorAll("[data-study-mode-option]")];
+const sessionSizeInput = document.getElementById("session-size");
+const sessionSizeAllButton = document.getElementById("session-size-all");
 const autoplayButtons = [...document.querySelectorAll("[data-autoplay-option]")];
 const themeButtons = [...document.querySelectorAll("[data-theme-option]")];
 const tabButtons = [...document.querySelectorAll('[role="tab"]')];
@@ -111,7 +111,6 @@ const wordSaveBtn = document.getElementById("word-save-btn");
 const showWordFormBtn = document.getElementById("show-word-form-btn");
 const wordCancelBtn = document.getElementById("word-cancel-btn");
 const frontHint = document.getElementById("front-hint");
-const sessionSizeSelect = document.getElementById("session-size");
 const statsKnownEl = document.getElementById("stats-known");
 const statsUnseenEl = document.getElementById("stats-unseen");
 const statsUnknownEl = document.getElementById("stats-unknown");
@@ -206,7 +205,7 @@ function normalizeStore(parsed) {
     normalized.activeId = normalized.decks[0].id;
   }
   normalized.sessionSize = Number(normalized.sessionSize);
-  if (![...SESSION_SIZES, 0].includes(normalized.sessionSize)) normalized.sessionSize = 10;
+  if (!Number.isSafeInteger(normalized.sessionSize) || normalized.sessionSize < 0) normalized.sessionSize = 10;
   normalized.studyMode = normalized.studyMode === "two" ? "two" : "three";
   normalized.autoPlayPronunciation = normalized.autoPlayPronunciation !== false;
   normalized.theme = normalized.theme === "light" ? "light" : "black";
