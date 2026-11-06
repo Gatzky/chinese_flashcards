@@ -133,10 +133,23 @@
             <span>What happened or what would you like to suggest?</span>
             <textarea id="feedback-description" rows="5" maxlength="4000" required placeholder="Describe the issue or idea..."></textarea>
           </label>
+          <p class="feedback-privacy-note">Your message, app version, and active deck name will be stored in Firestore and visible to the app administrator. If you are signed in, your account email will be included.</p>
+          <p class="feedback-status" id="feedback-status" role="status" aria-live="polite"></p>
           <div class="feedback-actions">
             <button class="btn btn-ghost btn-small" id="cancel-feedback-btn" type="button">Cancel</button>
-            <button class="btn btn-yes btn-small" type="submit">Continue to email</button>
+            <button class="btn btn-yes btn-small" id="feedback-submit-btn" type="submit">Send feedback</button>
           </div>
         </form>
+      </dialog>
+
+      <dialog class="feedback-inbox-dialog" id="feedback-inbox-dialog" aria-labelledby="feedback-inbox-title">
+        <div class="feedback-inbox-content">
+          <div class="words-dialog-heading">
+            <h2 id="feedback-inbox-title">Feedback inbox</h2>
+            <button class="icon-btn" id="close-feedback-inbox-btn" type="button" aria-label="Close feedback inbox" title="Close">×</button>
+          </div>
+          <p class="feedback-inbox-status" id="feedback-inbox-status" role="status" aria-live="polite"></p>
+          <ul class="feedback-list" id="feedback-list" aria-label="Submitted feedback"></ul>
+        </div>
       </dialog>
       <div class="account-sync-overlay" id="account-sync-overlay" hidden role="status">Syncing your decks...</div>

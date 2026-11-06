@@ -15,3 +15,12 @@ autoplaySelect.addEventListener("change", () => {
   saveStore();
 });
 
+themeSelect.addEventListener("change", () => {
+  store.theme = themeSelect.value === "light" ? "light" : "black";
+  applyTheme();
+  saveStore();
+});
+
+function applyTheme() {
+  document.documentElement.dataset.theme = store.theme;
+}

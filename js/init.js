@@ -74,7 +74,15 @@ openFeedbackBtn.addEventListener("click", () => feedbackDialog.showModal());
 feedbackForm.addEventListener("submit", sendFeedback);
 closeFeedbackBtn.addEventListener("click", () => feedbackDialog.close());
 cancelFeedbackBtn.addEventListener("click", () => feedbackDialog.close());
-feedbackDialog.addEventListener("close", () => feedbackForm.reset());
+feedbackDialog.addEventListener("close", () => {
+  feedbackForm.reset();
+  feedbackStatusEl.textContent = "";
+});
+openFeedbackInboxBtn.addEventListener("click", () => {
+  feedbackInboxDialog.showModal();
+  void loadFeedbackInbox();
+});
+closeFeedbackInboxBtn.addEventListener("click", () => feedbackInboxDialog.close());
 
 cardEl.addEventListener("click", flipCard);
 speakBtn.addEventListener("click", () => speakCard(currentCard().hanzi));
@@ -94,5 +102,7 @@ updateAccountMode("signin");
 updateAccountView(null);
 studyModeSelect.value = store.studyMode;
 autoplaySelect.value = store.autoPlayPronunciation ? "on" : "off";
+themeSelect.value = store.theme;
+applyTheme();
 startActiveDeck();
 void initializeFirebase();

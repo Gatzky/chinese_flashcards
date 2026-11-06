@@ -40,6 +40,7 @@ const closeDeckOptionsBtn = document.getElementById("close-deck-options-btn");
 const wordsDialog = document.getElementById("words-dialog");
 const closeWordsDialogBtn = document.getElementById("close-words-dialog-btn");
 const studyModeSelect = document.getElementById("study-mode");
+const themeSelect = document.getElementById("theme-select");
 const tabButtons = [...document.querySelectorAll('[role="tab"]')];
 const tabPanels = [...document.querySelectorAll('[role="tabpanel"]')];
 const newDeckName = document.getElementById("new-deck-name");
@@ -69,9 +70,16 @@ const feedbackDialog = document.getElementById("feedback-dialog");
 const feedbackForm = document.getElementById("feedback-form");
 const feedbackType = document.getElementById("feedback-type");
 const feedbackDescription = document.getElementById("feedback-description");
+const feedbackStatusEl = document.getElementById("feedback-status");
+const feedbackSubmitBtn = document.getElementById("feedback-submit-btn");
 const openFeedbackBtn = document.getElementById("open-feedback-btn");
 const closeFeedbackBtn = document.getElementById("close-feedback-btn");
 const cancelFeedbackBtn = document.getElementById("cancel-feedback-btn");
+const openFeedbackInboxBtn = document.getElementById("open-feedback-inbox-btn");
+const feedbackInboxDialog = document.getElementById("feedback-inbox-dialog");
+const closeFeedbackInboxBtn = document.getElementById("close-feedback-inbox-btn");
+const feedbackInboxStatusEl = document.getElementById("feedback-inbox-status");
+const feedbackListEl = document.getElementById("feedback-list");
 const accountStatusEl = document.getElementById("account-status");
 const accountSyncOverlay = document.getElementById("account-sync-overlay");
 const accountAuthView = document.getElementById("account-auth-view");
@@ -80,6 +88,7 @@ const accountForm = document.getElementById("account-form");
 const accountEmailInput = document.getElementById("account-email");
 const accountPasswordInput = document.getElementById("account-password");
 const accountPasswordHint = document.getElementById("account-password-hint");
+const passwordSecurityNote = document.getElementById("password-security-note");
 const accountPasswordConfirm = document.getElementById("account-password-confirm");
 const confirmPasswordField = document.getElementById("confirm-password-field");
 const authModeButtons = [...document.querySelectorAll("[data-auth-mode]")];
@@ -148,6 +157,7 @@ function defaultStore() {
     sessionSize: 10,
     studyMode: "three",
     autoPlayPronunciation: true,
+    theme: "black",
     decks: [
       { id: starterId, name: "Sample characters", cards: STARTER_CARDS.map(cloneCard) },
       { id: "my-deck", name: "My deck", cards: [] },
@@ -199,6 +209,7 @@ function normalizeStore(parsed) {
   if (![...SESSION_SIZES, 0].includes(normalized.sessionSize)) normalized.sessionSize = 10;
   normalized.studyMode = normalized.studyMode === "two" ? "two" : "three";
   normalized.autoPlayPronunciation = normalized.autoPlayPronunciation !== false;
+  normalized.theme = normalized.theme === "light" ? "light" : "black";
   normalized.decks = normalized.decks.map((deckItem) => {
     const normalizedDeck = { ...deckItem };
     if (normalizedDeck.id === "starter" && normalizedDeck.name === "Przykładowe znaki") {
@@ -314,6 +325,6 @@ function mergeStores(cloudStore, localStore) {
   merged.sessionSize = local.sessionSize;
   merged.studyMode = local.studyMode;
   merged.autoPlayPronunciation = local.autoPlayPronunciation;
+  merged.theme = local.theme;
   return normalizeStore(merged);
 }
-

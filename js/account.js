@@ -17,6 +17,7 @@ function updateAccountMode(mode) {
   confirmPasswordField.hidden = !isRegistering;
   accountPasswordConfirm.required = isRegistering;
   accountPasswordHint.hidden = !isRegistering;
+  passwordSecurityNote.hidden = !isRegistering;
   accountPasswordInput.autocomplete = isRegistering ? "new-password" : "current-password";
   accountSubmitBtn.textContent = isRegistering ? "Create account" : "Sign in";
   passwordResetBtn.hidden = isRegistering;
@@ -26,9 +27,14 @@ function updateAccountView(user) {
   accountAuthView.hidden = Boolean(user);
   accountProfile.hidden = !user;
   if (user) accountUserEmail.textContent = user.email || "";
+  openFeedbackInboxBtn.hidden = !isFeedbackAdmin(user);
   accountSubmitBtn.disabled = !firebaseAuth;
   passwordResetBtn.disabled = !firebaseAuth;
   profilePasswordResetBtn.disabled = !firebaseAuth;
+}
+
+function isFeedbackAdmin(user = signedInUser) {
+  return user?.email?.toLowerCase() === "gacbartlomiej96@gmail.com" && user.emailVerified;
 }
 
 function accountErrorMessage(error) {
@@ -194,9 +200,10 @@ async function resetAccountPassword() {
   }
   passwordResetBtn.disabled = true;
   profilePasswordResetBtn.disabled = true;
+  setAccountStatus("Sending password reset email...");
   try {
     await firebaseAuthApi.sendPasswordResetEmail(firebaseAuth, email);
-    setAccountStatus("If an account exists for this address, a password reset email has been sent.");
+    setAccountStatus(`If an account exists for ${email}, a password reset link has been sent. Check your inbox and spam folder.`);
   } catch (error) {
     setAccountStatus(accountErrorMessage(error));
   } finally {
@@ -214,20 +221,94 @@ async function signOutAccount() {
   }
 }
 
-function sendFeedback(event) {
+async function sendFeedback(event) {
   event.preventDefault();
   if (!feedbackForm.reportValidity()) return;
+  if (!firebaseDb || !firebaseFirestoreApi) {
+    feedbackStatusEl.textContent = "Feedback could not be sent because Firebase is not available. Try again later.";
+    return;
+  }
+  if (!feedbackDescription.value.trim()) {
+    feedbackStatusEl.textContent = "Please enter a message before sending.";
+    feedbackDescription.focus();
+    return;
+  }
 
-  const subject = `[Chinese Flashcards] ${feedbackType.value}`;
-  const body = [
-    `Type: ${feedbackType.value}`,
-    `Deck: ${activeDeck().name}`,
-    `${document.getElementById("app-version").textContent}`,
-    "",
-    feedbackDescription.value.trim(),
-  ].join("\n");
-  window.location.href = `mailto:gacbartlomiej96@gmail.com?${new URLSearchParams({ subject, body })}`;
-  feedbackDialog.close();
-  feedbackForm.reset();
+  feedbackSubmitBtn.disabled = true;
+  feedbackStatusEl.textContent = "Sending your feedback...";
+  const report = {
+    type: feedbackType.value,
+    description: feedbackDescription.value.trim(),
+    appVersion: document.getElementById("app-version").textContent,
+    deckName: activeDeck().name,
+    createdAt: firebaseFirestoreApi.serverTimestamp(),
+  };
+  if (signedInUser?.email) {
+    report.userId = signedInUser.uid;
+    report.userEmail = signedInUser.email || "";
+  }
+
+  try {
+    await firebaseFirestoreApi.addDoc(
+      firebaseFirestoreApi.collection(firebaseDb, "feedback"),
+      report,
+    );
+    feedbackForm.reset();
+    feedbackStatusEl.textContent = "Thank you. Your feedback was sent to the app administrator.";
+  } catch (error) {
+    feedbackStatusEl.textContent = `Could not send feedback. ${error.message}`;
+  } finally {
+    feedbackSubmitBtn.disabled = false;
+  }
 }
 
+async function loadFeedbackInbox() {
+  if (!isFeedbackAdmin() || !firebaseDb || !firebaseFirestoreApi) {
+    feedbackInboxStatusEl.textContent = "Sign in with the verified administrator account to view feedback.";
+    return;
+  }
+
+  feedbackInboxStatusEl.textContent = "Loading feedback...";
+  feedbackListEl.replaceChildren();
+  try {
+    const { collection, getDocs, limit, orderBy, query } = firebaseFirestoreApi;
+    const feedbackQuery = query(collection(firebaseDb, "feedback"), orderBy("createdAt", "desc"), limit(100));
+    const snapshot = await getDocs(feedbackQuery);
+    if (snapshot.empty) {
+      feedbackInboxStatusEl.textContent = "No feedback has been submitted yet.";
+      return;
+    }
+
+    feedbackInboxStatusEl.textContent = `Showing ${snapshot.size} most recent submission${snapshot.size === 1 ? "" : "s"}.`;
+    snapshot.forEach((documentSnapshot) => {
+      const report = documentSnapshot.data();
+      const item = document.createElement("li");
+      item.className = "feedback-item";
+
+      const heading = document.createElement("div");
+      heading.className = "feedback-item-heading";
+      const type = document.createElement("strong");
+      type.textContent = report.type || "Feedback";
+      const date = document.createElement("time");
+      const submittedAt = report.createdAt?.toDate?.();
+      date.textContent = submittedAt ? submittedAt.toLocaleString() : "Date unavailable";
+      heading.append(type, date);
+
+      const details = document.createElement("p");
+      details.className = "feedback-item-details";
+      details.textContent = [
+        report.userEmail || "Guest submission",
+        report.deckName || "Unknown deck",
+        report.appVersion || "Unknown version",
+      ].join(" · ");
+
+      const description = document.createElement("p");
+      description.className = "feedback-item-description";
+      description.textContent = report.description || "";
+      item.append(heading, details, description);
+      feedbackListEl.appendChild(item);
+    });
+  } catch (error) {
+    feedbackInboxStatusEl.textContent = `Could not load feedback. ${error.message}`;
+  }
+}

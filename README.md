@@ -24,6 +24,8 @@ Choose 10, 20, 50, or all cards per session.
 
 In Settings, choose either 3 study steps (character, pinyin, meaning) or 2 steps (character, then pinyin and meaning together).
 
+Choose the elegant black or light color theme in Settings. The selection is saved with the current browser or account's study settings.
+
 ## Run Locally
 
 Serve the folder locally (needed for Firebase authentication):
@@ -46,7 +48,9 @@ Accounts use Firebase Authentication with email and password. Signed-in users' d
 
 On first sign-in, existing local decks are merged into the account. If a deck exists in both places, its local card content takes precedence while review statistics are preserved. The Firebase Web config is public; never put service-account credentials in this app. Firestore rules restrict each account to its own data.
 
-The footer displays the app version and last-updated date. Update both in `index.html` when publishing. Increment the final segment of the MAJOR.MINOR.PATCH version for small changes.
+Bug reports and feedback are submitted to the Firestore `feedback` collection. Apply the rules in `firestore.rules` to allow submissions while restricting feedback reads to the verified Firebase account `gacbartlomiej96@gmail.com`. Sign in with that account and verify its email address to use the **Feedback inbox** link in the footer. The inbox shows the 100 most recent submissions. Guests can submit feedback; because Firestore rules do not rate-limit writes, enable Firebase App Check before wider public use.
+
+The footer displays the app version. Update it in `index.html` when publishing. Increment the final segment of the MAJOR.MINOR.PATCH version for small changes.
 
 ## Publish to GitHub Pages
 
