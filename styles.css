@@ -977,11 +977,33 @@ h2 {
   transition: opacity 0.15s ease;
 }
 
-.card-tool-item:hover .card-tool:not(:disabled) + .card-tooltip,
-.card-tool-item:focus-within .card-tool:not(:disabled) + .card-tooltip,
 .card-tool[aria-expanded="true"] + .card-tooltip {
   opacity: 1;
   visibility: visible;
+}
+
+@media (hover: hover) {
+  .card-tool-item:hover .card-tool:not(:disabled) + .card-tooltip,
+  .card-tool-item:focus-within .card-tool:not(:disabled) + .card-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (min-width: 700px) {
+  .stage {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .card-tool {
+    width: 48px;
+    font-size: 1.15rem;
+  }
+
+  .card-tool svg {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 .card {
