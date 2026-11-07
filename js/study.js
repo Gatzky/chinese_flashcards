@@ -8,21 +8,26 @@ function shuffle(items) {
 }
 
 function pickSessionCards(cards, size) {
-  const unseen = shuffle(cards.filter((card) => !card.misses && !card.attempts));
-  const easy = shuffle(cards.filter((card) => !card.misses && card.attempts > 0));
-  const hardGroups = new Map();
-  cards.filter((card) => card.misses > 0).forEach((card) => {
-    if (!hardGroups.has(card.misses)) hardGroups.set(card.misses, []);
-    hardGroups.get(card.misses).push(card);
+  const masteryGroups = new Map();
+  cards.forEach((card) => {
+    const mastery = card.mastery ?? (card.attempts ? (card.misses ? 1 : 3) : 0);
+    if (!masteryGroups.has(mastery)) masteryGroups.set(mastery, []);
+    masteryGroups.get(mastery).push(card);
   });
 
-  const ordered = [
-    ...unseen,
-    ...[...hardGroups.keys()]
-      .sort((a, b) => b - a)
-      .flatMap((key) => shuffle(hardGroups.get(key))),
-    ...easy,
-  ].map(cloneCard);
+  const ordered = [...masteryGroups.keys()]
+    .sort((a, b) => a - b)
+    .flatMap((mastery) => {
+      const missGroups = new Map();
+      masteryGroups.get(mastery).forEach((card) => {
+        if (!missGroups.has(card.misses)) missGroups.set(card.misses, []);
+        missGroups.get(card.misses).push(card);
+      });
+      return [...missGroups.keys()]
+        .sort((a, b) => b - a)
+        .flatMap((misses) => shuffle(missGroups.get(misses)));
+    })
+    .map(cloneStudyCard);
 
   if (!size || size >= ordered.length) return ordered;
   return ordered.slice(0, size);
@@ -34,13 +39,12 @@ function renderSessionSizeControls() {
 }
 
 function renderStats() {
-  const cards = activeDeck().cards;
-  const knownCount = cards.filter((card) => card.attempts > 0 && !card.misses).length;
-  const unseenCount = cards.filter((card) => !card.attempts && !card.misses).length;
-  const unknownCount = cards.filter((card) => card.misses > 0).length;
-  statsKnownEl.textContent = String(knownCount);
-  statsUnseenEl.textContent = String(unseenCount);
-  statsUnknownEl.textContent = String(unknownCount);
+  const cards = store.studyAllDecks ? allDeckCards() : activeDeck().cards;
+  statsPerfectEl.textContent = String(cards.filter((card) => card.mastery === 4).length);
+  statsKnownEl.textContent = String(cards.filter((card) => card.mastery === 3).length);
+  statsUnseenEl.textContent = String(cards.filter((card) => card.mastery === 0).length);
+  statsUnsureEl.textContent = String(cards.filter((card) => card.mastery === 2).length);
+  statsNoIdeaEl.textContent = String(cards.filter((card) => card.mastery === 1).length);
 }
 
 function currentCard() {
@@ -72,7 +76,7 @@ function toggleCardTooltip(button) {
 function renderCard() {
   speechRequestId += 1;
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-  deckTitle.textContent = activeDeck().name;
+  deckTitle.textContent = store.studyAllDecks ? "All decks" : activeDeck().name;
   cardEl.classList.add("is-changing");
   void cardEl.offsetWidth;
   cardEl.classList.remove("is-flipped");
@@ -157,40 +161,47 @@ function speakCard(hanzi) {
   window.speechSynthesis.speak(utterance);
 }
 
-function recordMiss(card) {
-  const stored = activeDeck().cards.find((item) => item.hanzi === card.hanzi);
-  if (!stored) return;
-  stored.misses = (stored.misses || 0) + 1;
-  stored.attempts = (stored.attempts || 0) + 1;
-  card.misses = stored.misses;
-  card.attempts = stored.attempts;
+function recordRating(card, didKnow) {
+  const sourceDeckIds = card.sourceDeckIds || [activeDeck().id];
+  const sourceCards = [];
+  sourceDeckIds.forEach((deckId) => {
+    const sourceDeck = store.decks.find((deckItem) => deckItem.id === deckId);
+    sourceDeck?.cards.filter((item) => item.hanzi === card.hanzi).forEach((stored) => {
+      stored.masteryScore = nextMastery(stored.masteryScore, didKnow);
+      stored.misses = didKnow
+        ? Math.max(0, (stored.misses || 0) - 1)
+        : Math.min(4, (stored.misses || 0) + 1);
+      stored.attempts = (stored.attempts || 0) + 1;
+      stored.mastery = masteryForScore(stored.masteryScore, stored.attempts);
+      sourceCards.push(stored);
+    });
+  });
+  card.masteryScore = sourceCards.length
+    ? Math.min(...sourceCards.map((sourceCard) => sourceCard.masteryScore))
+    : nextMastery(card.masteryScore, didKnow);
+  card.misses = didKnow
+    ? Math.max(0, (card.misses || 0) - 1)
+    : Math.min(4, (card.misses || 0) + 1);
+  card.attempts = (card.attempts || 0) + 1;
+  card.mastery = masteryForScore(card.masteryScore, card.attempts);
   saveStore();
   renderStats();
 }
 
-function recordKnown(card) {
-  const stored = activeDeck().cards.find((item) => item.hanzi === card.hanzi);
-  if (!stored) return;
-  stored.misses = Math.max(0, (stored.misses || 0) - 2);
-  stored.attempts = (stored.attempts || 0) + 1;
-  card.misses = stored.misses;
-  card.attempts = stored.attempts;
-  saveStore();
-  renderStats();
+function nextMastery(mastery, didKnow) {
+  return Math.max(-4, Math.min(4, mastery + (didKnow ? 1 : -1)));
 }
 
 function answer(isKnown) {
   if ((phase !== 1 && phase !== 2) || !deck.length) return;
 
   const card = currentCard();
+  recordRating(card, isKnown);
   if (isKnown) {
-    recordKnown(card);
     knownAnswers += 1;
-  }
-  else {
-    recordMiss(card);
+  } else {
     unknownAnswers += 1;
-    if (!unknown.some((item) => item.hanzi === card.hanzi)) unknown.push(card);
+    if (!unknown.some((item) => item.hanzi === card.hanzi)) unknown.push(cloneStudyCard(card));
   }
 
   if (phase === 1 && store.studyMode === "three") {
@@ -244,12 +255,12 @@ function showSummary() {
   appEl.classList.add("hidden");
   summaryEl.classList.remove("hidden");
   summaryEl.hidden = false;
-  scoreEl.textContent = `Correct answers: ${knownAnswers} of ${knownAnswers + unknownAnswers}.`;
+  scoreEl.textContent = `Cards known: ${knownAnswers} of ${knownAnswers + unknownAnswers}.`;
   retryUnknownBtn.disabled = unknown.length === 0;
 }
 
 function startSession(cards) {
-  deck = shuffle(cards).map(cloneCard);
+  deck = shuffle(cards).map(cloneStudyCard);
   index = 0;
   phase = 0;
   knownAnswers = 0;
@@ -268,5 +279,6 @@ function startActiveDeck() {
   applyStudyMode();
   applyAutoPlaySetting();
   applyTheme();
-  startSession(pickSessionCards(activeDeck().cards, store.sessionSize));
+  const cards = store.studyAllDecks ? allDeckCards() : activeDeck().cards;
+  startSession(pickSessionCards(cards, store.sessionSize));
 }

@@ -1,6 +1,29 @@
 function renderDeckList() {
   deckListEl.innerHTML = "";
   importTarget.innerHTML = "";
+  const allDeckButton = document.createElement("button");
+  allDeckButton.type = "button";
+  allDeckButton.className = "deck-option";
+  allDeckButton.classList.toggle("is-active", store.studyAllDecks);
+  allDeckButton.setAttribute("aria-pressed", String(store.studyAllDecks));
+  const allDeckName = document.createElement("span");
+  allDeckName.className = "deck-option-name";
+  allDeckName.textContent = "All decks";
+  const allDeckCount = document.createElement("span");
+  allDeckCount.className = "deck-option-count";
+  allDeckCount.textContent = String(allDeckCards().length);
+  allDeckButton.append(allDeckName, allDeckCount);
+  allDeckButton.addEventListener("click", () => {
+    resetWordForm();
+    wordsDialog.close();
+    deckOptionsDialog.close();
+    store.studyAllDecks = true;
+    saveStore();
+    setStatus("");
+    startActiveDeck();
+  });
+  deckListEl.appendChild(allDeckButton);
+
   store.decks.forEach((deckItem) => {
     const row = document.createElement("div");
     row.className = "deck-option-row";
@@ -8,8 +31,9 @@ function renderDeckList() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "deck-option";
-    button.classList.toggle("is-active", deckItem.id === store.activeId);
-    button.setAttribute("aria-pressed", String(deckItem.id === store.activeId));
+    const isActive = !store.studyAllDecks && deckItem.id === store.activeId;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
 
     const name = document.createElement("span");
     name.className = "deck-option-name";
@@ -25,6 +49,7 @@ function renderDeckList() {
       wordsDialog.close();
       deckOptionsDialog.close();
       store.activeId = deckItem.id;
+      store.studyAllDecks = false;
       saveStore();
       setStatus("");
       startActiveDeck();
@@ -121,6 +146,7 @@ function createDeck() {
   const deckItem = { id: createId(), name, cards: [] };
   store.decks.push(deckItem);
   store.activeId = deckItem.id;
+  store.studyAllDecks = false;
   newDeckName.value = "";
   resetWordForm();
   saveStore();
@@ -218,6 +244,7 @@ function addWord(event) {
     const updated = cloneCard(card);
     updated.misses = original.misses;
     updated.attempts = original.attempts;
+    updated.mastery = original.mastery;
     current.cards.splice(originalIndex, 1, updated);
     action = "Updated";
   } else {
@@ -265,6 +292,7 @@ function applyImport(incoming, skipped, fileName) {
     };
     store.decks.push(current);
     store.activeId = current.id;
+    store.studyAllDecks = false;
     current.cards = mergeCards([], incoming);
   } else {
     current = store.decks.find((deckItem) => deckItem.id === importTarget.value);
@@ -274,6 +302,7 @@ function applyImport(incoming, skipped, fileName) {
     }
     current.cards = mergeCards(current.cards, incoming);
     store.activeId = current.id;
+    store.studyAllDecks = false;
   }
   saveStore();
 

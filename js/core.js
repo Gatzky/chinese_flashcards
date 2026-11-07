@@ -102,7 +102,9 @@ const wordCancelBtn = document.getElementById("word-cancel-btn");
 const frontHint = document.getElementById("front-hint");
 const statsKnownEl = document.getElementById("stats-known");
 const statsUnseenEl = document.getElementById("stats-unseen");
-const statsUnknownEl = document.getElementById("stats-unknown");
+const statsPerfectEl = document.getElementById("stats-perfect");
+const statsUnsureEl = document.getElementById("stats-unsure");
+const statsNoIdeaEl = document.getElementById("stats-no-idea");
 const phaseLabelEl = document.getElementById("phase-label");
 const actionsEl = document.getElementById("actions");
 const speakBtn = document.getElementById("speak-btn");
@@ -141,6 +143,7 @@ function createId() {
 function defaultStore() {
   return {
     activeId: "starter",
+    studyAllDecks: false,
     sessionSize: 10,
     studyMode: "three",
     autoPlayPronunciation: true,
@@ -177,8 +180,32 @@ function parseCardAnnotations(parts) {
   };
 }
 
+function masteryForScore(score, attempts) {
+  if (attempts === 0 && score === 0) return 0;
+  if (score <= -3) return 1;
+  if (score <= 0) return 2;
+  if (score >= 3) return 4;
+  return 3;
+}
+
+function masteryScoreForCard(card) {
+  if (Number.isInteger(card.masteryScore) && card.masteryScore >= -4 && card.masteryScore <= 4) {
+    return card.masteryScore;
+  }
+  if (Number.isInteger(card.mastery) && card.mastery >= 0 && card.mastery <= 4) {
+    return [0, -3, -1, 2, 3][card.mastery];
+  }
+  if (Number(card.attempts) > 0) {
+    return Number(card.misses) > 0 ? -Math.min(3, Number(card.misses)) : 2;
+  }
+  return 0;
+}
+
 function cloneCard(card) {
   const annotations = parseCardAnnotations((card.meaning || "").split("//"));
+  const attempts = Math.max(0, Number(card.attempts) || 0);
+  const misses = Math.min(4, Math.max(0, Number(card.misses) || 0));
+  const masteryScore = masteryScoreForCard(card);
   return {
     hanzi: card.hanzi,
     pinyin: card.pinyin,
@@ -187,9 +214,40 @@ function cloneCard(card) {
     sentenceSource: card.sentenceSource || "",
     etymology: card.etymology || card.charactersMeaning || annotations.etymology,
     etymologySource: card.etymologySource || "",
-    misses: Math.max(0, Number(card.misses) || 0),
-    attempts: Math.max(0, Number(card.attempts) || 0),
+    misses,
+    attempts,
+    masteryScore,
+    mastery: masteryForScore(masteryScore, attempts),
   };
+}
+
+function cloneStudyCard(card) {
+  const copy = cloneCard(card);
+  if (Array.isArray(card.sourceDeckIds)) copy.sourceDeckIds = [...card.sourceDeckIds];
+  return copy;
+}
+
+function allDeckCards() {
+  const cardsByHanzi = new Map();
+  store.decks.forEach((deckItem) => {
+    deckItem.cards.forEach((card) => {
+      const existing = cardsByHanzi.get(card.hanzi);
+      if (!existing) {
+        cardsByHanzi.set(card.hanzi, {
+          ...cloneCard(card),
+          sourceDeckIds: [deckItem.id],
+        });
+        return;
+      }
+
+      if (!existing.sourceDeckIds.includes(deckItem.id)) existing.sourceDeckIds.push(deckItem.id);
+      existing.masteryScore = Math.min(existing.masteryScore, card.masteryScore);
+      existing.mastery = masteryForScore(existing.masteryScore, Math.max(existing.attempts, card.attempts));
+      existing.misses = Math.max(existing.misses, card.misses);
+      existing.attempts = Math.max(existing.attempts, card.attempts);
+    });
+  });
+  return [...cardsByHanzi.values()];
 }
 
 function deduplicateCards(cards) {
@@ -204,6 +262,8 @@ function deduplicateCards(cards) {
     const duplicate = cloneCard(card);
     duplicate.attempts += previous.attempts;
     duplicate.misses += previous.misses;
+    duplicate.masteryScore = Math.min(duplicate.masteryScore, previous.masteryScore);
+    duplicate.mastery = masteryForScore(duplicate.masteryScore, duplicate.attempts);
     cardsByHanzi.set(card.hanzi, duplicate);
   });
   return [...cardsByHanzi.values()];
@@ -217,6 +277,7 @@ function normalizeStore(parsed) {
   }
   normalized.sessionSize = Number(normalized.sessionSize);
   if (!Number.isSafeInteger(normalized.sessionSize) || normalized.sessionSize < 0) normalized.sessionSize = 10;
+  normalized.studyAllDecks = normalized.studyAllDecks === true;
   normalized.studyMode = normalized.studyMode === "two" ? "two" : "three";
   normalized.autoPlayPronunciation = normalized.autoPlayPronunciation !== false;
   normalized.theme = normalized.theme === "light" ? "light" : "black";
@@ -249,6 +310,8 @@ function normalizeStore(parsed) {
           ...cloneCard(card),
           attempts: previous?.attempts || 0,
           misses: previous?.misses || 0,
+          mastery: previous?.mastery ?? 0,
+          masteryScore: previous?.masteryScore ?? card.masteryScore,
         };
       });
       const standardHanzi = new Set(defaultDeck.cards.map((card) => card.hanzi));
@@ -346,6 +409,7 @@ function mergeCards(existing, incoming) {
     if (previous) {
       next.misses = previous.misses;
       next.attempts = previous.attempts;
+      next.mastery = previous.mastery;
     }
     byHanzi.set(card.hanzi, next);
   });
@@ -367,6 +431,7 @@ function mergeStores(cloudStore, localStore) {
   });
 
   merged.activeId = local.activeId;
+  merged.studyAllDecks = local.studyAllDecks;
   merged.sessionSize = local.sessionSize;
   merged.studyMode = local.studyMode;
   merged.autoPlayPronunciation = local.autoPlayPronunciation;
