@@ -306,12 +306,14 @@ function exportActiveDeck() {
   const current = activeDeck();
   const data = {
     name: current.name,
-    cards: current.cards.map(({ hanzi, pinyin, meaning, sentence, etymology }) => ({
+    cards: current.cards.map(({ hanzi, pinyin, meaning, sentence, sentenceSource, etymology, etymologySource }) => ({
       hanzi,
       pinyin,
       meaning,
       sentence,
+      sentenceSource,
       etymology,
+      etymologySource,
     })),
   };
   const blob = new Blob([`${JSON.stringify(data, null, 2)}\n`], { type: "application/json" });
@@ -357,4 +359,3 @@ async function analyzeImportFile() {
     importAnalysis.dataset.state = "error";
   }
 }
-

@@ -1,5 +1,5 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
-const DEFAULT_DECKS_VERSION = 1;
+const DEFAULT_DECKS_VERSION = 4;
 
 const cardEl = document.getElementById("card");
 const hanziEl = document.getElementById("hanzi");
@@ -184,10 +184,29 @@ function cloneCard(card) {
     pinyin: card.pinyin,
     meaning: annotations.meaning,
     sentence: card.sentence || annotations.sentence,
+    sentenceSource: card.sentenceSource || "",
     etymology: card.etymology || card.charactersMeaning || annotations.etymology,
+    etymologySource: card.etymologySource || "",
     misses: Math.max(0, Number(card.misses) || 0),
     attempts: Math.max(0, Number(card.attempts) || 0),
   };
+}
+
+function deduplicateCards(cards) {
+  const cardsByHanzi = new Map();
+  cards.forEach((card) => {
+    const previous = cardsByHanzi.get(card.hanzi);
+    if (!previous) {
+      cardsByHanzi.set(card.hanzi, cloneCard(card));
+      return;
+    }
+
+    const duplicate = cloneCard(card);
+    duplicate.attempts += previous.attempts;
+    duplicate.misses += previous.misses;
+    cardsByHanzi.set(card.hanzi, duplicate);
+  });
+  return [...cardsByHanzi.values()];
 }
 
 function normalizeStore(parsed) {
@@ -213,11 +232,18 @@ function normalizeStore(parsed) {
   });
 
   if ((Number(normalized.defaultDecksVersion) || 0) < DEFAULT_DECKS_VERSION) {
-    const starterDeck = window.HSK_DECKS.find((deckItem) => deckItem.id === "starter");
-    const existingStarter = normalized.decks.find((deckItem) => deckItem.id === "starter");
-    if (existingStarter) {
-      const previousCards = new Map(existingStarter.cards.map((card) => [card.hanzi, card]));
-      const standardCards = starterDeck.cards.map((card) => {
+    window.HSK_DECKS.forEach((defaultDeck) => {
+      const existingDeck = normalized.decks.find((deckItem) => deckItem.id === defaultDeck.id);
+      if (!existingDeck) {
+        normalized.decks.push({
+          ...defaultDeck,
+          cards: defaultDeck.cards.map(cloneCard),
+        });
+        return;
+      }
+
+      const previousCards = new Map(deduplicateCards(existingDeck.cards).map((card) => [card.hanzi, card]));
+      const standardCards = defaultDeck.cards.map((card) => {
         const previous = previousCards.get(card.hanzi);
         return {
           ...cloneCard(card),
@@ -225,25 +251,13 @@ function normalizeStore(parsed) {
           misses: previous?.misses || 0,
         };
       });
-      const standardHanzi = new Set(starterDeck.cards.map((card) => card.hanzi));
-      const customCards = existingStarter.cards.filter((card) =>
-        !LEGACY_STARTER_HANZI.has(card.hanzi) && !standardHanzi.has(card.hanzi));
-      if (existingStarter.name === "Sample characters") existingStarter.name = "HSK 1";
-      existingStarter.cards = [...standardCards, ...customCards];
-    } else {
-      normalized.decks.push({
-        ...starterDeck,
-        cards: starterDeck.cards.map(cloneCard),
-      });
-    }
-
-    window.HSK_DECKS.filter((deckItem) => deckItem.id !== "starter").forEach((defaultDeck) => {
-      if (!normalized.decks.some((deckItem) => deckItem.id === defaultDeck.id)) {
-        normalized.decks.push({
-          ...defaultDeck,
-          cards: defaultDeck.cards.map(cloneCard),
-        });
+      const standardHanzi = new Set(defaultDeck.cards.map((card) => card.hanzi));
+      const customCards = deduplicateCards(existingDeck.cards)
+        .filter((card) => !standardHanzi.has(card.hanzi));
+      if (defaultDeck.id === "starter" && existingDeck.name === "Sample characters") {
+        existingDeck.name = defaultDeck.name;
       }
+      existingDeck.cards = [...standardCards, ...customCards];
     });
     normalized.defaultDecksVersion = DEFAULT_DECKS_VERSION;
   }
@@ -313,9 +327,11 @@ function parseJson(text) {
       pinyin: typeof card.pinyin === "string" ? card.pinyin.trim() : "",
       meaning: card.meaning.trim(),
       sentence: typeof card.sentence === "string" ? card.sentence.trim() : "",
+      sentenceSource: typeof card.sentenceSource === "string" ? card.sentenceSource.trim() : "",
       etymology: typeof card.etymology === "string"
         ? card.etymology.trim()
         : typeof card.charactersMeaning === "string" ? card.charactersMeaning.trim() : "",
+      etymologySource: typeof card.etymologySource === "string" ? card.etymologySource.trim() : "",
     });
   });
 

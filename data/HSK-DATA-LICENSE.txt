@@ -27,3 +27,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Example sentences are adapted from individual Tatoeba contributors. Each
+sentenceSource field identifies the contributor, sentence, source URL, and
+license. Tatoeba sentence data is licensed under CC BY 2.0 FR:
+https://creativecommons.org/licenses/by/2.0/fr/
+
+Character etymology notes are adapted from the dictionary data in Make Me a
+Hanzi by Skishore:
+https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92
+The dictionary data is derived from Unihan and CJKlib and is distributed under
+LGPL-3.0-or-later, subject to the notices in
+data/MAKE-ME-A-HANZI-LICENSE.txt. Per-card etymologySource fields identify the
+source.
+Etymology notes are included only when present in the source dictionary; no
+etymology is supplied for entries without source data.
+The source dictionary has no etymology data for these single-character
+entries: 七, 万, 为, 久, 也, 买, 信, 六, 关, 写, 十, 千, 去, 向, 夏, 它, 岁,
+更, 条, 用, 的, 着, 这, 那.

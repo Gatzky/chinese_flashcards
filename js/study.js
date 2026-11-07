@@ -51,8 +51,12 @@ function updateCardTools(card) {
   speakBtn.disabled = !card || !("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window);
   sentenceBtn.disabled = !card?.sentence;
   etymologyBtn.disabled = !card?.etymology;
-  sentenceTooltipEl.textContent = card?.sentence || "";
-  etymologyTooltipEl.textContent = card?.etymology || "";
+  sentenceTooltipEl.textContent = card
+    ? [card.sentence, card.sentenceSource && `Source: ${card.sentenceSource}`].filter(Boolean).join("\n")
+    : "";
+  etymologyTooltipEl.textContent = card
+    ? [card.etymology, card.etymologySource && `Source: ${card.etymologySource}`].filter(Boolean).join("\n")
+    : "";
   sentenceBtn.setAttribute("aria-expanded", "false");
   etymologyBtn.setAttribute("aria-expanded", "false");
   speakBtn.classList.remove("is-speaking");

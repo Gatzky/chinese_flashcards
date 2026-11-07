@@ -5,752 +5,1332 @@
     {
       "hanzi": "爱",
       "pinyin": "ài",
-      "meaning": "to love; affection; to be fond of"
+      "meaning": "to love; affection; to be fond of",
+      "sentence": "你爱我吗？ = Do you love me?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10966779 (Tatoeba #10966779, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n爱: To bring a friend 友 into one's house 冖",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "八",
       "pinyin": "bā",
-      "meaning": "eight; 8"
+      "meaning": "eight; 8",
+      "sentence": "胡说八道！ = Baloney!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13598195 (Tatoeba #13598195, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n八: Two bent lines meaning \"to divide\"",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "爸爸",
       "pinyin": "bà ba",
-      "meaning": "(informal) father; CL:個|个; 位[wèi]"
+      "meaning": "(informal) father; CL:個|个; 位[wèi]",
+      "sentence": "爸爸在哪？ = Where's Daddy?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13119020 (Tatoeba #13119020, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n爸: meaning component 父; sound component 巴; father\n爸: meaning component 父; sound component 巴; father",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "杯子",
       "pinyin": "bēi zi",
-      "meaning": "cup; glass; CL:個|个"
+      "meaning": "cup; glass; CL:個|个",
+      "sentence": "杯子易碎。 = Glass breaks easily.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/353647 (Tatoeba #353647, ruicong, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n杯: meaning component 木; sound component 不; tree\n子: A child in a wrap, with outstretched arms but bundled legs",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "北京",
       "pinyin": "Běi jīng",
-      "meaning": "Beijing; capital of People's Republic of China; Peking"
+      "meaning": "Beijing; capital of People's Republic of China; Peking",
+      "sentence": "北京热吗？ = Is Beijing hot?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/6172106 (Tatoeba #6172106, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n北: Two people 匕 sitting back-to-back; phonetic loan for \"north\"\n京: A capital building on a hill",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "本",
       "pinyin": "běn",
-      "meaning": "roots or stems of plants; origin; source; classifier for books"
+      "meaning": "roots or stems of plants; origin; source; classifier for books",
+      "sentence": "基本上吧。 = Basically.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13112060 (Tatoeba #13112060, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n本: A tree 木 with its roots highlighted",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "不客气",
       "pinyin": "bù kè qi",
-      "meaning": "you're welcome; impolite; rude"
+      "meaning": "you're welcome; impolite; rude",
+      "sentence": "不客气。 = You're welcome.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/700670 (Tatoeba #700670, weipipi, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n不: A bird flying toward the sky 一\n客: A person 各 welcomed under one's roof 宀; 各 also provides the pronunciation\n气: A person 亻 breathing air",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "不",
       "pinyin": "bù",
-      "meaning": "(negative prefix); not; no"
+      "meaning": "(negative prefix); not; no",
+      "sentence": "那不痛吗？ = It doesn't hurt, does it?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13883786 (Tatoeba #13883786, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n不: A bird flying toward the sky 一",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "菜",
       "pinyin": "cài",
-      "meaning": "dish (type of food); vegetables; vegetable"
+      "meaning": "dish (type of food); vegetables; vegetable",
+      "sentence": "小菜一碟。 = It's a piece of cake.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/794009 (Tatoeba #794009, fucongcong, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n菜: meaning component 艹; sound component 采; plant",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "茶",
       "pinyin": "chá",
-      "meaning": "tea; tea plant; CL:杯"
+      "meaning": "tea; tea plant; CL:杯",
+      "sentence": "你喝茶吗？ = Do you drink tea?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/3378236 (Tatoeba #3378236, GlossaMatik, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n茶: meaning component 艹; plant",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "吃",
       "pinyin": "chī",
-      "meaning": "to eat; to consume; to eat at (a cafeteria etc)"
+      "meaning": "to eat; to consume; to eat at (a cafeteria etc)",
+      "sentence": "吃早餐了！ = Breakfast!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13275209 (Tatoeba #13275209, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n吃: meaning component 口; sound component 乞; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "出租车",
       "pinyin": "chū zū chē",
-      "meaning": "taxi; (Taiwan) rental car"
+      "meaning": "taxi; (Taiwan) rental car",
+      "sentence": "叫出租车。 = Call a taxi.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13256554 (Tatoeba #13256554, atitarev, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n出: A sprout 屮 growing out of a container 凵\n租: Regularly paid 且 tribute in grain 禾\n车: Simplified form of 車, a cart with two wheels, seen from above",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "打电话",
       "pinyin": "dǎ diàn huà",
-      "meaning": "to make a telephone call"
+      "meaning": "to make a telephone call",
+      "sentence": "打电话。 = Make a call.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961146 (Tatoeba #10961146, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n打: meaning component 扌; sound component 丁; hand\n电: Simplified form of 電; lightning 申 from a storm cloud 雨\n话: A spoken 讠 tongue 舌; 舌 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "大",
       "pinyin": "dà",
-      "meaning": "big; huge; large"
+      "meaning": "big; huge; large",
+      "sentence": "尊姓大名？ = What is your name?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13543572 (Tatoeba #13543572, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n大: A man 人 with outstretched arms",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "的",
       "pinyin": "de",
-      "meaning": "of; ~'s (possessive particle); (used after an attribute)"
+      "meaning": "of; ~'s (possessive particle); (used after an attribute)",
+      "sentence": "他的口音！ = His accent!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13138955 (Tatoeba #13138955, LeviHighway, CC BY 2.0 FR)"
     },
     {
       "hanzi": "点",
       "pinyin": "diǎn",
-      "meaning": "point; dot; drop; classifier for items"
+      "meaning": "point; dot; drop; classifier for items",
+      "sentence": "几点出门？ = What time are you leaving?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13519631 (Tatoeba #13519631, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n点: meaning component 灬; sound component 占; fire",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "电脑",
       "pinyin": "diàn nǎo",
-      "meaning": "computer; CL:臺|台[tái]"
+      "meaning": "computer; CL:臺|台[tái]",
+      "sentence": "打开电脑。 = Turn on the computer.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/9054806 (Tatoeba #9054806, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n电: Simplified form of 電; lightning 申 from a storm cloud 雨\n脑: meaning component ⺼; flesh",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "电视",
       "pinyin": "diàn shì",
-      "meaning": "television; TV; CL:臺|台"
+      "meaning": "television; TV; CL:臺|台",
+      "sentence": "开电视。 = Turn on the TV.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/472986 (Tatoeba #472986, fucongcong, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n电: Simplified form of 電; lightning 申 from a storm cloud 雨\n视: meaning component 见; sound component 礻; see",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "电影",
       "pinyin": "diàn yǐng",
-      "meaning": "movie; film; CL:部"
+      "meaning": "movie; film; CL:部",
+      "sentence": "喜欢电影。 = I love movies.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13519675 (Tatoeba #13519675, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n电: Simplified form of 電; lightning 申 from a storm cloud 雨\n影: meaning component 彡; sound component 景; sunlight",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "东西",
       "pinyin": "dōng xi",
-      "meaning": "thing; stuff; person"
+      "meaning": "thing; stuff; person",
+      "sentence": "吃东西。 = Have something to eat.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961142 (Tatoeba #10961142, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n东: Simplified form of 東, the sun 日 rising behind a tree 木\n西: A bird settling into its nest, representing sunset; compare 東",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "都",
       "pinyin": "dōu",
-      "meaning": "all; both; entirely"
+      "meaning": "all; both; entirely",
+      "sentence": "一切都好！ = All good!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13138894 (Tatoeba #13138894, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n都: meaning component 阝; sound component 者; city",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "读",
       "pinyin": "dú",
-      "meaning": "to read; to study; reading of word (i.e. pronunciation)"
+      "meaning": "to read; to study; reading of word (i.e. pronunciation)",
+      "sentence": "我在读书。 = I'm reading.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13524061 (Tatoeba #13524061, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n读: To show off 卖 one's literacy 讠",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "对不起",
       "pinyin": "duì bu qǐ",
-      "meaning": "unworthy; to let down; I'm sorry"
+      "meaning": "unworthy; to let down; I'm sorry",
+      "sentence": "对不起！ = Sorry!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13174910 (Tatoeba #13174910, atitarev, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n对: A pair 又 of hands 寸\n不: A bird flying toward the sky 一\n起: meaning component 走; sound component 己; walk",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "多",
       "pinyin": "duō",
-      "meaning": "many; much; a lot of"
+      "meaning": "many; much; a lot of",
+      "sentence": "多少个了？ = This is how many?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961157 (Tatoeba #10961157, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n多: Two nights 夕, suggesting many",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "多少",
       "pinyin": "duō shao",
-      "meaning": "how much; how many; which (number)"
+      "meaning": "how much; how many; which (number)",
+      "sentence": "多少钱？ = How much?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/3697906 (Tatoeba #3697906, katshi94, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n多: Two nights 夕, suggesting many\n少: Grains of sand; 小 provides the pronunciation and meaning",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "儿子",
       "pinyin": "ér zi",
-      "meaning": "son"
+      "meaning": "son",
+      "sentence": "我的儿子！ = My son!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10287435 (Tatoeba #10287435, DaoSeng, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n儿: Simplified form of 兒, a picture of a child; compare 人\n子: A child in a wrap, with outstretched arms but bundled legs",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "二",
       "pinyin": "èr",
-      "meaning": "two; 2; stupid (Beijing dialect)"
+      "meaning": "two; 2; stupid (Beijing dialect)",
+      "sentence": "她十二岁。 = She's 12 years old.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/8767508 (Tatoeba #8767508, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n二: Two  parallel lines; compare 一 (one) and 三 (three)",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "饭馆",
       "pinyin": "fàn guǎn",
-      "meaning": "restaurant; CL:家[jiā]"
+      "meaning": "restaurant; CL:家[jiā]",
+      "sentence": "这家饭馆开门了吗？ = Is this restaurant open?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/2918350 (Tatoeba #2918350, j0rd4nkzf, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n饭: meaning component 饣; sound component 反; food\n馆: A public 官 building where food 饣 is served; 官 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "飞机",
       "pinyin": "fēi jī",
-      "meaning": "airplane; CL:架[jià]"
+      "meaning": "airplane; CL:架[jià]",
+      "sentence": "看！飞机！ = Look! An airplane!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/6081855 (Tatoeba #6081855, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n飞: A bird flapping its wings\n机: A table 几 made of wood 木; 几 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "分钟",
       "pinyin": "fēn zhōng",
-      "meaning": "minute"
+      "meaning": "minute",
+      "sentence": "再等十分钟！ = Wait ten more minutes!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/9992081 (Tatoeba #9992081, GlossaMatik, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n分: Pieces 八 being further subdivided with a knife 刀 \n钟: meaning component 钅; sound component 中; metal",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "高兴",
       "pinyin": "gāo xìng",
-      "meaning": "happy; glad; willing (to do sth)"
+      "meaning": "happy; glad; willing (to do sth)",
+      "sentence": "高兴吗？ = Are you happy?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274628 (Tatoeba #13274628, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n高: A tall palace",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "个",
       "pinyin": "gè",
-      "meaning": "variant of 個|个[gè]"
+      "meaning": "variant of 個|个[gè]",
+      "sentence": "一个人吗？ = Are you alone?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13144746 (Tatoeba #13144746, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n个: A tally 丨 of people 人",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "工作",
       "pinyin": "gōng zuò",
-      "meaning": "to work; (of a machine) to operate; job"
+      "meaning": "to work; (of a machine) to operate; job",
+      "sentence": "工作！ = Work!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13150942 (Tatoeba #13150942, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n工: A spade or other workman's tool\n作: A person 亻 making something for the first time 乍; 乍 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "狗",
       "pinyin": "gǒu",
-      "meaning": "dog; CL:隻|只; 條|条[tiáo]"
+      "meaning": "dog; CL:隻|只; 條|条[tiáo]",
+      "sentence": "好大的狗！ = What a huge dog!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10508845 (Tatoeba #10508845, DaoSeng, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n狗: meaning component 犭; sound component 句; dog",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "汉语",
       "pinyin": "Hàn yǔ",
-      "meaning": "Chinese language; CL:門|门[mén]"
+      "meaning": "Chinese language; CL:門|门[mén]",
+      "sentence": "他学习汉语。 = He studies Chinese.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/335139 (Tatoeba #335139, sysko, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n汉: Simplified form of 漢; the Han 𦰩 river 氵\n语: meaning component 讠; sound component 吾; words",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "好",
       "pinyin": "hǎo",
-      "meaning": "good; well; proper"
+      "meaning": "good; well; proper",
+      "sentence": "你还好吗？ = Do you feel all right?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/14013605 (Tatoeba #14013605, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n好: A woman 女 with a son 子",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "喝",
       "pinyin": "hē",
-      "meaning": "to drink; My goodness!"
+      "meaning": "to drink; My goodness!",
+      "sentence": "谁喝了水？ = Who drank the water?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10182785 (Tatoeba #10182785, slo_oth, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n喝: meaning component 口; sound component 曷; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "和",
       "pinyin": "hé",
-      "meaning": "and; together with; with"
+      "meaning": "and; together with; with",
+      "sentence": "和我握手。 = Shake my hand.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/819354 (Tatoeba #819354, Martha, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n和: meaning component 口; sound component 禾; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "很",
       "pinyin": "hěn",
-      "meaning": "(adverb of degree); quite; very"
+      "meaning": "(adverb of degree); quite; very",
+      "sentence": "很担心吗？ = Were you worried?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13611612 (Tatoeba #13611612, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n很: meaning component 彳; sound component 艮; step",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "后面",
       "pinyin": "hòu mian",
-      "meaning": "rear; back; behind"
+      "meaning": "rear; back; behind",
+      "sentence": "我在他后面。 = I'm behind him.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/825930 (Tatoeba #825930, Martha, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n面: A person's face",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "回",
       "pinyin": "huí",
-      "meaning": "to curve; to return; to revolve"
+      "meaning": "to curve; to return; to revolve",
+      "sentence": "我回来了！ = I'm back.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10153684 (Tatoeba #10153684, GlossaMatik, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n回: Originally, a spiral signifying return",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "会",
       "pinyin": "huì",
-      "meaning": "can; be possible; be able to"
+      "meaning": "can; be possible; be able to",
+      "sentence": "他会来吗？ = Will he come?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10298058 (Tatoeba #10298058, DaoSeng, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n会: People 人 speaking 云",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "火车站",
       "pinyin": "huǒ chē zhàn",
-      "meaning": "train station"
+      "meaning": "train station",
+      "sentence": "我到火车站了。 = I arrived at the station.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/406367 (Tatoeba #406367, fucongcong, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n火: Flames\n车: Simplified form of 車, a cart with two wheels, seen from above\n站: meaning component 立; sound component 占; stand",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "几",
       "pinyin": "jǐ",
-      "meaning": "how much; how many; several"
+      "meaning": "how much; how many; several",
+      "sentence": "他几岁了？ = How old is he?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13882474 (Tatoeba #13882474, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n几: A small table; compare 丌",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "家",
       "pinyin": "jiā",
-      "meaning": "home; family; classifier for families or businesses"
+      "meaning": "home; family; classifier for families or businesses",
+      "sentence": "没人在家？ = Nobody home?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13138839 (Tatoeba #13138839, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n家: meaning component 宀; sound component 豕; roof",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "叫",
       "pinyin": "jiào",
-      "meaning": "to shout; to call; to order"
+      "meaning": "to shout; to call; to order",
+      "sentence": "叫托马斯！ = Call Tom.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/6017301 (Tatoeba #6017301, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n叫: meaning component 口; sound component 丩; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "今天",
       "pinyin": "jīn tiān",
-      "meaning": "today; at the present; now"
+      "meaning": "today; at the present; now",
+      "sentence": "今天热吗？ = Is it hot today?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961174 (Tatoeba #10961174, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n今: A mouth 亼 talking about things\n天: The heavens 一 above a man 大",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "九",
       "pinyin": "jiǔ",
-      "meaning": "nine; 9"
+      "meaning": "nine; 9",
+      "sentence": "猫有九命。 = A cat has nine lives.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/340498 (Tatoeba #340498, aaroned, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n九: An elbow",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "开",
       "pinyin": "kāi",
-      "meaning": "to open; to start; to turn on"
+      "meaning": "to open; to start; to turn on",
+      "sentence": "开玩笑吧？ = No kidding!?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13276174 (Tatoeba #13276174, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n开: Simplified form of 開; hands 廾 lifting the latch 一 of a door",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "看",
       "pinyin": "kàn",
-      "meaning": "to see; to look at; to read"
+      "meaning": "to see; to look at; to read",
+      "sentence": "我好看吗？ = Am I pretty?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10308602 (Tatoeba #10308602, DaoSeng, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n看: Shielding one's eyes 目 with a hand 手 to look to the distance",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "看见",
       "pinyin": "kàn jiàn",
-      "meaning": "to see; to catch sight of"
+      "meaning": "to see; to catch sight of",
+      "sentence": "我能看见。 = I could see that.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/6086888 (Tatoeba #6086888, verdastelo9604, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n看: Shielding one's eyes 目 with a hand 手 to look to the distance\n见: Simplified form of 見; a man 儿 with the eye 目 emphasized",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "块",
       "pinyin": "kuài",
-      "meaning": "lump (of earth); chunk; piece; classifier for pieces of cloth"
+      "meaning": "lump (of earth); chunk; piece; classifier for pieces of cloth",
+      "sentence": "这个几块？ = How much is it?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10052320 (Tatoeba #10052320, GlossaMatik, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n块: meaning component 土; sound component 夬; earth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "来",
       "pinyin": "lái",
-      "meaning": "to come; to arrive; to come round"
+      "meaning": "to come; to arrive; to come round",
+      "sentence": "再来一次！ = Encore!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13598223 (Tatoeba #13598223, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n来: A wheat plant that has not yet borne fruit; compare 來",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "老师",
       "pinyin": "lǎo shī",
-      "meaning": "teacher; CL:個|个; 位[wèi]"
+      "meaning": "teacher; CL:個|个; 位[wèi]",
+      "sentence": "关老师！ = Teacher Guan!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13111438 (Tatoeba #13111438, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n老: A person bent over with long hair 匕 and a crutch; compare 耂\n师: To skillfully wield 帀 a knife 刂",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "了",
       "pinyin": "le",
-      "meaning": "(modal particle intensifying preceding clause); (completed action marker)"
+      "meaning": "(modal particle intensifying preceding clause); (completed action marker)",
+      "sentence": "你受伤了？ = Honey, are you hurt?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/14098514 (Tatoeba #14098514, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n了: A child swaddled in blanklets; compare 子",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "冷",
       "pinyin": "lěng",
-      "meaning": "cold"
+      "meaning": "cold",
+      "sentence": "多么冷啊! = How cold it is!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/891117 (Tatoeba #891117, Martha, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n冷: meaning component 冫; sound component 令; ice",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "里",
       "pinyin": "lǐ",
-      "meaning": "li (Chinese mile); 500 meters (modern); home"
+      "meaning": "li (Chinese mile); 500 meters (modern); home",
+      "sentence": "您在哪里？ = Where are you?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13996645 (Tatoeba #13996645, Adelpa, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n里: Unit of measure for farm 田 land 土",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "零",
       "pinyin": "líng",
-      "meaning": "zero; nought; zero sign"
+      "meaning": "zero; nought; zero sign",
+      "sentence": "这是找零。 = Here's the change.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/332834 (Tatoeba #332834, fucongcong, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n零: meaning component 雨; sound component 令; raindrop",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "六",
       "pinyin": "liù",
-      "meaning": "six; 6"
+      "meaning": "six; 6",
+      "sentence": "是星期六。 = It is Saturday.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/3715251 (Tatoeba #3715251, egg0073, CC BY 2.0 FR)"
     },
     {
       "hanzi": "妈妈",
       "pinyin": "mā ma",
-      "meaning": "mama; mommy; mother"
+      "meaning": "mama; mommy; mother",
+      "sentence": "妈妈哭了。 = Mummy cried.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/349505 (Tatoeba #349505, zhouj1955, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n妈: meaning component 女; sound component 马; woman\n妈: meaning component 女; sound component 马; woman",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "吗",
       "pinyin": "ma",
-      "meaning": "(question tag)"
+      "meaning": "(question tag)",
+      "sentence": "是蓝色吗？ = Is it blue?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13621144 (Tatoeba #13621144, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n吗: meaning component 口; sound component 马; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "买",
       "pinyin": "mǎi",
-      "meaning": "to buy; to purchase"
+      "meaning": "to buy; to purchase",
+      "sentence": "我要买单！ = The check, please!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13519232 (Tatoeba #13519232, LeviHighway, CC BY 2.0 FR)"
     },
     {
       "hanzi": "猫",
       "pinyin": "māo",
-      "meaning": "cat; CL:隻|只[zhī]"
+      "meaning": "cat; CL:隻|只[zhī]",
+      "sentence": "猫咪万岁！ = Cats forever!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274651 (Tatoeba #13274651, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n猫: meaning component 犭; sound component 苗; animal",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "没",
       "pinyin": "méi",
-      "meaning": "(negative prefix for verbs); have not; not"
+      "meaning": "(negative prefix for verbs); have not; not",
+      "sentence": "没问题啊！ = No problem!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13189527 (Tatoeba #13189527, atitarev, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n没: meaning component 氵; sound component 殳; water",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "没关系",
       "pinyin": "méi guān xi",
-      "meaning": "it doesn't matter"
+      "meaning": "it doesn't matter",
+      "sentence": "没关系！ = Never mind!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13189528 (Tatoeba #13189528, atitarev, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n没: meaning component 氵; sound component 殳; water\n系: meaning component 糸; thread",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "米饭",
       "pinyin": "mǐ fàn",
-      "meaning": "(cooked) rice"
+      "meaning": "(cooked) rice",
+      "sentence": "吃米饭。 = Eat rice.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961144 (Tatoeba #10961144, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n米: Grains of rice\n饭: meaning component 饣; sound component 反; food",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "明天",
       "pinyin": "míng tiān",
-      "meaning": "tomorrow"
+      "meaning": "tomorrow",
+      "sentence": "明天见！ = See you tomorrow.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10966735 (Tatoeba #10966735, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n明: The light of the sun 日 and moon 月\n天: The heavens 一 above a man 大",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "名字",
       "pinyin": "míng zi",
-      "meaning": "name (of a person or thing); CL:個|个[gè]"
+      "meaning": "name (of a person or thing); CL:個|个[gè]",
+      "sentence": "我没有名字。 = I have no name.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/11046616 (Tatoeba #11046616, DaoSeng, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n名: A name called out 口 to hail someone at night 夕\n字: A child 子 in a house 宀; 子 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "哪",
       "pinyin": "nǎ",
-      "meaning": "how; which"
+      "meaning": "how; which",
+      "sentence": "哪里哪里！ = Not at all!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13189784 (Tatoeba #13189784, atitarev, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n哪: meaning component 口; sound component 那; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "那",
       "pinyin": "nà",
-      "meaning": "that; those; then (in that case); commonly pr.  before a classifier"
+      "meaning": "that; those; then (in that case); commonly pr.  before a classifier",
+      "sentence": "那边那位！ = Hello!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/14045604 (Tatoeba #14045604, LeviHighway, CC BY 2.0 FR)"
     },
     {
       "hanzi": "呢",
       "pinyin": "ne",
-      "meaning": "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\"; \"And ...?\"); particle for inquiring about location (\"Where is ...?\")"
+      "meaning": "particle indicating that a previously asked question is to be applied to the preceding word (\"What about ...?\"; \"And ...?\"); particle for inquiring about location (\"Where is ...?\")",
+      "sentence": "为什么呢？ = Why then?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/8765870 (Tatoeba #8765870, crescat, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n呢: meaning component 口; sound component 尼; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "能",
       "pinyin": "néng",
-      "meaning": "to be able to; to be capable of; ability"
+      "meaning": "to be able to; to be capable of; ability",
+      "sentence": "能等等吗？ = Can you wait?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274656 (Tatoeba #13274656, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n能: A bear's head 厶, body ⺼, and claws 匕",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "你",
       "pinyin": "nǐ",
-      "meaning": "you (informal; as opposed to courteous 您)"
+      "meaning": "you (informal; as opposed to courteous 您)",
+      "sentence": "愿你平安！ = Sanctuary!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13904646 (Tatoeba #13904646, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n你: Pronoun 尔 for a person 亻",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "年",
       "pinyin": "nián",
-      "meaning": "year; CL:個|个[gè]"
+      "meaning": "year; CL:個|个[gè]",
+      "sentence": "我没成年。 = I'm a minor.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/14057665 (Tatoeba #14057665, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n年: A man 干 carrying grain, representing the annual harvest",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "女儿",
       "pinyin": "nǚ ér",
-      "meaning": "daughter"
+      "meaning": "daughter",
+      "sentence": "她是我女儿。 = She's my daughter.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1428124 (Tatoeba #1428124, sadhen, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n女: A woman turned to the side\n儿: Simplified form of 兒, a picture of a child; compare 人",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "朋友",
       "pinyin": "péng you",
-      "meaning": "friend; CL:個|个; 位[wèi]"
+      "meaning": "friend; CL:個|个; 位[wèi]",
+      "sentence": "我是朋友。 = I'm a friend.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13825930 (Tatoeba #13825930, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n朋: Two people 月 walking together\n友: Two hands 又 joined, representing friendship; 又 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "漂亮",
       "pinyin": "piào liang",
-      "meaning": "pretty; beautiful"
+      "meaning": "pretty; beautiful",
+      "sentence": "我很漂亮。 = I'm beautiful.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/454256 (Tatoeba #454256, peipei, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n漂: meaning component 氵; sound component 票; water\n亮: A lit oil lamp",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "苹果",
       "pinyin": "píng guǒ",
-      "meaning": "apple; CL:個|个; 顆|颗[kē]"
+      "meaning": "apple; CL:個|个; 顆|颗[kē]",
+      "sentence": "苹果掉了！ = The apple fell!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13166889 (Tatoeba #13166889, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n苹: meaning component 艹; sound component 平; plant\n果: Fruit 田 growing on a tree 木",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "七",
       "pinyin": "qī",
-      "meaning": "seven; 7"
+      "meaning": "seven; 7",
+      "sentence": "七夕节快乐！ = Happy Qixi Festival!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/4462612 (Tatoeba #4462612, shanghainese, CC BY 2.0 FR)"
     },
     {
       "hanzi": "钱",
       "pinyin": "qián",
-      "meaning": "coin; money; CL:筆|笔[bǐ]"
+      "meaning": "coin; money; CL:筆|笔[bǐ]",
+      "sentence": "我需要钱 = I need money.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/6387411 (Tatoeba #6387411, qazz0003, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n钱: meaning component 钅; sound component 戋; money",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "前面",
       "pinyin": "qián miàn",
-      "meaning": "ahead; in front; preceding"
+      "meaning": "ahead; in front; preceding",
+      "sentence": "前面有危险。 = Danger ahead.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/362345 (Tatoeba #362345, nickyeow, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n面: A person's face",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "请",
       "pinyin": "qǐng",
-      "meaning": "to ask; to invite; please (do sth)"
+      "meaning": "to ask; to invite; please (do sth)",
+      "sentence": "请讲英文！ = Speak English.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13519621 (Tatoeba #13519621, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n请: meaning component 讠; sound component 青; speech",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "去",
       "pinyin": "qù",
-      "meaning": "to go; to go to (a place); to cause to go or send (sb)"
+      "meaning": "to go; to go to (a place); to cause to go or send (sb)",
+      "sentence": "要去哪里？ = Where are you going to?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13549434 (Tatoeba #13549434, LeviHighway, CC BY 2.0 FR)"
     },
     {
       "hanzi": "热",
       "pinyin": "rè",
-      "meaning": "to warm up; to heat up; hot (of weather)"
+      "meaning": "to warm up; to heat up; hot (of weather)",
+      "sentence": "今天热吗？ = Is it hot today?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961174 (Tatoeba #10961174, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n热: meaning component 灬; sound component 执; fire",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "人",
       "pinyin": "rén",
-      "meaning": "man; person; people"
+      "meaning": "man; person; people",
+      "sentence": "卑鄙小人！ = You coward!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274645 (Tatoeba #13274645, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n人: The legs of a human being",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "认识",
       "pinyin": "rèn shi",
-      "meaning": "to know; to recognize; to be familiar with"
+      "meaning": "to know; to recognize; to be familiar with",
+      "sentence": "我认识他。 = I know him.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/11837643 (Tatoeba #11837643, Lemmih, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n认: meaning component 讠; sound component 人; speech\n识: meaning component 讠; sound component 只; speech",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "日",
       "pinyin": "rì",
-      "meaning": "sun; day; date"
+      "meaning": "sun; day; date",
+      "sentence": "早日康复！ = Get well soon!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1541652 (Tatoeba #1541652, menyo, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n日: The sun",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "三",
       "pinyin": "sān",
-      "meaning": "three; 3"
+      "meaning": "three; 3",
+      "sentence": "我三十岁。 = I'm thirty.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/8767504 (Tatoeba #8767504, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n三: Three  parallel lines; compare 一 (one) and 二 (two)",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "商店",
       "pinyin": "shāng diàn",
-      "meaning": "store; shop; CL:家"
+      "meaning": "store; shop; CL:家",
+      "sentence": "我去商店。 = I am going to the shop.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1504028 (Tatoeba #1504028, Tsetseg, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n商: meaning component 冏; sound component 章; bright\n店: meaning component 广; sound component 占; building",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "上",
       "pinyin": "shàng",
-      "meaning": "on top; upon; above"
+      "meaning": "on top; upon; above",
+      "sentence": "穿上衣服！ = Dress up!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13210530 (Tatoeba #13210530, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n上: One stroke on top of another; compare 下 (below)",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "上午",
       "pinyin": "shàng wǔ",
-      "meaning": "morning; CL:個|个[gè]"
+      "meaning": "morning; CL:個|个[gè]",
+      "sentence": "我上午慢跑。 = I jog in the morning.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/3695646 (Tatoeba #3695646, trieuho, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n上: One stroke on top of another; compare 下 (below)",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "少",
       "pinyin": "shǎo",
-      "meaning": "few; little; lack"
+      "meaning": "few; little; lack",
+      "sentence": "你少臭美！ = As if!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/2153242 (Tatoeba #2153242, Rebeca, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n少: Grains of sand; 小 provides the pronunciation and meaning",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "谁",
       "pinyin": "shéi",
-      "meaning": "who; also pr. [shuí]"
+      "meaning": "who; also pr. [shuí]",
+      "sentence": "亚当是谁？ = Who's Adam?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13954301 (Tatoeba #13954301, Adelpa, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n谁: meaning component 讠; sound component 隹; speech",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "什么",
       "pinyin": "shén me",
-      "meaning": "what?; who?; something"
+      "meaning": "what?; who?; something",
+      "sentence": "什么！ = What!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13112394 (Tatoeba #13112394, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n什: A file of ten 十 people 亻",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "十",
       "pinyin": "shí",
-      "meaning": "ten; 10"
+      "meaning": "ten; 10",
+      "sentence": "你五十岁。 = You're 50.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/8767506 (Tatoeba #8767506, xjjAstrus, CC BY 2.0 FR)"
     },
     {
       "hanzi": "时候",
       "pinyin": "shí hou",
-      "meaning": "time; length of time; moment"
+      "meaning": "time; length of time; moment",
+      "sentence": "什么时候？ = When?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/12278403 (Tatoeba #12278403, FishlandicFishy, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n时: meaning component 日; day\n候: meaning component 亻; sound component 矦; person",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "是",
       "pinyin": "shì",
-      "meaning": "is; are; am"
+      "meaning": "is; are; am",
+      "sentence": "亚当是谁？ = Who's Adam?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13954301 (Tatoeba #13954301, Adelpa, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n是: To speak 日 directly 疋",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "书",
       "pinyin": "shū",
-      "meaning": "book; letter; CL:本"
+      "meaning": "book; letter; CL:本",
+      "sentence": "书在哪儿？ = Where is the book?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/5403285 (Tatoeba #5403285, boyhero, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n书: A mark made by a pen ⺺",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "水",
       "pinyin": "shuǐ",
-      "meaning": "water; river; liquid; (of clothes) classifier for number of washes"
+      "meaning": "water; river; liquid; (of clothes) classifier for number of washes",
+      "sentence": "好多水笔！ = What a lot of pens!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10640145 (Tatoeba #10640145, DaoSeng, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n水: A river running between two banks; compare 川",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "水果",
       "pinyin": "shuǐ guǒ",
-      "meaning": "fruit; CL:個|个[gè]"
+      "meaning": "fruit; CL:個|个[gè]",
+      "sentence": "吃水果。 = Eat fruit.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/6092436 (Tatoeba #6092436, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n水: A river running between two banks; compare 川\n果: Fruit 田 growing on a tree 木",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "睡觉",
       "pinyin": "shuì jiào",
-      "meaning": "to go to bed; to sleep"
+      "meaning": "to go to bed; to sleep",
+      "sentence": "我要睡觉 = I want to sleep.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/878342 (Tatoeba #878342, aye1995, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n睡: meaning component 目; sound component 垂; eye\n觉: meaning component 见; sound component ⺍; see",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "说话",
       "pinyin": "shuō huà",
-      "meaning": "to speak; to say; to talk"
+      "meaning": "to speak; to say; to talk",
+      "sentence": "它说话。 = It speaks.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/3378160 (Tatoeba #3378160, GlossaMatik, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n说: meaning component 讠; sound component 兑; speech\n话: A spoken 讠 tongue 舌; 舌 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "四",
       "pinyin": "sì",
-      "meaning": "four; 4"
+      "meaning": "four; 4",
+      "sentence": "四月到了。 = It's April.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13175390 (Tatoeba #13175390, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n四: A child 儿 in a room with four walls 囗",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "岁",
       "pinyin": "suì",
-      "meaning": "classifier for years (of age); year; year (of crop harvests)"
+      "meaning": "classifier for years (of age); year; year (of crop harvests)",
+      "sentence": "撒旦万岁！ = Hail Satan!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10598636 (Tatoeba #10598636, valhentai, CC BY 2.0 FR)"
     },
     {
       "hanzi": "他",
       "pinyin": "tā",
-      "meaning": "he or him; (used for either sex when the sex is unknown or unimportant); (used before sb's name for emphasis)"
+      "meaning": "he or him; (used for either sex when the sex is unknown or unimportant); (used before sb's name for emphasis)",
+      "sentence": "你骗了他！ = You lied to him!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13890312 (Tatoeba #13890312, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n他: An additional, \"also\" 也  person 亻",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "她",
       "pinyin": "tā",
-      "meaning": "she"
+      "meaning": "she",
+      "sentence": "她来了吗？ = Has she come?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/12569589 (Tatoeba #12569589, lnvq, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n她: A woman 女 beside you 也",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "太",
       "pinyin": "tài",
-      "meaning": "highest; greatest; too (much)"
+      "meaning": "highest; greatest; too (much)",
+      "sentence": "太差劲了！ = You're disgusting!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13144770 (Tatoeba #13144770, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n太: A giant 大 with a normal-sized man 丶 for scale",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "天气",
       "pinyin": "tiān qì",
-      "meaning": "weather"
+      "meaning": "weather",
+      "sentence": "天气热。 = It's hot.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13512897 (Tatoeba #13512897, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n天: The heavens 一 above a man 大\n气: A person 亻 breathing air",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "听",
       "pinyin": "tīng",
-      "meaning": "to listen; to hear; to obey; classifier for canned beverages"
+      "meaning": "to listen; to hear; to obey; classifier for canned beverages",
+      "sentence": "你爱听吗？ = Love listening?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961052 (Tatoeba #10961052, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n听: Words 口 reaching an ear 斤",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "同学",
       "pinyin": "tóng xué",
-      "meaning": "to study at the same school; fellow student; classmate"
+      "meaning": "to study at the same school; fellow student; classmate",
+      "sentence": "我们是同学。 = We're classmates.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/6147806 (Tatoeba #6147806, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n同: Sharing a common 凡 tongue 口\n学: A building 冖 where children 子 study; ⺍ provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "喂",
       "pinyin": "wèi",
-      "meaning": "to feed"
+      "meaning": "to feed",
+      "sentence": "唉唷喂啊！ = Whoopsie!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13112127 (Tatoeba #13112127, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n喂: meaning component 口; sound component 畏; mouth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "我",
       "pinyin": "wǒ",
-      "meaning": "I; me; my"
+      "meaning": "I; me; my",
+      "sentence": "我要买单！ = The check, please!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13519232 (Tatoeba #13519232, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n我: A hand 扌 holding a weapon 戈",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "我们",
       "pinyin": "wǒ men",
-      "meaning": "we; us; ourselves"
+      "meaning": "we; us; ourselves",
+      "sentence": "我们走。 = We leave.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13150956 (Tatoeba #13150956, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n我: A hand 扌 holding a weapon 戈\n们: meaning component 亻; sound component 门; people",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "五",
       "pinyin": "wǔ",
-      "meaning": "five; 5"
+      "meaning": "five; 5",
+      "sentence": "你五十岁。 = You're 50.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/8767506 (Tatoeba #8767506, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n五: Five elements (the cross with the extra stroke) between heaven 一 and earth 一 ",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "喜欢",
       "pinyin": "xǐ huan",
-      "meaning": "to like; to be fond of"
+      "meaning": "to like; to be fond of",
+      "sentence": "喜欢。 = I like you.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/14093235 (Tatoeba #14093235, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n喜: Singing 口 and beating drums 壴",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "下",
       "pinyin": "xià",
-      "meaning": "down; downwards; below"
+      "meaning": "down; downwards; below",
+      "sentence": "稍等一下！ = Wait a bit!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13972817 (Tatoeba #13972817, Rinrin, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n下: One stroke under another; compare 上 (above)",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "下午",
       "pinyin": "xià wǔ",
-      "meaning": "afternoon; CL:個|个[gè]; p.m."
+      "meaning": "afternoon; CL:個|个[gè]; p.m.",
+      "sentence": "下午好。 = Good afternoon.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/812493 (Tatoeba #812493, fucongcong, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n下: One stroke under another; compare 上 (above)",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "下雨",
       "pinyin": "xià yǔ",
-      "meaning": "to rain; rainy"
+      "meaning": "to rain; rainy",
+      "sentence": "下雨吗？ = Is it raining?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1289086 (Tatoeba #1289086, Vortarulo, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n下: One stroke under another; compare 上 (above)\n雨: Rain drops falling from a cloud 帀",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "先生",
       "pinyin": "xiān sheng",
-      "meaning": "teacher; husband; doctor (topolect)"
+      "meaning": "teacher; husband; doctor (topolect)",
+      "sentence": "谢谢您，先生。 = Thank you, sir.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/710691 (Tatoeba #710691, Ayalche, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n先: Someone stepping 止 in front of another person 儿\n生:  A shoot 屮 growing in the soil 土",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "现在",
       "pinyin": "xiàn zài",
-      "meaning": "now; at present; at the moment"
+      "meaning": "now; at present; at the moment",
+      "sentence": "现在忙 = Busy right now.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/5321365 (Tatoeba #5321365, boyhero, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n现: To see 见 jade 王; 见 also provides the pronunciation\n在: meaning component 土; sound component 才; earth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "想",
       "pinyin": "xiǎng",
-      "meaning": "to think; to believe; to suppose"
+      "meaning": "to think; to believe; to suppose",
+      "sentence": "想要知道？ = Want to know?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13210548 (Tatoeba #13210548, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n想: meaning component 心; sound component 相; mind",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "小",
       "pinyin": "xiǎo",
-      "meaning": "small; tiny; few"
+      "meaning": "small; tiny; few",
+      "sentence": "卑鄙小人！ = You coward!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274645 (Tatoeba #13274645, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n小: Dividing 八 by a line 亅",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "小姐",
       "pinyin": "xiǎo jie",
-      "meaning": "young lady; miss; (slang) prostitute"
+      "meaning": "young lady; miss; (slang) prostitute",
+      "sentence": "请问小姐芳龄？ = May I ask how old you are?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/4887651 (Tatoeba #4887651, musclegirlxyp, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n小: Dividing 八 by a line 亅\n姐: meaning component 女; sound component 且; woman",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "些",
       "pinyin": "xiē",
-      "meaning": "some; few; several; measure word indicating a small amount or small number (greater than 1)"
+      "meaning": "some; few; several; measure word indicating a small amount or small number (greater than 1)",
+      "sentence": "更清晰些。 = Be more precise.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/9961446 (Tatoeba #9961446, GlossaMatik, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n些: meaning component 二; sound component 此; two",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "写",
       "pinyin": "xiě",
-      "meaning": "to write"
+      "meaning": "to write",
+      "sentence": "你会写吗 ? = Can you write?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13309347 (Tatoeba #13309347, mimosawang, CC BY 2.0 FR)"
     },
     {
       "hanzi": "谢谢",
       "pinyin": "xiè xie",
-      "meaning": "to thank; thanks"
+      "meaning": "to thank; thanks",
+      "sentence": "谢谢？ = Thanks?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13142066 (Tatoeba #13142066, JackyJiaqiSun, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n谢: meaning component 讠; sound component 射; speech\n谢: meaning component 讠; sound component 射; speech",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "星期",
       "pinyin": "xīng qī",
-      "meaning": "week; CL:個|个[gè]; day of the week"
+      "meaning": "week; CL:個|个[gè]; day of the week",
+      "sentence": "星期五！ = Thank God it's Friday!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274650 (Tatoeba #13274650, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n星: meaning component 日; sound component 生; sun\n期: meaning component 月; sound component 其; moon",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "学生",
       "pinyin": "xué sheng",
-      "meaning": "student; schoolchild"
+      "meaning": "student; schoolchild",
+      "sentence": "学生？ = Are you a student?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274580 (Tatoeba #13274580, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n学: A building 冖 where children 子 study; ⺍ provides the pronunciation\n生:  A shoot 屮 growing in the soil 土",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "学习",
       "pinyin": "xué xí",
-      "meaning": "to learn; to study"
+      "meaning": "to learn; to study",
+      "sentence": "学习吧。 = Learn.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13904096 (Tatoeba #13904096, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n学: A building 冖 where children 子 study; ⺍ provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "学校",
       "pinyin": "xué xiào",
-      "meaning": "school; CL:所[suǒ]"
+      "meaning": "school; CL:所[suǒ]",
+      "sentence": "我在学校。 = I'm at school.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13497468 (Tatoeba #13497468, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n学: A building 冖 where children 子 study; ⺍ provides the pronunciation\n校: meaning component 木; sound component 交; wood",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "一",
       "pinyin": "yī",
-      "meaning": "one; 1; single"
+      "meaning": "one; 1; single",
+      "sentence": "再来一次！ = Encore!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13598223 (Tatoeba #13598223, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n一: Represents heaven (天), earth (旦), or the number 1",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "衣服",
       "pinyin": "yī fu",
-      "meaning": "clothes; CL:件; 套[tào]"
+      "meaning": "clothes; CL:件; 套[tào]",
+      "sentence": "穿衣服！ = Get dressed!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13210532 (Tatoeba #13210532, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n衣: A woman's dress\n服: A person 卩 putting on 又 a coat 月",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "医生",
       "pinyin": "yī shēng",
-      "meaning": "doctor; CL:個|个; 位"
+      "meaning": "doctor; CL:個|个; 位",
+      "sentence": "我是医生。 = I'm a doctor.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/2370671 (Tatoeba #2370671, anndiana, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n医: meaning component 矢; sound component 匸; arrow\n生:  A shoot 屮 growing in the soil 土",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "医院",
       "pinyin": "yī yuàn",
-      "meaning": "hospital; CL:所; 家"
+      "meaning": "hospital; CL:所; 家",
+      "sentence": "他在医院。 = He is in hospital.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1169502 (Tatoeba #1169502, Vortarulo, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n医: meaning component 矢; sound component 匸; arrow\n院: meaning component 阝; sound component 完; place",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "椅子",
       "pinyin": "yǐ zi",
-      "meaning": "chair; CL:把; 套[tào]"
+      "meaning": "chair; CL:把; 套[tào]",
+      "sentence": "再拿把椅子！ = Get another chair!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/9054579 (Tatoeba #9054579, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n椅: meaning component 木; sound component 奇; wood\n子: A child in a wrap, with outstretched arms but bundled legs",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "有",
       "pinyin": "yǒu",
-      "meaning": "to have; there is; there are"
+      "meaning": "to have; there is; there are",
+      "sentence": "有护照吗？ = Do you have a passport?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13661154 (Tatoeba #13661154, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n有: sound component 月",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "月",
       "pinyin": "yuè",
-      "meaning": "moon; month; CL:個|个"
+      "meaning": "moon; month; CL:個|个",
+      "sentence": "四月到了。 = It's April.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13175390 (Tatoeba #13175390, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n月: A crescent moon",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "在",
       "pinyin": "zài",
-      "meaning": "(located) at; (to be) in; to exist"
+      "meaning": "(located) at; (to be) in; to exist",
+      "sentence": "在这等着！ = Wait here!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13878983 (Tatoeba #13878983, jan_OkulaJu, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n在: meaning component 土; sound component 才; earth",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "再见",
       "pinyin": "zài jiàn",
-      "meaning": "goodbye; see you again later"
+      "meaning": "goodbye; see you again later",
+      "sentence": "再见。 = See you.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/2030795 (Tatoeba #2030795, sadhen, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n再: Two fish 冉 caught on a line 一\n见: Simplified form of 見; a man 儿 with the eye 目 emphasized",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "怎么",
       "pinyin": "zěn me",
-      "meaning": "variant of 怎麼|怎么[zěn me]"
+      "meaning": "variant of 怎麼|怎么[zěn me]",
+      "sentence": "怎么？ = How do you like it?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13274598 (Tatoeba #13274598, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n怎: meaning component 心; sound component 乍; heart",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "怎么样",
       "pinyin": "zěn me yàng",
-      "meaning": "how?; how about?; how was it?"
+      "meaning": "how?; how about?; how was it?",
+      "sentence": "怎么样？ = How?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/5214222 (Tatoeba #5214222, kanlaon, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n怎: meaning component 心; sound component 乍; heart\n样: meaning component 木; sound component 羊; tree",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "这",
       "pinyin": "zhè",
-      "meaning": "this; these; (commonly pr.  before a classifier"
+      "meaning": "this; these; (commonly pr.  before a classifier",
+      "sentence": "在这等着！ = Wait here!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13878983 (Tatoeba #13878983, jan_OkulaJu, CC BY 2.0 FR)"
     },
     {
       "hanzi": "中国",
       "pinyin": "Zhōng guó",
-      "meaning": "China; Middle Kingdom"
+      "meaning": "China; Middle Kingdom",
+      "sentence": "我在中国。 = I’m in China.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/13575551 (Tatoeba #13575551, LeviHighway, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n中: A line 丨 through the center of a box 口\n国: Treasure 玉 within a country's borders 囗",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "中午",
       "pinyin": "zhōng wǔ",
-      "meaning": "noon; midday; CL:個|个[gè]"
+      "meaning": "noon; midday; CL:個|个[gè]",
+      "sentence": "现在才中午。 = It is just noon.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1964240 (Tatoeba #1964240, bigfatpanda, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n中: A line 丨 through the center of a box 口",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "住",
       "pinyin": "zhù",
-      "meaning": "to live; to dwell; to stay"
+      "meaning": "to live; to dwell; to stay",
+      "sentence": "给我站住！ = Stop right there!",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1661542 (Tatoeba #1661542, fengli, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n住: A person 亻 who hosts 主; 主 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "桌子",
       "pinyin": "zhuō zi",
-      "meaning": "table; desk; CL:張|张"
+      "meaning": "table; desk; CL:張|张",
+      "sentence": "我擦了桌子。 = I cleared the table.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/9054575 (Tatoeba #9054575, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n子: A child in a wrap, with outstretched arms but bundled legs",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "字",
       "pinyin": "zì",
-      "meaning": "letter; symbol; character"
+      "meaning": "letter; symbol; character",
+      "sentence": "你在写字。 = You're writing.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/1623402 (Tatoeba #1623402, shanghainese, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n字: A child 子 in a house 宀; 子 also provides the pronunciation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "昨天",
       "pinyin": "zuó tiān",
-      "meaning": "yesterday"
+      "meaning": "yesterday",
+      "sentence": "昨天很热。 = It was hot yesterday.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/771000 (Tatoeba #771000, Martha, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n昨: meaning component 日; sound component 乍; day\n天: The heavens 一 above a man 大",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "坐",
       "pinyin": "zuò",
-      "meaning": "to sit; to take a seat; to take (a bus"
+      "meaning": "to sit; to take a seat; to take (a bus",
+      "sentence": "您不坐吗？ = Won't you sit down?",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/336087 (Tatoeba #336087, fucongcong, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n坐: Two people 从 sitting on the ground 土",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     },
     {
       "hanzi": "做",
       "pinyin": "zuò",
-      "meaning": "to do; to make; to produce"
+      "meaning": "to do; to make; to produce",
+      "sentence": "饭做好了！ = The food is ready.",
+      "sentenceSource": "https://tatoeba.org/en/sentences/show/10961159 (Tatoeba #10961159, xjjAstrus, CC BY 2.0 FR)",
+      "etymology": "Character etymology:\n做: Someone 亻 who causes things to happen 故; 故 also provides the pronuncation",
+      "etymologySource": "https://github.com/skishore/makemeahanzi/tree/bddc96d41bef78427ed0e034e9f7e31d71fd1b92 (Skishore; LGPL-3.0-or-later; derived from Unihan and CJKlib)"
     }
   ]
 }

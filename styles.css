@@ -960,7 +960,10 @@ h2 {
   left: calc(100% + 10px);
   z-index: 5;
   width: min(280px, calc(100vw - 105px));
+  max-height: min(60vh, 360px);
   margin: 0;
+  overflow: auto;
+  overflow-wrap: anywhere;
   padding: 12px 14px;
   transform: translateY(-50%);
   border-radius: 8px;
@@ -980,6 +983,7 @@ h2 {
 .card-tool[aria-expanded="true"] + .card-tooltip {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 @media (hover: hover) {
@@ -987,6 +991,7 @@ h2 {
   .card-tool-item:focus-within .card-tool:not(:disabled) + .card-tooltip {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 }
 
