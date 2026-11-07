@@ -19,6 +19,32 @@ async function loadView([containerId, path]) {
   document.getElementById(containerId).innerHTML = await response.text();
 }
 
+async function loadHskDeck(path, expectedId, expectedName) {
+  const response = await fetch(assetUrl(path), { cache: "no-cache" });
+  if (!response.ok) throw new Error(`Could not load ${path} (${response.status}).`);
+  const deck = await response.json();
+  if (!deck ||
+    deck.id !== expectedId ||
+    deck.name !== expectedName ||
+    !Array.isArray(deck.cards) ||
+    deck.cards.some((card) =>
+      !card ||
+      typeof card.hanzi !== "string" ||
+      typeof card.pinyin !== "string" ||
+      typeof card.meaning !== "string")) {
+    throw new Error(`The HSK vocabulary data in ${path} is invalid.`);
+  }
+  return deck;
+}
+
+async function loadHskDecks() {
+  window.HSK_DECKS = await Promise.all([
+    loadHskDeck("data/hsk1.json", "starter", "HSK 1"),
+    loadHskDeck("data/hsk2.json", "hsk2", "HSK 2"),
+    loadHskDeck("data/hsk3.json", "hsk3", "HSK 3"),
+  ]);
+}
+
 function loadScript(path) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
@@ -30,6 +56,7 @@ function loadScript(path) {
 }
 
 try {
+  await loadHskDecks();
   await Promise.all(views.map(loadView));
   for (const script of [
     "js/core.js",

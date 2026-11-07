@@ -1,0 +1,741 @@
+{
+  "id": "hsk2",
+  "name": "HSK 2",
+  "cards": [
+    {
+      "hanzi": "吧",
+      "pinyin": "ba",
+      "meaning": "(modal particle indicating suggestion or surmise); ...right?; ...OK?"
+    },
+    {
+      "hanzi": "白",
+      "pinyin": "bái",
+      "meaning": "white; snowy; pure"
+    },
+    {
+      "hanzi": "百",
+      "pinyin": "bǎi",
+      "meaning": "hundred; numerous; all kinds of"
+    },
+    {
+      "hanzi": "帮助",
+      "pinyin": "bāng zhù",
+      "meaning": "assistance; aid; to help"
+    },
+    {
+      "hanzi": "报纸",
+      "pinyin": "bào zhǐ",
+      "meaning": "newspaper; newsprint; CL:份"
+    },
+    {
+      "hanzi": "比",
+      "pinyin": "bǐ",
+      "meaning": "(particle used for comparison and \"-er than\"); to compare; to contrast"
+    },
+    {
+      "hanzi": "别",
+      "pinyin": "bié",
+      "meaning": "to leave; to depart; to separate"
+    },
+    {
+      "hanzi": "长",
+      "pinyin": "cháng / zhǎng",
+      "meaning": "length; long; forever"
+    },
+    {
+      "hanzi": "唱歌",
+      "pinyin": "chàng gē",
+      "meaning": "to sing a song"
+    },
+    {
+      "hanzi": "出",
+      "pinyin": "chū",
+      "meaning": "to go out; to come out; to occur; classifier for dramas"
+    },
+    {
+      "hanzi": "穿",
+      "pinyin": "chuān",
+      "meaning": "to bore through; to pierce; to perforate"
+    },
+    {
+      "hanzi": "船",
+      "pinyin": "chuán",
+      "meaning": "a boat; vessel; ship"
+    },
+    {
+      "hanzi": "次",
+      "pinyin": "cì",
+      "meaning": "next in sequence; second; the second (day; classifier for enumerated events: time"
+    },
+    {
+      "hanzi": "从",
+      "pinyin": "cóng",
+      "meaning": "from; via; passing through"
+    },
+    {
+      "hanzi": "错",
+      "pinyin": "cuò",
+      "meaning": "mistake; wrong; bad"
+    },
+    {
+      "hanzi": "打篮球",
+      "pinyin": "dá lán qiú",
+      "meaning": "Play basketball"
+    },
+    {
+      "hanzi": "大家",
+      "pinyin": "dà jiā",
+      "meaning": "everyone; influential family; great expert"
+    },
+    {
+      "hanzi": "但是",
+      "pinyin": "dàn shì",
+      "meaning": "but; however"
+    },
+    {
+      "hanzi": "到",
+      "pinyin": "dào",
+      "meaning": "to (a place); until (a time); up to"
+    },
+    {
+      "hanzi": "得",
+      "pinyin": "de / děi",
+      "meaning": "structural particle: used after a verb (or adjective as main verb); linking it to following phrase indicating effect; degree"
+    },
+    {
+      "hanzi": "弟弟",
+      "pinyin": "dì di",
+      "meaning": "younger brother; CL:個|个; 位[wèi]"
+    },
+    {
+      "hanzi": "第一",
+      "pinyin": "dì yī",
+      "meaning": "first; number one"
+    },
+    {
+      "hanzi": "懂",
+      "pinyin": "dǒng",
+      "meaning": "to understand; to know"
+    },
+    {
+      "hanzi": "房间",
+      "pinyin": "fáng jiān",
+      "meaning": "room; CL:間|间[jiān]"
+    },
+    {
+      "hanzi": "非常",
+      "pinyin": "fēi cháng",
+      "meaning": "unusual; extraordinary; extreme"
+    },
+    {
+      "hanzi": "服务员",
+      "pinyin": "fú wù yuán",
+      "meaning": "waiter; waitress; attendant"
+    },
+    {
+      "hanzi": "高",
+      "pinyin": "gāo",
+      "meaning": "high; tall; above average"
+    },
+    {
+      "hanzi": "告诉",
+      "pinyin": "gào su",
+      "meaning": "to tell; to inform; to let know"
+    },
+    {
+      "hanzi": "哥哥",
+      "pinyin": "gē ge",
+      "meaning": "older brother; CL:個|个; 位[wèi]"
+    },
+    {
+      "hanzi": "给",
+      "pinyin": "gěi",
+      "meaning": "to; for; for the benefit of"
+    },
+    {
+      "hanzi": "公共汽车",
+      "pinyin": "gōng gòng qì chē",
+      "meaning": "bus; CL:輛|辆; 班[bān]"
+    },
+    {
+      "hanzi": "公斤",
+      "pinyin": "gōng jīn",
+      "meaning": "kilogram (kg)"
+    },
+    {
+      "hanzi": "公司",
+      "pinyin": "gōng sī",
+      "meaning": "(business) company; company; firm"
+    },
+    {
+      "hanzi": "贵",
+      "pinyin": "guì",
+      "meaning": "expensive; noble; your (name)"
+    },
+    {
+      "hanzi": "还",
+      "pinyin": "hái / huán",
+      "meaning": "still; still in progress; still more"
+    },
+    {
+      "hanzi": "孩子",
+      "pinyin": "hái zi",
+      "meaning": "child"
+    },
+    {
+      "hanzi": "好吃",
+      "pinyin": "hǎo chī",
+      "meaning": "tasty; delicious"
+    },
+    {
+      "hanzi": "号",
+      "pinyin": "hào",
+      "meaning": "ordinal number; day of a month; mark; classifier used to indicate number of people"
+    },
+    {
+      "hanzi": "黑",
+      "pinyin": "hēi",
+      "meaning": "black; dark; (loanword) to hack"
+    },
+    {
+      "hanzi": "红",
+      "pinyin": "hóng",
+      "meaning": "red; popular; revolutionary"
+    },
+    {
+      "hanzi": "欢迎",
+      "pinyin": "huān yíng",
+      "meaning": "to welcome; welcome"
+    },
+    {
+      "hanzi": "回答",
+      "pinyin": "huí dá",
+      "meaning": "to reply; to answer; the answer"
+    },
+    {
+      "hanzi": "机场",
+      "pinyin": "jī chǎng",
+      "meaning": "airport; airfield; CL:家"
+    },
+    {
+      "hanzi": "鸡蛋",
+      "pinyin": "jī dàn",
+      "meaning": "(chicken) egg; hen's egg; CL:個|个"
+    },
+    {
+      "hanzi": "件",
+      "pinyin": "jiàn",
+      "meaning": "item; component; classifier for events"
+    },
+    {
+      "hanzi": "教室",
+      "pinyin": "jiào shì",
+      "meaning": "classroom; CL:間|间[jiān]"
+    },
+    {
+      "hanzi": "姐姐",
+      "pinyin": "jiě jie",
+      "meaning": "older sister; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "介绍",
+      "pinyin": "jiè shào",
+      "meaning": "to introduce (sb to sb); to give a presentation; to present (sb for a job etc)"
+    },
+    {
+      "hanzi": "进",
+      "pinyin": "jìn",
+      "meaning": "to advance; to enter; to come (or go) into"
+    },
+    {
+      "hanzi": "近",
+      "pinyin": "jìn",
+      "meaning": "near; close to; approximately"
+    },
+    {
+      "hanzi": "就",
+      "pinyin": "jiù",
+      "meaning": "at once; right away; only"
+    },
+    {
+      "hanzi": "觉得",
+      "pinyin": "jué de",
+      "meaning": "to think; to feel"
+    },
+    {
+      "hanzi": "咖啡",
+      "pinyin": "kā fēi",
+      "meaning": "coffee; CL:杯[bēi]"
+    },
+    {
+      "hanzi": "开始",
+      "pinyin": "kāi shǐ",
+      "meaning": "to begin; beginning; to start"
+    },
+    {
+      "hanzi": "考试",
+      "pinyin": "kǎo shì",
+      "meaning": "to take an exam; exam; CL:次[cì]"
+    },
+    {
+      "hanzi": "可能",
+      "pinyin": "kě néng",
+      "meaning": "might (happen); possible; probable"
+    },
+    {
+      "hanzi": "可以",
+      "pinyin": "kě yǐ",
+      "meaning": "can; may; possible"
+    },
+    {
+      "hanzi": "课",
+      "pinyin": "kè",
+      "meaning": "subject; course; CL: 門|门[mén]"
+    },
+    {
+      "hanzi": "快",
+      "pinyin": "kuài",
+      "meaning": "rapid; quick; speed"
+    },
+    {
+      "hanzi": "快乐",
+      "pinyin": "kuài lè",
+      "meaning": "happy; merry"
+    },
+    {
+      "hanzi": "累",
+      "pinyin": "lèi",
+      "meaning": "tired; weary; to strain"
+    },
+    {
+      "hanzi": "离",
+      "pinyin": "lí",
+      "meaning": "to leave; to part from; to be away from"
+    },
+    {
+      "hanzi": "两",
+      "pinyin": "liǎng",
+      "meaning": "both; two; ounce"
+    },
+    {
+      "hanzi": "路",
+      "pinyin": "lù",
+      "meaning": "road; CL:條|条[tiáo]; journey"
+    },
+    {
+      "hanzi": "旅游",
+      "pinyin": "lǚ yóu",
+      "meaning": "trip; journey; tourism"
+    },
+    {
+      "hanzi": "卖",
+      "pinyin": "mài",
+      "meaning": "to sell; to betray; to spare no effort"
+    },
+    {
+      "hanzi": "慢",
+      "pinyin": "màn",
+      "meaning": "slow"
+    },
+    {
+      "hanzi": "忙",
+      "pinyin": "máng",
+      "meaning": "busy; hurriedly; to hurry"
+    },
+    {
+      "hanzi": "每",
+      "pinyin": "měi",
+      "meaning": "each; every"
+    },
+    {
+      "hanzi": "妹妹",
+      "pinyin": "mèi mei",
+      "meaning": "younger sister; fig. younger woman (esp. girl friend or rival); CL:個|个[gè]"
+    },
+    {
+      "hanzi": "门",
+      "pinyin": "mén",
+      "meaning": "gate; door; CL:扇[shàn]; classifier for large guns; classifier for lessons"
+    },
+    {
+      "hanzi": "男人",
+      "pinyin": "nán rén",
+      "meaning": "a man; a male; men"
+    },
+    {
+      "hanzi": "您",
+      "pinyin": "nín",
+      "meaning": "you (courteous; as opposed to informal 你)"
+    },
+    {
+      "hanzi": "牛奶",
+      "pinyin": "niú nǎi",
+      "meaning": "cow's milk; CL:瓶; 杯[bēi]"
+    },
+    {
+      "hanzi": "女人",
+      "pinyin": "nǚ rén",
+      "meaning": "woman"
+    },
+    {
+      "hanzi": "旁边",
+      "pinyin": "páng biān",
+      "meaning": "lateral; side; to the side"
+    },
+    {
+      "hanzi": "跑步",
+      "pinyin": "pǎo bù",
+      "meaning": "to walk quickly; to march; to run"
+    },
+    {
+      "hanzi": "便宜",
+      "pinyin": "pián yi",
+      "meaning": "small advantages; to let sb off lightly; cheap"
+    },
+    {
+      "hanzi": "票",
+      "pinyin": "piào",
+      "meaning": "ticket; ballot; bank note; classifier for shipments and business transactions (topolect)"
+    },
+    {
+      "hanzi": "妻子",
+      "pinyin": "qī zi",
+      "meaning": "wife; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "起床",
+      "pinyin": "qǐ chuáng",
+      "meaning": "to get out of bed; to get up"
+    },
+    {
+      "hanzi": "千",
+      "pinyin": "qiān",
+      "meaning": "a swing"
+    },
+    {
+      "hanzi": "晴",
+      "pinyin": "qíng",
+      "meaning": "clear; fine (weather)"
+    },
+    {
+      "hanzi": "去年",
+      "pinyin": "qù nián",
+      "meaning": "last year"
+    },
+    {
+      "hanzi": "让",
+      "pinyin": "ràng",
+      "meaning": "to yield; to permit; to let sb do sth"
+    },
+    {
+      "hanzi": "上班",
+      "pinyin": "shàng bān",
+      "meaning": "to go to work; to be on duty; to start work"
+    },
+    {
+      "hanzi": "身体",
+      "pinyin": "shēn tǐ",
+      "meaning": "(human) body; health; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "生病",
+      "pinyin": "shēng bìng",
+      "meaning": "to fall ill"
+    },
+    {
+      "hanzi": "生日",
+      "pinyin": "shēng rì",
+      "meaning": "birthday; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "时间",
+      "pinyin": "shí jiān",
+      "meaning": "time; period; CL:段[duàn]"
+    },
+    {
+      "hanzi": "事情",
+      "pinyin": "shì qing",
+      "meaning": "affair; matter; thing"
+    },
+    {
+      "hanzi": "手表",
+      "pinyin": "shǒu biǎo",
+      "meaning": "wrist watch; CL:塊|块; 隻|只"
+    },
+    {
+      "hanzi": "手机",
+      "pinyin": "shǒu jī",
+      "meaning": "cell phone; mobile phone; CL:部"
+    },
+    {
+      "hanzi": "送",
+      "pinyin": "sòng",
+      "meaning": "to deliver; to carry; to give (as a present)"
+    },
+    {
+      "hanzi": "所以",
+      "pinyin": "suǒ yǐ",
+      "meaning": "therefore; as a result; so"
+    },
+    {
+      "hanzi": "它",
+      "pinyin": "tā",
+      "meaning": "it"
+    },
+    {
+      "hanzi": "踢",
+      "pinyin": "tī",
+      "meaning": "to kick; to play (e.g. soccer)"
+    },
+    {
+      "hanzi": "题",
+      "pinyin": "tí",
+      "meaning": "topic; problem for discussion; exam question"
+    },
+    {
+      "hanzi": "跳舞",
+      "pinyin": "tiào wǔ",
+      "meaning": "to dance"
+    },
+    {
+      "hanzi": "外",
+      "pinyin": "wài",
+      "meaning": "outside; in addition; foreign"
+    },
+    {
+      "hanzi": "完",
+      "pinyin": "wán",
+      "meaning": "to finish; to be over; whole"
+    },
+    {
+      "hanzi": "玩",
+      "pinyin": "wán",
+      "meaning": "toy; sth used for amusement; curio or antique (Taiwan pr. )"
+    },
+    {
+      "hanzi": "晚上",
+      "pinyin": "wǎn shang",
+      "meaning": "evening; night; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "为",
+      "pinyin": "wèi",
+      "meaning": "variant of 為|为; because of; for"
+    },
+    {
+      "hanzi": "问",
+      "pinyin": "wèn",
+      "meaning": "to ask"
+    },
+    {
+      "hanzi": "问题",
+      "pinyin": "wèn tí",
+      "meaning": "question; problem; issue"
+    },
+    {
+      "hanzi": "西瓜",
+      "pinyin": "xī guā",
+      "meaning": "watermelon; CL:條|条[tiáo]"
+    },
+    {
+      "hanzi": "希望",
+      "pinyin": "xī wàng",
+      "meaning": "to wish for; to desire; hope CL:個|个[gè]"
+    },
+    {
+      "hanzi": "洗",
+      "pinyin": "xǐ",
+      "meaning": "to wash; to bathe; to develop (photo)"
+    },
+    {
+      "hanzi": "向",
+      "pinyin": "xiàng",
+      "meaning": "towards; to face; to turn towards"
+    },
+    {
+      "hanzi": "小时",
+      "pinyin": "xiǎo shí",
+      "meaning": "hour; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "笑",
+      "pinyin": "xiào",
+      "meaning": "laugh; smile; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "新",
+      "pinyin": "xīn",
+      "meaning": "new; newly; meso- (chemistry)"
+    },
+    {
+      "hanzi": "姓",
+      "pinyin": "xìng",
+      "meaning": "family name; surname; name"
+    },
+    {
+      "hanzi": "休息",
+      "pinyin": "xiū xi",
+      "meaning": "rest; to rest"
+    },
+    {
+      "hanzi": "雪",
+      "pinyin": "xuě",
+      "meaning": "snow; snowfall; CL:場|场[cháng]"
+    },
+    {
+      "hanzi": "颜色",
+      "pinyin": "yán sè",
+      "meaning": "color; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "眼睛",
+      "pinyin": "yǎn jing",
+      "meaning": "eye; CL:隻|只; 雙|双[shuāng]"
+    },
+    {
+      "hanzi": "羊肉",
+      "pinyin": "yáng ròu",
+      "meaning": "mutton"
+    },
+    {
+      "hanzi": "药",
+      "pinyin": "yào",
+      "meaning": "medicine; drug; cure"
+    },
+    {
+      "hanzi": "要",
+      "pinyin": "yào",
+      "meaning": "important; vital; to want"
+    },
+    {
+      "hanzi": "也",
+      "pinyin": "yě",
+      "meaning": "also; too; (in Classical Chinese) final particle implying affirmation"
+    },
+    {
+      "hanzi": "已经",
+      "pinyin": "yǐ jīng",
+      "meaning": "already"
+    },
+    {
+      "hanzi": "一起",
+      "pinyin": "yī qǐ",
+      "meaning": "in the same place; together; with"
+    },
+    {
+      "hanzi": "意思",
+      "pinyin": "yì si",
+      "meaning": "idea; opinion; meaning"
+    },
+    {
+      "hanzi": "阴",
+      "pinyin": "yīn",
+      "meaning": "overcast (weather); cloudy; shady"
+    },
+    {
+      "hanzi": "因为",
+      "pinyin": "yīn wèi",
+      "meaning": "because; owing to; on account of"
+    },
+    {
+      "hanzi": "游泳",
+      "pinyin": "yóu yǒng",
+      "meaning": "swimming; to swim"
+    },
+    {
+      "hanzi": "右边",
+      "pinyin": "yòu bian",
+      "meaning": "right side; right; to the right"
+    },
+    {
+      "hanzi": "鱼",
+      "pinyin": "yú",
+      "meaning": "fish; CL:條|条; 尾[wěi]"
+    },
+    {
+      "hanzi": "元",
+      "pinyin": "yuán",
+      "meaning": "Chinese monetary unit; dollar; primary"
+    },
+    {
+      "hanzi": "远",
+      "pinyin": "yuǎn",
+      "meaning": "far; distant; remote"
+    },
+    {
+      "hanzi": "运动",
+      "pinyin": "yùn dòng",
+      "meaning": "to move; to exercise; sports"
+    },
+    {
+      "hanzi": "再",
+      "pinyin": "zài",
+      "meaning": "again; once more; re-"
+    },
+    {
+      "hanzi": "早上",
+      "pinyin": "zǎo shang",
+      "meaning": "early morning; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "张",
+      "pinyin": "zhāng",
+      "meaning": "to open up; to spread; sheet of paper; classifier for flat objects; classifier for votes"
+    },
+    {
+      "hanzi": "丈夫",
+      "pinyin": "zhàng fu",
+      "meaning": "husband; CL:個|个[gè]"
+    },
+    {
+      "hanzi": "找",
+      "pinyin": "zhǎo",
+      "meaning": "to try to find; to look for; to call on sb"
+    },
+    {
+      "hanzi": "着",
+      "pinyin": "zhe",
+      "meaning": "aspect particle indicating action in progress"
+    },
+    {
+      "hanzi": "真",
+      "pinyin": "zhēn",
+      "meaning": "really; truly; indeed"
+    },
+    {
+      "hanzi": "正在",
+      "pinyin": "zhèng zài",
+      "meaning": "in the process of (doing something or happening); while (doing)"
+    },
+    {
+      "hanzi": "知道",
+      "pinyin": "zhī dào",
+      "meaning": "to know; to be aware of; also pron. [zhī dao]"
+    },
+    {
+      "hanzi": "准备",
+      "pinyin": "zhǔn bèi",
+      "meaning": "preparation; to prepare; to intend"
+    },
+    {
+      "hanzi": "自行车",
+      "pinyin": "zì xíng chē",
+      "meaning": "bicycle; bike; CL:輛|辆[liàng]"
+    },
+    {
+      "hanzi": "走",
+      "pinyin": "zǒu",
+      "meaning": "to walk; to go; to run"
+    },
+    {
+      "hanzi": "最",
+      "pinyin": "zuì",
+      "meaning": "most; the most; -est (superlative suffix)"
+    },
+    {
+      "hanzi": "左边",
+      "pinyin": "zuǒ bian",
+      "meaning": "left; the left side; to the left of"
+    }
+  ]
+}

@@ -1,16 +1,5 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
-const STARTER_CARDS = [
-  { hanzi: "你", pinyin: "nǐ", meaning: "you" },
-  { hanzi: "好", pinyin: "hǎo", meaning: "good" },
-  { hanzi: "我", pinyin: "wǒ", meaning: "I" },
-  { hanzi: "是", pinyin: "shì", meaning: "to be" },
-  { hanzi: "中", pinyin: "zhōng", meaning: "middle / China" },
-  { hanzi: "国", pinyin: "guó", meaning: "country" },
-  { hanzi: "人", pinyin: "rén", meaning: "person" },
-  { hanzi: "学", pinyin: "xué", meaning: "to study" },
-  { hanzi: "水", pinyin: "shuǐ", meaning: "water" },
-  { hanzi: "爱", pinyin: "ài", meaning: "love / to love" },
-];
+const DEFAULT_DECKS_VERSION = 1;
 
 const cardEl = document.getElementById("card");
 const hanziEl = document.getElementById("hanzi");
@@ -150,15 +139,18 @@ function createId() {
 }
 
 function defaultStore() {
-  const starterId = "starter";
   return {
-    activeId: starterId,
+    activeId: "starter",
     sessionSize: 10,
     studyMode: "three",
     autoPlayPronunciation: true,
     theme: "black",
+    defaultDecksVersion: DEFAULT_DECKS_VERSION,
     decks: [
-      { id: starterId, name: "Sample characters", cards: STARTER_CARDS.map(cloneCard) },
+      ...window.HSK_DECKS.map((deckItem) => ({
+        ...deckItem,
+        cards: deckItem.cards.map(cloneCard),
+      })),
       { id: "my-deck", name: "My deck", cards: [] },
     ],
   };
@@ -219,6 +211,43 @@ function normalizeStore(parsed) {
     normalizedDeck.cards = (Array.isArray(normalizedDeck.cards) ? normalizedDeck.cards : []).map(cloneCard);
     return normalizedDeck;
   });
+
+  if ((Number(normalized.defaultDecksVersion) || 0) < DEFAULT_DECKS_VERSION) {
+    const starterDeck = window.HSK_DECKS.find((deckItem) => deckItem.id === "starter");
+    const existingStarter = normalized.decks.find((deckItem) => deckItem.id === "starter");
+    if (existingStarter) {
+      const previousCards = new Map(existingStarter.cards.map((card) => [card.hanzi, card]));
+      const standardCards = starterDeck.cards.map((card) => {
+        const previous = previousCards.get(card.hanzi);
+        return {
+          ...cloneCard(card),
+          attempts: previous?.attempts || 0,
+          misses: previous?.misses || 0,
+        };
+      });
+      const standardHanzi = new Set(starterDeck.cards.map((card) => card.hanzi));
+      const customCards = existingStarter.cards.filter((card) =>
+        !LEGACY_STARTER_HANZI.has(card.hanzi) && !standardHanzi.has(card.hanzi));
+      if (existingStarter.name === "Sample characters") existingStarter.name = "HSK 1";
+      existingStarter.cards = [...standardCards, ...customCards];
+    } else {
+      normalized.decks.push({
+        ...starterDeck,
+        cards: starterDeck.cards.map(cloneCard),
+      });
+    }
+
+    window.HSK_DECKS.filter((deckItem) => deckItem.id !== "starter").forEach((defaultDeck) => {
+      if (!normalized.decks.some((deckItem) => deckItem.id === defaultDeck.id)) {
+        normalized.decks.push({
+          ...defaultDeck,
+          cards: defaultDeck.cards.map(cloneCard),
+        });
+      }
+    });
+    normalized.defaultDecksVersion = DEFAULT_DECKS_VERSION;
+  }
+
   return normalized;
 }
 
@@ -226,7 +255,8 @@ function loadStore(storageKey = STORAGE_KEY) {
   try {
     const raw = localStorage.getItem(storageKey);
     if (!raw) return defaultStore();
-    return normalizeStore(JSON.parse(raw));
+    const parsed = JSON.parse(raw);
+    return normalizeStore(parsed);
   } catch {
     return defaultStore();
   }

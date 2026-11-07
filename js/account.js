@@ -63,6 +63,7 @@ async function handleAuthStateChange(user) {
   if (!user) {
     accountSyncOverlay.hidden = true;
     store = loadStore();
+    saveStore();
     setCloudSyncStatus("You are using this browser's local decks.");
     startActiveDeck();
     return;
@@ -83,7 +84,9 @@ async function handleAuthStateChange(user) {
 
     let shouldWriteCloud = false;
     if (snapshot.exists() && snapshot.data().store) {
-      const cloudStore = normalizeStore(snapshot.data().store);
+      const storedCloudStore = snapshot.data().store;
+      const cloudStore = normalizeStore(storedCloudStore);
+      shouldWriteCloud = (Number(storedCloudStore.defaultDecksVersion) || 0) < DEFAULT_DECKS_VERSION;
       const hasAccountStoreNow = localStorage.getItem(userStorageKey) !== null;
       if (hadAccountStore || hadGuestStore || hasAccountStoreNow) {
         const localStore = hasAccountStoreNow ? loadStore(userStorageKey) : store;
@@ -111,6 +114,7 @@ async function handleAuthStateChange(user) {
   } catch (error) {
     if (changeId !== authChangeId) return;
     accountSyncOverlay.hidden = true;
+    saveStore();
     setCloudSyncStatus(`Cloud sync is unavailable. Changes are saved on this device. ${error.message}`);
     startActiveDeck();
   }

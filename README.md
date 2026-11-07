@@ -22,6 +22,8 @@ The app is static and runs on GitHub Pages. Decks are stored in the browser. Imp
 
 Enter any positive number of cards per session, or choose **All** to study the whole deck.
 
+New users start with HSK 1, HSK 2, and HSK 3 decks based on HSK 2.0. The decks contain 150, 147, and 298 unique cards, respectively; repeated entries with the same Chinese word are combined, and the levels do not overlap. Each deck is stored in its own file: `data/hsk1.json`, `data/hsk2.json`, and `data/hsk3.json`. Existing users' starter decks are upgraded once, preserving review statistics for matching words and any custom words. Dataset attribution and licenses are in `data/HSK-DATA-LICENSE.txt`.
+
 In Settings, choose either 3 study steps (character, pinyin, meaning) or 2 steps (character, then pinyin and meaning together) using the mode buttons.
 
 Choose Dark mode or Light mode in Settings. Auto-play pronunciation and theme preferences are saved with the current browser or account's study settings.
