@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir _site
           cp index.html styles.css app.js firebase-config.js example.json .nojekyll _site/
-          cp -R js views _site/
+          cp -R data js views _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
