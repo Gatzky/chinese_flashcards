@@ -35,7 +35,10 @@ function pickSessionCards(cards, size) {
 
 function renderSessionSizeControls() {
   sessionSizeInput.value = store.sessionSize === 0 ? "" : String(store.sessionSize);
-  sessionSizeAllButton.setAttribute("aria-pressed", String(store.sessionSize === 0));
+  sessionSizeControl.hidden = store.sessionMode !== "count";
+  sessionModeButtons.forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.sessionModeOption === store.sessionMode));
+  });
 }
 
 function renderStats() {
@@ -51,16 +54,44 @@ function currentCard() {
   return deck[index];
 }
 
+function renderCardTooltip(tooltip, content, source) {
+  tooltip.replaceChildren();
+  if (content) {
+    const text = document.createElement("div");
+    text.className = "card-tooltip-content";
+    text.textContent = content;
+    tooltip.appendChild(text);
+  }
+  if (!source) return;
+
+  const disclosure = document.createElement("details");
+  disclosure.className = "card-tooltip-source";
+  const summary = document.createElement("summary");
+  summary.textContent = "Source";
+  disclosure.appendChild(summary);
+
+  const match = source.match(/^(https?:\/\/\S+?)(?:\s+\((.*)\))?$/);
+  if (match) {
+    const link = document.createElement("a");
+    link.href = match[1];
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = match[2] || "Open source";
+    disclosure.appendChild(link);
+  } else {
+    const citation = document.createElement("span");
+    citation.textContent = source;
+    disclosure.appendChild(citation);
+  }
+  tooltip.appendChild(disclosure);
+}
+
 function updateCardTools(card) {
   speakBtn.disabled = !card || !("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window);
   sentenceBtn.disabled = !card?.sentence;
   etymologyBtn.disabled = !card?.etymology;
-  sentenceTooltipEl.textContent = card
-    ? [card.sentence, card.sentenceSource && `Source: ${card.sentenceSource}`].filter(Boolean).join("\n")
-    : "";
-  etymologyTooltipEl.textContent = card
-    ? [card.etymology, card.etymologySource && `Source: ${card.etymologySource}`].filter(Boolean).join("\n")
-    : "";
+  renderCardTooltip(sentenceTooltipEl, card?.sentence, card?.sentenceSource);
+  renderCardTooltip(etymologyTooltipEl, card?.etymology, card?.etymologySource);
   sentenceBtn.setAttribute("aria-expanded", "false");
   etymologyBtn.setAttribute("aria-expanded", "false");
   speakBtn.classList.remove("is-speaking");
@@ -280,5 +311,11 @@ function startActiveDeck() {
   applyAutoPlaySetting();
   applyTheme();
   const cards = store.studyAllDecks ? allDeckCards() : activeDeck().cards;
-  startSession(pickSessionCards(cards, store.sessionSize));
+  const eligibleCards = store.sessionMode === "unseen"
+    ? cards.filter((card) => card.mastery === 0)
+    : store.sessionMode === "needs-practice"
+      ? cards.filter((card) => card.mastery === 1 || card.mastery === 2)
+      : cards;
+  const sessionSize = store.sessionMode === "count" ? store.sessionSize : 0;
+  startSession(pickSessionCards(eligibleCards, sessionSize));
 }

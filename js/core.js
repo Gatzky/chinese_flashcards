@@ -28,7 +28,8 @@ const wordsDialog = document.getElementById("words-dialog");
 const closeWordsDialogBtn = document.getElementById("close-words-dialog-btn");
 const studyModeButtons = [...document.querySelectorAll("[data-study-mode-option]")];
 const sessionSizeInput = document.getElementById("session-size");
-const sessionSizeAllButton = document.getElementById("session-size-all");
+const sessionModeButtons = [...document.querySelectorAll("[data-session-mode-option]")];
+const sessionSizeControl = document.getElementById("session-size-control");
 const autoplayButtons = [...document.querySelectorAll("[data-autoplay-option]")];
 const themeButtons = [...document.querySelectorAll("[data-theme-option]")];
 const tabButtons = [...document.querySelectorAll('[role="tab"]')];
@@ -145,6 +146,7 @@ function defaultStore() {
     activeId: "starter",
     studyAllDecks: false,
     sessionSize: 10,
+    sessionMode: "count",
     studyMode: "three",
     autoPlayPronunciation: true,
     theme: "black",
@@ -277,6 +279,9 @@ function normalizeStore(parsed) {
   }
   normalized.sessionSize = Number(normalized.sessionSize);
   if (!Number.isSafeInteger(normalized.sessionSize) || normalized.sessionSize < 0) normalized.sessionSize = 10;
+  normalized.sessionMode = ["count", "all", "unseen", "needs-practice"].includes(normalized.sessionMode)
+    ? normalized.sessionMode
+    : normalized.sessionSize === 0 ? "all" : "count";
   normalized.studyAllDecks = normalized.studyAllDecks === true;
   normalized.studyMode = normalized.studyMode === "two" ? "two" : "three";
   normalized.autoPlayPronunciation = normalized.autoPlayPronunciation !== false;
@@ -433,6 +438,7 @@ function mergeStores(cloudStore, localStore) {
   merged.activeId = local.activeId;
   merged.studyAllDecks = local.studyAllDecks;
   merged.sessionSize = local.sessionSize;
+  merged.sessionMode = local.sessionMode;
   merged.studyMode = local.studyMode;
   merged.autoPlayPronunciation = local.autoPlayPronunciation;
   merged.theme = local.theme;

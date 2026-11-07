@@ -2,10 +2,15 @@
           <h2 class="panel-title">Study settings</h2>
           <div class="settings-grid">
             <div class="field session-field">
-              <span>Cards per session</span>
-              <div class="session-size-control">
+              <span>Session cards</span>
+              <div class="theme-switch" role="group" aria-label="Cards to study">
+                <button class="theme-option" type="button" data-session-mode-option="count" aria-pressed="true">Choose amount</button>
+                <button class="theme-option" type="button" data-session-mode-option="all" aria-pressed="false">All</button>
+                <button class="theme-option" type="button" data-session-mode-option="unseen" aria-pressed="false">Unseen only</button>
+                <button class="theme-option" type="button" data-session-mode-option="needs-practice" aria-pressed="false">Needs practice</button>
+              </div>
+              <div class="session-size-control" id="session-size-control">
                 <input id="session-size" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 20" aria-label="Number of cards per session" />
-                <button class="theme-option" id="session-size-all" type="button" aria-pressed="false">All</button>
               </div>
             </div>
             <div class="field settings-field-wide">

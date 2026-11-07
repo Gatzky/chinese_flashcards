@@ -37,16 +37,16 @@
                 </svg>
               </button>
               <div class="card-tool-item">
-                <button class="card-tool" id="sentence-btn" type="button" aria-label="Example sentence" title="Example sentence" aria-expanded="false" aria-describedby="sentence-tooltip" disabled>
+                <button class="card-tool" id="sentence-btn" type="button" aria-label="Example sentence" title="Example sentence" aria-expanded="false" aria-controls="sentence-tooltip" disabled>
                   例
                 </button>
-                <p class="card-tooltip" id="sentence-tooltip" role="tooltip"></p>
+                <div class="card-tooltip" id="sentence-tooltip" role="group" aria-label="Example sentence and source"></div>
               </div>
               <div class="card-tool-item">
-                <button class="card-tool" id="etymology-btn" type="button" aria-label="Character etymology" title="Character etymology" aria-expanded="false" aria-describedby="etymology-tooltip" disabled>
+                <button class="card-tool" id="etymology-btn" type="button" aria-label="Character etymology" title="Character etymology" aria-expanded="false" aria-controls="etymology-tooltip" disabled>
                   源
                 </button>
-                <p class="card-tooltip" id="etymology-tooltip" role="tooltip"></p>
+                <div class="card-tooltip" id="etymology-tooltip" role="group" aria-label="Character etymology and source"></div>
               </div>
             </aside>
             <button class="card" id="card" type="button" aria-label="Reveal flashcard">

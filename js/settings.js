@@ -14,23 +14,24 @@ sessionSizeInput.addEventListener("change", () => {
   }
   sessionSizeInput.setCustomValidity("");
   store.sessionSize = size;
-  sessionSizeAllButton.setAttribute("aria-pressed", "false");
+  store.sessionMode = "count";
+  renderSessionSizeControls();
   saveStore();
   startActiveDeck();
 });
 
 sessionSizeInput.addEventListener("input", () => {
   sessionSizeInput.setCustomValidity("");
-  sessionSizeAllButton.setAttribute("aria-pressed", "false");
 });
 
-sessionSizeAllButton.addEventListener("click", () => {
-  sessionSizeInput.setCustomValidity("");
-  store.sessionSize = 0;
-  sessionSizeInput.value = "";
-  sessionSizeAllButton.setAttribute("aria-pressed", "true");
-  saveStore();
-  startActiveDeck();
+sessionModeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    store.sessionMode = button.dataset.sessionModeOption;
+    sessionSizeInput.setCustomValidity("");
+    renderSessionSizeControls();
+    saveStore();
+    startActiveDeck();
+  });
 });
 
 studyModeButtons.forEach((button) => {
