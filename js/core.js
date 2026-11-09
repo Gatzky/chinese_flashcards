@@ -13,6 +13,7 @@ const noteEl = document.getElementById("note");
 const appEl = document.querySelector(".app");
 const summaryEl = document.getElementById("summary");
 const scoreEl = document.getElementById("score");
+const summaryPreviousBtn = document.getElementById("summary-previous-btn");
 const retryUnknownBtn = document.getElementById("retry-unknown-btn");
 const restartBtn = document.getElementById("restart-btn");
 const deckListEl = document.getElementById("deck-list");
@@ -112,6 +113,8 @@ const speakBtn = document.getElementById("speak-btn");
 const sentenceTooltipEl = document.getElementById("sentence-tooltip");
 const etymologyTooltipEl = document.getElementById("etymology-tooltip");
 const detailsEl = document.getElementById("card-details");
+const previousBtn = document.getElementById("previous-btn");
+const previousDetailsBtn = document.getElementById("previous-details-btn");
 const sentenceBtn = document.getElementById("sentence-btn");
 const etymologyBtn = document.getElementById("etymology-btn");
 const nextBtn = document.getElementById("next-btn");
@@ -123,6 +126,7 @@ let phase = 0;
 let knownAnswers = 0;
 let unknownAnswers = 0;
 let unknown = [];
+let answerHistory = [];
 let speechRequestId = 0;
 let editingHanzi = "";
 let pendingImport = null;
@@ -279,7 +283,7 @@ function normalizeStore(parsed) {
   }
   normalized.sessionSize = Number(normalized.sessionSize);
   if (!Number.isSafeInteger(normalized.sessionSize) || normalized.sessionSize < 0) normalized.sessionSize = 10;
-  normalized.sessionMode = ["count", "all", "unseen", "needs-practice"].includes(normalized.sessionMode)
+  normalized.sessionMode = ["count", "all", "unseen", "needs-practice", "unseen-and-needs-practice"].includes(normalized.sessionMode)
     ? normalized.sessionMode
     : normalized.sessionSize === 0 ? "all" : "count";
   normalized.studyAllDecks = normalized.studyAllDecks === true;

@@ -91,6 +91,9 @@ etymologyBtn.addEventListener("click", () => toggleCardTooltip(etymologyBtn));
 knownBtn.addEventListener("click", () => answer(true));
 unknownBtn.addEventListener("click", () => answer(false));
 nextBtn.addEventListener("click", advanceCard);
+previousBtn.addEventListener("click", goToPreviousCard);
+previousDetailsBtn.addEventListener("click", goToPreviousCard);
+summaryPreviousBtn.addEventListener("click", goToPreviousCard);
 restartBtn.addEventListener("click", startActiveDeck);
 retryUnknownBtn.addEventListener("click", () => {
   if (unknown.length) startSession(unknown);

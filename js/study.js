@@ -37,7 +37,13 @@ function renderSessionSizeControls() {
   sessionSizeInput.value = store.sessionSize === 0 ? "" : String(store.sessionSize);
   sessionSizeControl.hidden = store.sessionMode !== "count";
   sessionModeButtons.forEach((button) => {
-    button.setAttribute("aria-pressed", String(button.dataset.sessionModeOption === store.sessionMode));
+    const option = button.dataset.sessionModeOption;
+    const isPressed = option === "unseen"
+      ? ["unseen", "unseen-and-needs-practice"].includes(store.sessionMode)
+      : option === "needs-practice"
+        ? ["needs-practice", "unseen-and-needs-practice"].includes(store.sessionMode)
+        : option === store.sessionMode;
+    button.setAttribute("aria-pressed", String(isPressed));
   });
 }
 
@@ -112,6 +118,8 @@ function renderCard() {
   void cardEl.offsetWidth;
   cardEl.classList.remove("is-flipped");
   phase = 0;
+  previousBtn.disabled = index === 0 || !deck.length;
+  previousDetailsBtn.disabled = previousBtn.disabled;
   renderStats();
   actionsEl.hidden = false;
   updateCardTools(null);
@@ -126,6 +134,8 @@ function renderCard() {
     progressEl.textContent = "0 / 0";
     knownBtn.disabled = true;
     unknownBtn.disabled = true;
+    previousBtn.disabled = true;
+    previousDetailsBtn.disabled = true;
     cardEl.disabled = true;
     pinyinEl.hidden = true;
     meaningEl.hidden = true;
@@ -195,9 +205,25 @@ function speakCard(hanzi) {
 function recordRating(card, didKnow) {
   const sourceDeckIds = card.sourceDeckIds || [activeDeck().id];
   const sourceCards = [];
+  const sourceSnapshots = [];
+  const studyCardSnapshot = {
+    masteryScore: card.masteryScore,
+    misses: card.misses,
+    attempts: card.attempts,
+    mastery: card.mastery,
+  };
   sourceDeckIds.forEach((deckId) => {
     const sourceDeck = store.decks.find((deckItem) => deckItem.id === deckId);
     sourceDeck?.cards.filter((item) => item.hanzi === card.hanzi).forEach((stored) => {
+      sourceSnapshots.push({
+        deckId,
+        values: {
+          masteryScore: stored.masteryScore,
+          misses: stored.misses,
+          attempts: stored.attempts,
+          mastery: stored.mastery,
+        },
+      });
       stored.masteryScore = nextMastery(stored.masteryScore, didKnow);
       stored.misses = didKnow
         ? Math.max(0, (stored.misses || 0) - 1)
@@ -217,6 +243,14 @@ function recordRating(card, didKnow) {
   card.mastery = masteryForScore(card.masteryScore, card.attempts);
   saveStore();
   renderStats();
+  return { sourceSnapshots, studyCardSnapshot };
+}
+
+function updateSessionAnswerCounts() {
+  knownAnswers = answerHistory.filter((item) => item.isKnown).length;
+  unknownAnswers = answerHistory.filter((item) => !item.isKnown).length;
+  const missedHanzi = new Set(answerHistory.filter((item) => !item.isKnown).map((item) => item.hanzi));
+  unknown = deck.filter((card) => missedHanzi.has(card.hanzi)).map(cloneStudyCard);
 }
 
 function nextMastery(mastery, didKnow) {
@@ -227,13 +261,9 @@ function answer(isKnown) {
   if ((phase !== 1 && phase !== 2) || !deck.length) return;
 
   const card = currentCard();
-  recordRating(card, isKnown);
-  if (isKnown) {
-    knownAnswers += 1;
-  } else {
-    unknownAnswers += 1;
-    if (!unknown.some((item) => item.hanzi === card.hanzi)) unknown.push(cloneStudyCard(card));
-  }
+  const rating = recordRating(card, isKnown);
+  answerHistory.push({ hanzi: card.hanzi, isKnown, ...rating });
+  updateSessionAnswerCounts();
 
   if (phase === 1 && store.studyMode === "three") {
     phase = 2;
@@ -287,6 +317,7 @@ function showSummary() {
   summaryEl.classList.remove("hidden");
   summaryEl.hidden = false;
   scoreEl.textContent = `Cards known: ${knownAnswers} of ${knownAnswers + unknownAnswers}.`;
+  summaryPreviousBtn.disabled = index === 0;
   retryUnknownBtn.disabled = unknown.length === 0;
 }
 
@@ -294,6 +325,7 @@ function startSession(cards) {
   deck = shuffle(cards).map(cloneStudyCard);
   index = 0;
   phase = 0;
+  answerHistory = [];
   knownAnswers = 0;
   unknownAnswers = 0;
   unknown = [];
@@ -311,11 +343,51 @@ function startActiveDeck() {
   applyAutoPlaySetting();
   applyTheme();
   const cards = store.studyAllDecks ? allDeckCards() : activeDeck().cards;
-  const eligibleCards = store.sessionMode === "unseen"
-    ? cards.filter((card) => card.mastery === 0)
-    : store.sessionMode === "needs-practice"
-      ? cards.filter((card) => card.mastery === 1 || card.mastery === 2)
-      : cards;
+  const includeUnseen = ["unseen", "unseen-and-needs-practice"].includes(store.sessionMode);
+  const includeNeedsPractice = ["needs-practice", "unseen-and-needs-practice"].includes(store.sessionMode);
+  const eligibleCards = includeUnseen || includeNeedsPractice
+    ? cards.filter((card) => (
+      (includeUnseen && card.mastery === 0)
+      || (includeNeedsPractice && (card.mastery === 1 || card.mastery === 2))
+    ))
+    : cards;
   const sessionSize = store.sessionMode === "count" ? store.sessionSize : 0;
   startSession(pickSessionCards(eligibleCards, sessionSize));
+}
+
+function goToPreviousCard() {
+  const fromSummary = !summaryEl.hidden;
+  if (index === 0) return;
+
+  const previousIndex = index - 1;
+  const previousCard = deck[previousIndex];
+  const current = fromSummary ? null : currentCard();
+  if (current && phase !== 0 && current.hanzi !== previousCard.hanzi) {
+    undoCardRatings(current);
+  }
+  undoCardRatings(previousCard);
+
+  updateSessionAnswerCounts();
+  saveStore();
+  index = previousIndex;
+  if (fromSummary) {
+    appEl.classList.remove("hidden");
+    summaryEl.classList.add("hidden");
+    summaryEl.hidden = true;
+  }
+  renderCard();
+}
+
+function undoCardRatings(card) {
+  for (let i = answerHistory.length - 1; i >= 0; i -= 1) {
+    const rating = answerHistory[i];
+    if (rating.hanzi !== card.hanzi) continue;
+    rating.sourceSnapshots.forEach((snapshot) => {
+      const sourceDeck = store.decks.find((deckItem) => deckItem.id === snapshot.deckId);
+      const stored = sourceDeck?.cards.find((item) => item.hanzi === rating.hanzi);
+      if (stored) Object.assign(stored, snapshot.values);
+    });
+    Object.assign(card, rating.studyCardSnapshot);
+    answerHistory.splice(i, 1);
+  }
 }

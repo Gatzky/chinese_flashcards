@@ -1142,6 +1142,7 @@ h2 {
 }
 
 .actions {
+  align-items: center;
   justify-content: center;
 }
 
@@ -1151,9 +1152,10 @@ h2 {
 }
 
 .card-details {
-  display: grid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 12px;
-  justify-items: center;
 }
 
 .summary-actions {
@@ -1190,6 +1192,27 @@ h2 {
 .btn-ghost {
   background: var(--bg-soft);
   color: var(--paper);
+}
+
+.btn-undo {
+  display: grid;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  padding: 10px;
+  place-items: center;
+  background: var(--bg-soft);
+  color: var(--paper);
+}
+
+.btn-undo svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
 }
 
 .library .btn-ghost {

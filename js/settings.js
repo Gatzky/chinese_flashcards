@@ -26,7 +26,22 @@ sessionSizeInput.addEventListener("input", () => {
 
 sessionModeButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    store.sessionMode = button.dataset.sessionModeOption;
+    const option = button.dataset.sessionModeOption;
+    if (option === "unseen" || option === "needs-practice") {
+      const unseenSelected = ["unseen", "unseen-and-needs-practice"].includes(store.sessionMode);
+      const practiceSelected = ["needs-practice", "unseen-and-needs-practice"].includes(store.sessionMode);
+      const nextUnseenSelected = option === "unseen" ? !unseenSelected : unseenSelected;
+      const nextPracticeSelected = option === "needs-practice" ? !practiceSelected : practiceSelected;
+      store.sessionMode = nextUnseenSelected && nextPracticeSelected
+        ? "unseen-and-needs-practice"
+        : nextUnseenSelected
+          ? "unseen"
+          : nextPracticeSelected
+            ? "needs-practice"
+            : "all";
+    } else {
+      store.sessionMode = option;
+    }
     sessionSizeInput.setCustomValidity("");
     renderSessionSizeControls();
     saveStore();
