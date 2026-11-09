@@ -444,6 +444,59 @@ body {
   box-shadow: var(--shadow);
 }
 
+.changelog-dialog {
+  width: min(480px, calc(100% - 32px));
+  max-height: min(80vh, 700px);
+  overflow: auto;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-soft);
+  color: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.changelog-dialog::backdrop {
+  background: var(--dialog-backdrop);
+}
+
+.changelog-content {
+  display: grid;
+  gap: 16px;
+}
+
+.changelog-list {
+  display: grid;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.changelog-release h3 {
+  margin: 0 0 8px;
+  color: var(--paper);
+}
+
+.changelog-release ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.changelog-release li {
+  padding-left: 2px;
+}
+
+.changelog-release + .changelog-release {
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.changelog-release strong {
+  color: var(--paper);
+}
+
 .words-dialog::backdrop,
 .rename-dialog::backdrop,
 .deck-options-dialog::backdrop,

@@ -45,6 +45,21 @@ async function loadHskDecks() {
   ]);
 }
 
+async function loadChangelog() {
+  const path = "changelog.json";
+  const response = await fetch(assetUrl(path), { cache: "no-cache" });
+  if (!response.ok) throw new Error(`Could not load ${path} (${response.status}).`);
+  const changelog = await response.json();
+  if (!Array.isArray(changelog) || changelog.some((release) =>
+    !release ||
+    typeof release.version !== "string" ||
+    !Array.isArray(release.changes) ||
+    release.changes.some((change) => typeof change !== "string"))) {
+    throw new Error(`The changelog data in ${path} is invalid.`);
+  }
+  window.CHANGELOG = changelog;
+}
+
 function loadScript(path) {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
@@ -57,6 +72,7 @@ function loadScript(path) {
 
 try {
   await loadHskDecks();
+  await loadChangelog();
   await Promise.all(views.map(loadView));
   for (const script of [
     "js/core.js",

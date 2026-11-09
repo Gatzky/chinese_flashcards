@@ -56,7 +56,7 @@ On first sign-in, existing local decks are merged into the account. If a deck ex
 
 Bug reports and feedback are submitted to the Firestore `feedback` collection. Apply the rules in `firestore.rules` to allow submissions while restricting feedback reads, priority changes, and deletion to the verified Firebase account `gacbartlomiej96@gmail.com`. In the **Feedback inbox**, the administrator can set each submission's priority to low, normal, or high and delete it. The inbox shows the 100 most recent submissions. Guests can submit feedback; because Firestore rules do not rate-limit writes, enable Firebase App Check before wider public use.
 
-The footer displays the app version. Update it in `index.html` when publishing. Increment the final segment of the MAJOR.MINOR.PATCH version for small changes.
+Click the version in the footer to open the changelog. When publishing a change, update the version in `index.html` (including asset cache-busting query strings) and add a release entry to `changelog.json`. Version `0.1.0` starts the changelog; earlier releases are intentionally not listed.
 
 ## Publish to GitHub Pages
 

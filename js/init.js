@@ -83,6 +83,23 @@ openFeedbackInboxBtn.addEventListener("click", () => {
   void loadFeedbackInbox();
 });
 closeFeedbackInboxBtn.addEventListener("click", () => feedbackInboxDialog.close());
+appVersionBtn.addEventListener("click", () => changelogDialog.showModal());
+closeChangelogBtn.addEventListener("click", () => changelogDialog.close());
+
+window.CHANGELOG.forEach((release) => {
+  const section = document.createElement("section");
+  section.className = "changelog-release";
+  const heading = document.createElement("h3");
+  heading.textContent = release.version;
+  const changes = document.createElement("ul");
+  release.changes.forEach((change) => {
+    const item = document.createElement("li");
+    item.textContent = change;
+    changes.appendChild(item);
+  });
+  section.append(heading, changes);
+  changelogListEl.appendChild(section);
+});
 
 cardEl.addEventListener("click", flipCard);
 speakBtn.addEventListener("click", () => speakCard(currentCard().hanzi));

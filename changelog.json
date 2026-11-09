@@ -1,0 +1,10 @@
+[
+  {
+    "version": "0.1.0",
+    "changes": [
+      "Combine Unseen only and Needs practice when choosing cards for a session.",
+      "Use the undo arrow to return to the previous card and undo its answers and score changes.",
+      "Undo is also available from the session results and after answering the current card."
+    ]
+  }
+]
