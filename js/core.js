@@ -114,6 +114,7 @@ const statsNoIdeaEl = document.getElementById("stats-no-idea");
 const phaseLabelEl = document.getElementById("phase-label");
 const actionsEl = document.getElementById("actions");
 const speakBtn = document.getElementById("speak-btn");
+const removeCurrentCardBtn = document.getElementById("remove-current-card-btn");
 const sentenceTooltipEl = document.getElementById("sentence-tooltip");
 const etymologyTooltipEl = document.getElementById("etymology-tooltip");
 const detailsEl = document.getElementById("card-details");

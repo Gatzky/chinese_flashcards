@@ -1036,6 +1036,20 @@ h2 {
   cursor: not-allowed;
 }
 
+.card-tool-delete {
+  border-color: var(--red);
+  background: var(--danger-bg);
+  color: var(--danger-text);
+}
+
+.card-tool-delete:not(:disabled):hover,
+.card-tool-delete:not(:disabled):focus-visible {
+  border-color: var(--red);
+  background: var(--red);
+  color: white;
+  outline: none;
+}
+
 .card-tool-speech.is-speaking {
   border-color: var(--green);
   background: var(--green);

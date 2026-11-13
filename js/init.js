@@ -109,6 +109,7 @@ window.CHANGELOG.forEach((release) => {
 
 cardEl.addEventListener("click", flipCard);
 speakBtn.addEventListener("click", () => speakCard(currentCard().hanzi));
+removeCurrentCardBtn.addEventListener("click", removeCurrentCardFromDeck);
 sentenceBtn.addEventListener("click", () => toggleCardTooltip(sentenceBtn));
 etymologyBtn.addEventListener("click", () => toggleCardTooltip(etymologyBtn));
 knownBtn.addEventListener("click", () => answer(true));

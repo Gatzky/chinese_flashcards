@@ -94,6 +94,7 @@ function renderCardTooltip(tooltip, content, source) {
 
 function updateCardTools(card) {
   speakBtn.disabled = !card || !("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window);
+  removeCurrentCardBtn.disabled = !card;
   sentenceBtn.disabled = !card?.sentence;
   etymologyBtn.disabled = !card?.etymology;
   renderCardTooltip(sentenceTooltipEl, card?.sentence, card?.sentenceSource);
@@ -311,6 +312,45 @@ function advanceCard() {
     return;
   }
 
+  renderCard();
+}
+
+function removeCurrentCardFromDeck() {
+  const card = currentCard();
+  if (!card) return;
+
+  const sourceDeckIds = card.sourceDeckIds || [activeDeck().id];
+  const sourceDecks = sourceDeckIds
+    .map((deckId) => store.decks.find((deckItem) => deckItem.id === deckId))
+    .filter((deckItem) => deckItem?.cards.some((item) => item.hanzi === card.hanzi));
+  if (!sourceDecks.length) {
+    window.alert(`"${card.hanzi}" is no longer in the selected deck.`);
+    return;
+  }
+
+  const deckNames = sourceDecks.map((deckItem) => `• ${deckItem.name}`).join("\n");
+  const confirmed = window.confirm(
+    `Permanently remove "${card.hanzi}" from the following deck(s)?\n\n${deckNames}\n\nThis cannot be undone.`,
+  );
+  if (!confirmed) return;
+
+  sourceDecks.forEach((sourceDeck) => {
+    sourceDeck.cards = sourceDeck.cards.filter((item) => item.hanzi !== card.hanzi);
+  });
+  deck.splice(index, 1);
+  answerHistory = answerHistory.filter((item) => item.hanzi !== card.hanzi);
+  updateSessionAnswerCounts();
+  saveStore();
+  renderDeckList();
+
+  if (!deck.length) {
+    showSummary();
+    return;
+  }
+  if (index >= deck.length) {
+    showSummary();
+    return;
+  }
   renderCard();
 }
 

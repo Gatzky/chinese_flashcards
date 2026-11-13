@@ -1,5 +1,11 @@
 [
   {
+    "version": "0.1.2",
+    "changes": [
+      "Add a clearly marked trash button to remove the current study card after confirmation."
+    ]
+  },
+  {
     "version": "0.1.1",
     "changes": [
       "Select multiple decks to study their unique words together.",
