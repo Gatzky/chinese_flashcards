@@ -95,7 +95,12 @@
           <h2>Results</h2>
           <p class="score" id="score"></p>
           <div class="summary-actions">
-            <button class="btn btn-ghost" id="summary-previous-btn" type="button">Previous card (undo answers)</button>
+            <button class="btn btn-undo" id="summary-previous-btn" type="button" aria-label="Previous card and undo its answers" title="Previous card and undo its answers">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M9 14 4 9l5-5" />
+                <path d="M4 9h9a7 7 0 1 1-6.2 10.2" />
+              </svg>
+            </button>
             <button class="btn btn-yes" id="retry-unknown-btn" type="button">Review missed</button>
             <button class="btn btn-ghost" id="restart-btn" type="button">Restart</button>
           </div>

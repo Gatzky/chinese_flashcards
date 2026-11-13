@@ -153,6 +153,7 @@ function defaultStore() {
   return {
     activeId: "starter",
     studyAllDecks: false,
+    selectedDeckIds: [],
     sessionSize: 10,
     sessionMode: "count",
     studyMode: "three",
@@ -237,9 +238,11 @@ function cloneStudyCard(card) {
   return copy;
 }
 
-function allDeckCards() {
+function allDeckCards(deckIds = store.decks.map((deckItem) => deckItem.id)) {
+  const selectedIds = new Set(deckIds);
   const cardsByHanzi = new Map();
   store.decks.forEach((deckItem) => {
+    if (!selectedIds.has(deckItem.id)) return;
     deckItem.cards.forEach((card) => {
       const existing = cardsByHanzi.get(card.hanzi);
       if (!existing) {
@@ -338,6 +341,11 @@ function normalizeStore(parsed) {
     normalized.defaultDecksVersion = DEFAULT_DECKS_VERSION;
   }
 
+  normalized.selectedDeckIds = Array.isArray(parsed.selectedDeckIds)
+    ? [...new Set(parsed.selectedDeckIds.filter((id) => normalized.decks.some((deckItem) => deckItem.id === id)))]
+    : normalized.studyAllDecks ? normalized.decks.map((deckItem) => deckItem.id) : [];
+  normalized.studyAllDecks = normalized.studyAllDecks && normalized.selectedDeckIds.length > 0;
+
   return normalized;
 }
 
@@ -378,6 +386,16 @@ function saveStore() {
 
 function activeDeck() {
   return store.decks.find((deckItem) => deckItem.id === store.activeId) || store.decks[0];
+}
+
+function studyDeckCards() {
+  return store.studyAllDecks
+    ? allDeckCards(store.selectedDeckIds)
+    : activeDeck().cards;
+}
+
+function deckById(id) {
+  return store.decks.find((deckItem) => deckItem.id === id) || activeDeck();
 }
 
 function parseJson(text) {
@@ -445,6 +463,7 @@ function mergeStores(cloudStore, localStore) {
 
   merged.activeId = local.activeId;
   merged.studyAllDecks = local.studyAllDecks;
+  merged.selectedDeckIds = local.selectedDeckIds;
   merged.sessionSize = local.sessionSize;
   merged.sessionMode = local.sessionMode;
   merged.studyMode = local.studyMode;

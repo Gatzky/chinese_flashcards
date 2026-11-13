@@ -48,7 +48,7 @@ function renderSessionSizeControls() {
 }
 
 function renderStats() {
-  const cards = store.studyAllDecks ? allDeckCards() : activeDeck().cards;
+  const cards = studyDeckCards();
   statsPerfectEl.textContent = String(cards.filter((card) => card.mastery === 4).length);
   statsKnownEl.textContent = String(cards.filter((card) => card.mastery === 3).length);
   statsUnseenEl.textContent = String(cards.filter((card) => card.mastery === 0).length);
@@ -113,7 +113,9 @@ function toggleCardTooltip(button) {
 function renderCard() {
   speechRequestId += 1;
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-  deckTitle.textContent = store.studyAllDecks ? "All decks" : activeDeck().name;
+  deckTitle.textContent = store.studyAllDecks
+    ? store.selectedDeckIds.map((id) => deckById(id).name).join(", ")
+    : activeDeck().name;
   cardEl.classList.add("is-changing");
   void cardEl.offsetWidth;
   cardEl.classList.remove("is-flipped");
@@ -342,7 +344,7 @@ function startActiveDeck() {
   applyStudyMode();
   applyAutoPlaySetting();
   applyTheme();
-  const cards = store.studyAllDecks ? allDeckCards() : activeDeck().cards;
+  const cards = studyDeckCards();
   const includeUnseen = ["unseen", "unseen-and-needs-practice"].includes(store.sessionMode);
   const includeNeedsPractice = ["needs-practice", "unseen-and-needs-practice"].includes(store.sessionMode);
   const eligibleCards = includeUnseen || includeNeedsPractice

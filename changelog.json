@@ -1,5 +1,13 @@
 [
   {
+    "version": "0.1.1",
+    "changes": [
+      "Select multiple decks to study their unique words together.",
+      "Reorder decks and access options for every deck from its gear menu.",
+      "Use an icon button to undo answers from the session results."
+    ]
+  },
+  {
     "version": "0.1.0",
     "changes": [
       "Combine Unseen only and Needs practice when choosing cards for a session.",

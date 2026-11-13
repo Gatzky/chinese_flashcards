@@ -299,6 +299,31 @@ body {
   gap: 6px;
 }
 
+.deck-list.is-selecting-decks .deck-option-row {
+  grid-template-columns: 24px minmax(0, 1fr) 36px;
+}
+
+.deck-selection-checkbox {
+  display: none;
+  justify-self: center;
+  accent-color: var(--gold);
+}
+
+.deck-list.is-selecting-decks .deck-selection-checkbox {
+  display: block;
+}
+
+.deck-selection-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.deck-selection-actions[hidden] {
+  display: none;
+}
+
 .deck-option-gear {
   width: 36px;
   color: var(--muted);
@@ -379,6 +404,12 @@ body {
   color: var(--muted);
   font-size: 0.82rem;
   font-variant-numeric: tabular-nums;
+}
+
+.deck-order-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .new-deck-form,

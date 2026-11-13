@@ -1,37 +1,95 @@
+let optionsDeckId = "";
+let wordListDeckId = "";
+let selectingDecks = false;
+let draftSelectedDeckIds = new Set();
+
 function renderDeckList() {
   deckListEl.innerHTML = "";
   importTarget.innerHTML = "";
-  const allDeckButton = document.createElement("button");
-  allDeckButton.type = "button";
-  allDeckButton.className = "deck-option";
-  allDeckButton.classList.toggle("is-active", store.studyAllDecks);
-  allDeckButton.setAttribute("aria-pressed", String(store.studyAllDecks));
-  const allDeckName = document.createElement("span");
-  allDeckName.className = "deck-option-name";
-  allDeckName.textContent = "All decks";
-  const allDeckCount = document.createElement("span");
-  allDeckCount.className = "deck-option-count";
-  allDeckCount.textContent = String(allDeckCards().length);
-  allDeckButton.append(allDeckName, allDeckCount);
-  allDeckButton.addEventListener("click", () => {
+  const selectDecksButton = document.createElement("button");
+  selectDecksButton.type = "button";
+  selectDecksButton.className = "deck-option";
+  selectDecksButton.classList.toggle("is-active", selectingDecks);
+  selectDecksButton.setAttribute("aria-pressed", String(selectingDecks));
+  const selectDecksName = document.createElement("span");
+  selectDecksName.className = "deck-option-name";
+  selectDecksName.textContent = "Select more decks";
+  const selectedCount = document.createElement("span");
+  selectedCount.className = "deck-option-count";
+  selectedCount.textContent = selectingDecks
+    ? `${draftSelectedDeckIds.size} selected`
+    : "";
+  selectDecksButton.append(selectDecksName, selectedCount);
+  selectDecksButton.addEventListener("click", () => {
+    if (selectingDecks) {
+      selectingDecks = false;
+    } else {
+      selectingDecks = true;
+      draftSelectedDeckIds = new Set(
+        store.studyAllDecks ? store.selectedDeckIds : [store.activeId],
+      );
+    }
+    renderDeckList();
+  });
+  deckListEl.appendChild(selectDecksButton);
+
+  const selectionActions = document.createElement("div");
+  selectionActions.className = "deck-selection-actions";
+  const studySelectedButton = document.createElement("button");
+  studySelectedButton.type = "button";
+  studySelectedButton.className = "btn btn-ghost btn-small";
+  studySelectedButton.textContent = `Study selected decks (${draftSelectedDeckIds.size})`;
+  studySelectedButton.disabled = draftSelectedDeckIds.size < 2;
+  studySelectedButton.addEventListener("click", () => {
+    if (draftSelectedDeckIds.size < 2) return;
     resetWordForm();
     wordsDialog.close();
     deckOptionsDialog.close();
+    store.selectedDeckIds = store.decks
+      .filter((deckItem) => draftSelectedDeckIds.has(deckItem.id))
+      .map((deckItem) => deckItem.id);
     store.studyAllDecks = true;
+    selectingDecks = false;
     saveStore();
     setStatus("");
     startActiveDeck();
   });
-  deckListEl.appendChild(allDeckButton);
+  const cancelSelectionButton = document.createElement("button");
+  cancelSelectionButton.type = "button";
+  cancelSelectionButton.className = "btn btn-ghost btn-small";
+  cancelSelectionButton.textContent = "Cancel";
+  cancelSelectionButton.addEventListener("click", () => {
+    selectingDecks = false;
+    renderDeckList();
+  });
+  selectionActions.append(studySelectedButton, cancelSelectionButton);
+  selectionActions.hidden = !selectingDecks;
+  deckListEl.appendChild(selectionActions);
+  deckListEl.classList.toggle("is-selecting-decks", selectingDecks);
 
   store.decks.forEach((deckItem) => {
     const row = document.createElement("div");
     row.className = "deck-option-row";
 
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "deck-selection-checkbox";
+    checkbox.checked = draftSelectedDeckIds.has(deckItem.id);
+    checkbox.setAttribute("aria-label", `Select ${deckItem.name}`);
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked) draftSelectedDeckIds.add(deckItem.id);
+      else draftSelectedDeckIds.delete(deckItem.id);
+      selectedCount.textContent = `${draftSelectedDeckIds.size} selected`;
+      studySelectedButton.textContent = `Study selected decks (${draftSelectedDeckIds.size})`;
+      studySelectedButton.disabled = draftSelectedDeckIds.size < 2;
+    });
+
     const button = document.createElement("button");
     button.type = "button";
     button.className = "deck-option";
-    const isActive = !store.studyAllDecks && deckItem.id === store.activeId;
+    const isActive = store.studyAllDecks
+      ? store.selectedDeckIds.includes(deckItem.id)
+      : deckItem.id === store.activeId;
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-pressed", String(isActive));
 
@@ -50,22 +108,22 @@ function renderDeckList() {
       deckOptionsDialog.close();
       store.activeId = deckItem.id;
       store.studyAllDecks = false;
+      store.selectedDeckIds = [];
+      selectingDecks = false;
       saveStore();
       setStatus("");
       startActiveDeck();
     });
-    row.appendChild(button);
+    row.append(checkbox, button);
 
-    if (deckItem.id === store.activeId) {
-      const optionsButton = document.createElement("button");
-      optionsButton.type = "button";
-      optionsButton.className = "icon-btn deck-option-gear";
-      optionsButton.textContent = "⚙";
-      optionsButton.title = "Deck options";
-      optionsButton.setAttribute("aria-label", `Options for ${deckItem.name}`);
-      optionsButton.addEventListener("click", () => deckOptionsDialog.showModal());
-      row.appendChild(optionsButton);
-    }
+    const optionsButton = document.createElement("button");
+    optionsButton.type = "button";
+    optionsButton.className = "icon-btn deck-option-gear";
+    optionsButton.textContent = "⚙";
+    optionsButton.title = "Deck options";
+    optionsButton.setAttribute("aria-label", `Options for ${deckItem.name}`);
+    optionsButton.addEventListener("click", () => openDeckOptions(deckItem.id));
+    row.appendChild(optionsButton);
 
     deckListEl.appendChild(row);
 
@@ -75,12 +133,35 @@ function renderDeckList() {
     importTarget.appendChild(option);
   });
   importTarget.value = store.activeId;
-  renameDeckName.value = activeDeck().name;
+  renameDeckName.value = deckById(optionsDeckId).name;
   deleteDeckActionBtn.disabled = store.decks.length <= 1;
 }
 
-function renderWordList() {
-  const cards = activeDeck().cards;
+function openDeckOptions(deckId) {
+  optionsDeckId = deckId;
+  renameDeckName.value = deckById(optionsDeckId).name;
+  deleteDeckActionBtn.disabled = store.decks.length <= 1;
+  deckOptionsDialog.showModal();
+}
+
+function moveDeck(direction) {
+  const fromIndex = store.decks.findIndex((deckItem) => deckItem.id === optionsDeckId);
+  if (fromIndex < 0) return;
+  const toIndex = direction === "top"
+    ? 0
+    : direction === "bottom"
+      ? store.decks.length - 1
+      : fromIndex + direction;
+  if (toIndex < 0 || toIndex >= store.decks.length || toIndex === fromIndex) return;
+  const [deckItem] = store.decks.splice(fromIndex, 1);
+  store.decks.splice(toIndex, 0, deckItem);
+  saveStore();
+  renderDeckList();
+}
+
+function renderWordList(deckItem = activeDeck()) {
+  wordListDeckId = deckItem.id;
+  const cards = deckItem.cards;
   wordCountEl.textContent = `${cards.length} ${cards.length === 1 ? "word" : "words"}`;
   wordListEl.innerHTML = "";
 
@@ -147,6 +228,7 @@ function createDeck() {
   store.decks.push(deckItem);
   store.activeId = deckItem.id;
   store.studyAllDecks = false;
+  store.selectedDeckIds = [];
   newDeckName.value = "";
   resetWordForm();
   saveStore();
@@ -162,7 +244,7 @@ function renameActiveDeck(event) {
     return;
   }
 
-  const current = activeDeck();
+  const current = deckById(optionsDeckId);
   const previousName = current.name;
   current.name = name;
   saveStore();
@@ -173,14 +255,14 @@ function renameActiveDeck(event) {
 
 function openRenameDeckDialog() {
   deckOptionsDialog.close();
-  renameDeckName.value = activeDeck().name;
+  renameDeckName.value = deckById(optionsDeckId).name;
   renameDeckDialog.showModal();
   renameDeckName.focus();
 }
 
 function showWordsDialog() {
   deckOptionsDialog.close();
-  renderWordList();
+  renderWordList(deckById(optionsDeckId));
   wordsDialog.showModal();
 }
 
@@ -228,7 +310,7 @@ function addWord(event) {
   };
   if (!card.hanzi || !card.meaning) return;
 
-  const current = activeDeck();
+  const current = deckById(wordListDeckId);
   let action = "Added";
   if (editingHanzi) {
     const originalIndex = current.cards.findIndex((item) => item.hanzi === editingHanzi);
@@ -259,7 +341,7 @@ function addWord(event) {
 }
 
 function removeWord(hanzi) {
-  const current = activeDeck();
+  const current = deckById(wordListDeckId);
   if (!confirm(`Remove "${hanzi}" from "${current.name}"?`)) return;
   current.cards = current.cards.filter((card) => card.hanzi !== hanzi);
   if (editingHanzi === hanzi) resetWordForm();
@@ -270,10 +352,17 @@ function removeWord(hanzi) {
 
 function deleteActiveDeck() {
   if (store.decks.length <= 1) return;
-  const name = activeDeck().name;
+  const current = deckById(optionsDeckId);
+  const name = current.name;
   if (!confirm(`Delete deck "${name}"?`)) return;
-  store.decks = store.decks.filter((deckItem) => deckItem.id !== store.activeId);
-  store.activeId = store.decks[0].id;
+  store.decks = store.decks.filter((deckItem) => deckItem.id !== current.id);
+  if (store.activeId === current.id) store.activeId = store.decks[0].id;
+  store.selectedDeckIds = store.selectedDeckIds.filter((id) => id !== current.id);
+  if (store.selectedDeckIds.length < 2) {
+    store.studyAllDecks = false;
+    store.selectedDeckIds = [];
+  }
+  optionsDeckId = store.activeId;
   resetWordForm();
   saveStore();
   setStatus(`Deleted deck "${name}".`);
@@ -293,6 +382,7 @@ function applyImport(incoming, skipped, fileName) {
     store.decks.push(current);
     store.activeId = current.id;
     store.studyAllDecks = false;
+    store.selectedDeckIds = [];
     current.cards = mergeCards([], incoming);
   } else {
     current = store.decks.find((deckItem) => deckItem.id === importTarget.value);
@@ -303,6 +393,7 @@ function applyImport(incoming, skipped, fileName) {
     current.cards = mergeCards(current.cards, incoming);
     store.activeId = current.id;
     store.studyAllDecks = false;
+    store.selectedDeckIds = [];
   }
   saveStore();
 

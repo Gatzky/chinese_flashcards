@@ -53,11 +53,17 @@ deleteDeckActionBtn.addEventListener("click", () => {
   deckOptionsDialog.close();
   deleteActiveDeck();
 });
+document.querySelectorAll("[data-deck-move]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const direction = button.dataset.deckMove;
+    moveDeck(direction === "top" || direction === "bottom" ? direction : Number(direction));
+  });
+});
 showWordsActionBtn.addEventListener("click", showWordsDialog);
 closeDeckOptionsBtn.addEventListener("click", () => deckOptionsDialog.close());
 closeWordsDialogBtn.addEventListener("click", () => wordsDialog.close());
 renameDeckDialog.addEventListener("close", () => {
-  renameDeckName.value = activeDeck().name;
+  renameDeckName.value = deckById(optionsDeckId).name;
 });
 closeRenameDialogBtn.addEventListener("click", () => renameDeckDialog.close());
 cancelRenameBtn.addEventListener("click", () => renameDeckDialog.close());
