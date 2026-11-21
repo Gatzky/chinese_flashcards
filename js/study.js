@@ -131,6 +131,7 @@ function renderCard() {
     "is-rating-known",
     "is-rating-unknown",
   );
+  ratingTutorialEl.hidden = true;
   void cardEl.offsetWidth;
   cardEl.classList.remove("is-flipped");
   phase = 0;
@@ -198,6 +199,7 @@ function flipCard() {
   noteEl.textContent = store.studyMode === "two"
     ? "Do you know the pinyin and meaning?"
     : "Do you know the pinyin?";
+  showRatingTutorialIfNeeded();
   if (store.autoPlayPronunciation) speakCard(currentCard().hanzi);
 }
 
@@ -294,6 +296,23 @@ function showRatingFeedback(isKnown) {
   }, ratingFeedbackDuration);
 }
 
+function ratingTutorialStorageKey() {
+  return signedInUser
+    ? `${STORAGE_KEY}:rating-tutorial:${signedInUser.uid}`
+    : `${STORAGE_KEY}:rating-tutorial:guest`;
+}
+
+function showRatingTutorialIfNeeded() {
+  if (localStorage.getItem(ratingTutorialStorageKey()) === "seen") return;
+  ratingTutorialEl.hidden = false;
+}
+
+function dismissRatingTutorial() {
+  if (ratingTutorialEl.hidden) return;
+  ratingTutorialEl.hidden = true;
+  localStorage.setItem(ratingTutorialStorageKey(), "seen");
+}
+
 function speakCard(hanzi) {
   if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
   const requestId = ++speechRequestId;
@@ -378,6 +397,7 @@ function answer(isKnown) {
   answerHistory.push({ hanzi: card.hanzi, isKnown, ...rating });
   updateSessionAnswerCounts();
   showRatingFeedback(isKnown);
+  dismissRatingTutorial();
 
   if (phase === 1 && store.studyMode === "three") {
     showMeaningPhase();

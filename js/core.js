@@ -106,6 +106,7 @@ const wordSaveBtn = document.getElementById("word-save-btn");
 const showWordFormBtn = document.getElementById("show-word-form-btn");
 const wordCancelBtn = document.getElementById("word-cancel-btn");
 const frontHint = document.getElementById("front-hint");
+const ratingTutorialEl = document.getElementById("rating-tutorial");
 const statsKnownEl = document.getElementById("stats-known");
 const statsUnseenEl = document.getElementById("stats-unseen");
 const statsPerfectEl = document.getElementById("stats-perfect");

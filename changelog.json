@@ -1,5 +1,12 @@
 [
   {
+    "version": "0.1.4",
+    "changes": [
+      "Reveal pinyin instantly without a card-flip animation.",
+      "Show a one-time tutorial for left/right flashcard ratings."
+    ]
+  },
+  {
     "version": "0.1.3",
     "changes": [
       "Rate a revealed card by clicking its left (Don't know) or right (Know it) side; use the bottom undo button to return to the previous card."
