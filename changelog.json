@@ -1,5 +1,11 @@
 [
   {
+    "version": "0.1.3",
+    "changes": [
+      "Rate a revealed card by clicking its left (Don't know) or right (Know it) side; use the bottom undo button to return to the previous card."
+    ]
+  },
+  {
     "version": "0.1.2",
     "changes": [
       "Add a clearly marked trash button to remove the current study card after confirmation."

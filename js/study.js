@@ -1,3 +1,6 @@
+let ratingFeedbackId = 0;
+const ratingFeedbackDuration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 : 320;
+
 function shuffle(items) {
   const copy = [...items];
   for (let i = copy.length - 1; i > 0; i -= 1) {
@@ -118,6 +121,16 @@ function renderCard() {
     ? store.selectedDeckIds.map((id) => deckById(id).name).join(", ")
     : activeDeck().name;
   cardEl.classList.add("is-changing");
+  ratingFeedbackId += 1;
+  cardEl.classList.remove(
+    "is-transitioning",
+    "is-phase-changing",
+    "is-advancing",
+    "is-entering",
+    "is-rating-flashing",
+    "is-rating-known",
+    "is-rating-unknown",
+  );
   void cardEl.offsetWidth;
   cardEl.classList.remove("is-flipped");
   phase = 0;
@@ -168,8 +181,10 @@ function renderCard() {
 function flipCard() {
   if (!deck.length || phase !== 0) return;
   phase = 1;
+  cardEl.classList.add("is-changing");
+  void cardEl.offsetWidth;
   cardEl.classList.add("is-flipped");
-  cardEl.disabled = true;
+  window.setTimeout(() => cardEl.classList.remove("is-changing"), 0);
   pinyinEl.hidden = false;
   meaningEl.hidden = store.studyMode !== "two";
   phaseLabelEl.textContent = store.studyMode === "two" ? "Pinyin + meaning" : "Pinyin";
@@ -184,6 +199,99 @@ function flipCard() {
     ? "Do you know the pinyin and meaning?"
     : "Do you know the pinyin?";
   if (store.autoPlayPronunciation) speakCard(currentCard().hanzi);
+}
+
+function handleCardClick(event) {
+  if (!deck.length ||
+    cardEl.classList.contains("is-transitioning") ||
+    cardEl.classList.contains("is-rating-flashing")) return;
+  const isKeyboardClick = event.detail === 0;
+  if (isKeyboardClick) {
+    if (phase === 0) flipCard();
+    return;
+  }
+
+  if (phase === 0) {
+    flipCard();
+    return;
+  }
+
+  const rect = cardEl.getBoundingClientRect();
+  const isKnown = event.clientX >= rect.left + rect.width / 2;
+  if (phase === 1 || phase === 2) {
+    answer(isKnown);
+  } else if (phase === 3) {
+    animateCardAdvance();
+  }
+}
+
+function showMeaningPhase() {
+  phase = 2;
+  pinyinEl.hidden = true;
+  meaningEl.hidden = false;
+  phaseLabelEl.textContent = "Meaning";
+  progressEl.textContent = `${index + 1} / ${deck.length} · meaning`;
+  noteEl.textContent = "Do you know the meaning?";
+  knownBtn.disabled = true;
+  unknownBtn.disabled = true;
+
+  const onAnimationEnd = (event) => {
+    if (event.target !== meaningEl) return;
+    meaningEl.removeEventListener("animationend", onAnimationEnd);
+    if (!cardEl.classList.contains("is-phase-changing")) return;
+    cardEl.classList.remove("is-transitioning", "is-phase-changing");
+    if (!cardEl.classList.contains("is-rating-flashing")) {
+      knownBtn.disabled = false;
+      unknownBtn.disabled = false;
+    }
+  };
+  meaningEl.addEventListener("animationend", onAnimationEnd);
+  void meaningEl.offsetWidth;
+  cardEl.classList.add("is-transitioning", "is-phase-changing");
+}
+
+function animateCardAdvance() {
+  const onExitAnimationEnd = (event) => {
+    if (event.target !== cardEl || event.animationName !== "card-advance-out") return;
+    cardEl.removeEventListener("animationend", onExitAnimationEnd);
+    if (!cardEl.classList.contains("is-advancing")) return;
+    cardEl.classList.remove("is-advancing");
+    advanceCard();
+
+    if (!summaryEl.hidden) {
+      cardEl.classList.remove("is-transitioning");
+      return;
+    }
+
+    const onEnterAnimationEnd = (enterEvent) => {
+      if (enterEvent.target !== cardEl || enterEvent.animationName !== "card-advance-in") return;
+      cardEl.removeEventListener("animationend", onEnterAnimationEnd);
+      cardEl.classList.remove("is-transitioning", "is-entering");
+    };
+    cardEl.addEventListener("animationend", onEnterAnimationEnd);
+    cardEl.classList.add("is-transitioning", "is-entering");
+  };
+  cardEl.addEventListener("animationend", onExitAnimationEnd);
+  cardEl.classList.add("is-transitioning", "is-advancing");
+  knownBtn.disabled = true;
+  unknownBtn.disabled = true;
+  removeCurrentCardBtn.disabled = true;
+  nextBtn.disabled = true;
+}
+
+function showRatingFeedback(isKnown) {
+  const feedbackId = ++ratingFeedbackId;
+  const ratingClass = isKnown ? "is-rating-known" : "is-rating-unknown";
+  cardEl.classList.add("is-rating-flashing", ratingClass);
+  window.setTimeout(() => {
+    if (feedbackId !== ratingFeedbackId) return;
+    cardEl.classList.remove("is-rating-flashing", ratingClass);
+    if (phase === 2 && !cardEl.classList.contains("is-phase-changing")) {
+      knownBtn.disabled = false;
+      unknownBtn.disabled = false;
+    }
+    if (phase === 3 && !detailsEl.hidden) nextBtn.disabled = false;
+  }, ratingFeedbackDuration);
 }
 
 function speakCard(hanzi) {
@@ -261,28 +369,18 @@ function nextMastery(mastery, didKnow) {
 }
 
 function answer(isKnown) {
-  if ((phase !== 1 && phase !== 2) || !deck.length) return;
+  if ((phase !== 1 && phase !== 2) ||
+    !deck.length ||
+    cardEl.classList.contains("is-rating-flashing")) return;
 
   const card = currentCard();
   const rating = recordRating(card, isKnown);
   answerHistory.push({ hanzi: card.hanzi, isKnown, ...rating });
   updateSessionAnswerCounts();
+  showRatingFeedback(isKnown);
 
   if (phase === 1 && store.studyMode === "three") {
-    phase = 2;
-    pinyinEl.hidden = true;
-    meaningEl.hidden = false;
-    phaseLabelEl.textContent = "Meaning";
-    progressEl.textContent = `${index + 1} / ${deck.length} · meaning`;
-    noteEl.textContent = "Do you know the meaning?";
-    knownBtn.disabled = true;
-    unknownBtn.disabled = true;
-    window.setTimeout(() => {
-      if (phase === 2) {
-        knownBtn.disabled = false;
-        unknownBtn.disabled = false;
-      }
-    }, 300);
+    showMeaningPhase();
     return;
   }
 
@@ -295,12 +393,13 @@ function showCardDetails() {
   const card = currentCard();
   const hasDetails = Boolean(card.sentence || card.etymology);
   if (!hasDetails) {
-    advanceCard();
+    animateCardAdvance();
     return;
   }
 
   detailsEl.hidden = false;
   nextBtn.textContent = index + 1 === deck.length ? "Finish session" : "Next";
+  nextBtn.disabled = cardEl.classList.contains("is-rating-flashing");
   noteEl.textContent = "Review the extra details or continue.";
 }
 
@@ -420,7 +519,7 @@ function goToPreviousCard() {
   renderCard();
 }
 
-function undoCardRatings(card) {
+function undoLastCardRating(card) {
   for (let i = answerHistory.length - 1; i >= 0; i -= 1) {
     const rating = answerHistory[i];
     if (rating.hanzi !== card.hanzi) continue;
@@ -431,5 +530,13 @@ function undoCardRatings(card) {
     });
     Object.assign(card, rating.studyCardSnapshot);
     answerHistory.splice(i, 1);
+    return true;
+  }
+  return false;
+}
+
+function undoCardRatings(card) {
+  while (undoLastCardRating(card)) {
+    // Keep undoing ratings for this card in reverse order.
   }
 }

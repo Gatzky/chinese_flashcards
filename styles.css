@@ -1138,6 +1138,7 @@ h2 {
 }
 
 .card {
+  position: relative;
   grid-column: 2;
   grid-row: 1;
   width: 100%;
@@ -1170,6 +1171,97 @@ h2 {
 
 .card.is-flipped .card-inner {
   transform: rotateY(180deg);
+}
+
+.card.is-transitioning {
+  pointer-events: none;
+}
+
+.card.is-rating-flashing {
+  pointer-events: none;
+}
+
+.card::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  border-radius: 28px;
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card.is-rating-known::after {
+  background: rgba(34, 197, 94, 0.3);
+  animation: card-rating-flash 0.32s ease-out both;
+}
+
+.card.is-rating-unknown::after {
+  background: rgba(239, 68, 68, 0.3);
+  animation: card-rating-flash 0.32s ease-out both;
+}
+
+.card.is-phase-changing #meaning,
+.card.is-phase-changing .phase-label {
+  animation: card-phase-in 0.32s ease both;
+}
+
+.card.is-advancing {
+  animation: card-advance-out 0.32s ease-in both;
+}
+
+.card.is-entering {
+  animation: card-advance-in 0.28s ease-out both;
+}
+
+@keyframes card-phase-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-rating-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+}
+
+@keyframes card-advance-out {
+  to {
+    opacity: 0;
+    transform: translateX(-28px) scale(0.97);
+  }
+}
+
+@keyframes card-advance-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card.is-phase-changing #meaning,
+  .card.is-phase-changing .phase-label,
+  .card.is-rating-known::after,
+  .card.is-rating-unknown::after,
+  .card.is-advancing,
+  .card.is-entering {
+    animation-duration: 0.01ms;
+  }
 }
 
 .card-face {

@@ -107,7 +107,7 @@ window.CHANGELOG.forEach((release) => {
   changelogListEl.appendChild(section);
 });
 
-cardEl.addEventListener("click", flipCard);
+cardEl.addEventListener("click", handleCardClick);
 speakBtn.addEventListener("click", () => speakCard(currentCard().hanzi));
 removeCurrentCardBtn.addEventListener("click", removeCurrentCardFromDeck);
 sentenceBtn.addEventListener("click", () => toggleCardTooltip(sentenceBtn));
