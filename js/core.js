@@ -197,12 +197,12 @@ function masteryForScore(score, attempts) {
   if (attempts === 0 && score === 0) return 0;
   if (score <= -3) return 1;
   if (score <= 0) return 2;
-  if (score >= 6) return 4;
+  if (score >= 5) return 4;
   return 3;
 }
 
 function masteryScoreForCard(card) {
-  if (Number.isInteger(card.masteryScore) && card.masteryScore >= -4 && card.masteryScore <= 4) {
+  if (Number.isInteger(card.masteryScore) && card.masteryScore >= -4 && card.masteryScore <= 5) {
     return card.masteryScore;
   }
   if (Number.isInteger(card.mastery) && card.mastery >= 0 && card.mastery <= 4) {

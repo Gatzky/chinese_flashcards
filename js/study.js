@@ -384,7 +384,7 @@ function updateSessionAnswerCounts() {
 }
 
 function nextMastery(mastery, didKnow) {
-  return Math.max(-4, Math.min(4, mastery + (didKnow ? 1 : -1)));
+  return Math.max(-4, Math.min(5, mastery + (didKnow ? 1 : -1)));
 }
 
 function answer(isKnown) {
