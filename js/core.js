@@ -197,7 +197,7 @@ function masteryForScore(score, attempts) {
   if (attempts === 0 && score === 0) return 0;
   if (score <= -3) return 1;
   if (score <= 0) return 2;
-  if (score >= 3) return 4;
+  if (score >= 6) return 4;
   return 3;
 }
 

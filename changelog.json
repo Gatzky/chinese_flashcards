@@ -1,5 +1,11 @@
 [
   {
+    "version": "0.1.5",
+    "changes": [
+      "Require a mastery score of 6 to reach Perfect."
+    ]
+  },
+  {
     "version": "0.1.4",
     "changes": [
       "Reveal pinyin instantly without a card-flip animation.",
