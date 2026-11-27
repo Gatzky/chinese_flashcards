@@ -1,5 +1,11 @@
 [
   {
+    "version": "0.1.7",
+    "changes": [
+      "Refresh HSK meanings and parts of speech for existing decks without resetting progress."
+    ]
+  },
+  {
     "version": "0.1.6",
     "changes": [
       "Update HSK 1-3 vocabulary to the 2025 exam outline."

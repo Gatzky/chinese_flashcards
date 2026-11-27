@@ -1,5 +1,5 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
-const DEFAULT_DECKS_VERSION = 5;
+const DEFAULT_DECKS_VERSION = 6;
 
 const cardEl = document.getElementById("card");
 const hanziEl = document.getElementById("hanzi");
@@ -310,7 +310,9 @@ function normalizeStore(parsed) {
     return normalizedDeck;
   });
 
-  if ((Number(normalized.defaultDecksVersion) || 0) < DEFAULT_DECKS_VERSION) {
+  const previousDefaultDecksVersion = Number(normalized.defaultDecksVersion) || 0;
+  if (previousDefaultDecksVersion < DEFAULT_DECKS_VERSION) {
+    const refreshMeaningsOnly = previousDefaultDecksVersion >= 5;
     window.HSK_DECKS.forEach((defaultDeck) => {
       const existingDeck = normalized.decks.find((deckItem) => deckItem.id === defaultDeck.id);
       if (!existingDeck) {
@@ -324,7 +326,15 @@ function normalizeStore(parsed) {
       if (defaultDeck.id === "starter" && existingDeck.name === "Sample characters") {
         existingDeck.name = defaultDeck.name;
       }
-      existingDeck.cards = defaultDeck.cards.map(cloneCard);
+      if (refreshMeaningsOnly) {
+        const latestMeanings = new Map(defaultDeck.cards.map((card) => [card.hanzi, card.meaning]));
+        existingDeck.cards = existingDeck.cards.map((card) => ({
+          ...card,
+          meaning: latestMeanings.get(card.hanzi) || card.meaning,
+        }));
+      } else {
+        existingDeck.cards = defaultDeck.cards.map(cloneCard);
+      }
     });
     normalized.defaultDecksVersion = DEFAULT_DECKS_VERSION;
   }
