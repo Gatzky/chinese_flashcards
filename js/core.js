@@ -1,5 +1,5 @@
 const STORAGE_KEY = "chinese-flashcards-v1";
-const DEFAULT_DECKS_VERSION = 4;
+const DEFAULT_DECKS_VERSION = 5;
 
 const cardEl = document.getElementById("card");
 const hanziEl = document.getElementById("hanzi");
@@ -321,24 +321,10 @@ function normalizeStore(parsed) {
         return;
       }
 
-      const previousCards = new Map(deduplicateCards(existingDeck.cards).map((card) => [card.hanzi, card]));
-      const standardCards = defaultDeck.cards.map((card) => {
-        const previous = previousCards.get(card.hanzi);
-        return {
-          ...cloneCard(card),
-          attempts: previous?.attempts || 0,
-          misses: previous?.misses || 0,
-          mastery: previous?.mastery ?? 0,
-          masteryScore: previous?.masteryScore ?? card.masteryScore,
-        };
-      });
-      const standardHanzi = new Set(defaultDeck.cards.map((card) => card.hanzi));
-      const customCards = deduplicateCards(existingDeck.cards)
-        .filter((card) => !standardHanzi.has(card.hanzi));
       if (defaultDeck.id === "starter" && existingDeck.name === "Sample characters") {
         existingDeck.name = defaultDeck.name;
       }
-      existingDeck.cards = [...standardCards, ...customCards];
+      existingDeck.cards = defaultDeck.cards.map(cloneCard);
     });
     normalized.defaultDecksVersion = DEFAULT_DECKS_VERSION;
   }
